@@ -1,0 +1,105 @@
+﻿name: Build and Deploy to OVH VPS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Extract metadata (tags, labels)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=sha,prefix={{branch}}-
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add server to known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.OVH_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to OVH VPS
+        run: |
+          IMAGE_FULL_NAME="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
+          ssh ${{ secrets.OVH_USER }}@${{ secrets.OVH_HOST }} << EOF
+            set -e
+            
+            # Log in to GHCR
+            echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+            
+            # Pull latest image
+            docker pull "$IMAGE_FULL_NAME"
+            
+            # Stop and remove existing container if it exists
+            if [ "\$(docker ps -aq -f name=portfolio)" ]; then
+              echo "Stopping existing container..."
+              docker stop portfolio || true
+              docker rm portfolio || true
+            fi
+            
+            # Remove old images (keep only latest)
+            docker image prune -f
+            
+            # Run new container
+            docker run -d \
+              --name portfolio \
+              --restart=unless-stopped \
+              -p 6328:6328 \
+              "$IMAGE_FULL_NAME"
+            
+            # Verify deployment
+            sleep 5
+            if docker ps | grep -q portfolio; then
+              echo "âœ… Deployment successful!"
+              docker ps | grep portfolio
+              echo ""
+              echo "Application accessible at: http://${{ secrets.OVH_HOST }}:6328"
+            else
+              echo "âŒ Deployment failed!"
+              docker logs portfolio
+              exit 1
+            fi
+          EOF
