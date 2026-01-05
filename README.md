@@ -129,6 +129,6 @@ Le site respecte les standards d'accessibilité :
 ## 📧 Contact
 
 Pour toute question ou suggestion :
-- Email: contact@anass-erekysy.dev
+- Email: ereanass@gmail.com
 - LinkedIn: [Anass EREKYSY](https://www.linkedin.com/in/anass-erekysy)
 - GitHub: [anass-erekysy](https://github.com/anass-erekysy)

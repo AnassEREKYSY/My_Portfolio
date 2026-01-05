@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslatePipe } from '../../pipes/translate.pipe';
 
 interface Experience {
   company: string;
@@ -16,22 +15,24 @@ interface Experience {
 }
 
 @Component({
-  selector: 'app-experience',
+  selector: 'app-experience-section',
   standalone: true,
-  imports: [CommonModule, TranslatePipe],
+  imports: [CommonModule],
   template: `
     <section class="py-24 lg:py-32 border-b border-dark-border" id="experience">
       <div class="section-container">
         <div class="max-w-5xl mx-auto">
+          <!-- Section header -->
           <div class="text-center mb-20">
             <h2 class="text-4xl sm:text-5xl font-bold text-text-primary mb-6 tracking-tight">
-              {{ 'experience.title' | translate }}
+              Experience
             </h2>
             <p class="text-xl text-text-secondary max-w-2xl mx-auto">
-              {{ 'experience.subtitle' | translate }}
+              Over 3 years of professional experience delivering impactful solutions
             </p>
           </div>
           
+          <!-- Experience timeline -->
           <div class="space-y-16">
             <article
               *ngFor="let exp of experiences; let i = index"
@@ -47,24 +48,25 @@ interface Experience {
                 <!-- Content -->
                 <div class="flex-1 pb-16 last:pb-0">
                   <div class="card-base p-8 hover-lift">
-                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-8 pb-6 border-b border-dark-border">
-                      <div class="flex-1">
-                        <h3 class="text-2xl font-bold text-text-primary mb-2">{{ exp.role }}</h3>
-                        <p class="text-xl text-accent font-semibold mb-3">{{ exp.company }}</p>
-                        <p class="text-sm text-text-muted font-medium">
-                          <span>{{ exp.period }}</span>
-                          <span class="mx-2 text-dark-border">•</span>
-                          <span>{{ exp.location }}</span>
-                        </p>
-                      </div>
+                    <!-- Header -->
+                    <div class="mb-8 pb-6 border-b border-dark-border">
+                      <h3 class="text-2xl font-bold text-text-primary mb-2">{{ exp.role }}</h3>
+                      <p class="text-xl text-accent font-semibold mb-3">{{ exp.company }}</p>
+                      <p class="text-sm text-text-muted font-medium">
+                        <span>{{ exp.period }}</span>
+                        <span class="mx-2 text-dark-border">•</span>
+                        <span>{{ exp.location }}</span>
+                      </p>
                     </div>
                     
+                    <!-- Context -->
                     <div class="mb-8">
                       <h4 class="text-xs font-semibold text-accent mb-3 uppercase tracking-wider">Context & Business Goals</h4>
                       <p class="text-text-secondary leading-relaxed mb-3">{{ exp.context }}</p>
                       <p class="text-text-muted leading-relaxed italic text-sm">{{ exp.businessGoals }}</p>
                     </div>
                     
+                    <!-- Responsibilities -->
                     <div class="mb-8">
                       <h4 class="text-xs font-semibold text-accent mb-4 uppercase tracking-wider">Key Responsibilities</h4>
                       <ul class="list-none space-y-3">
@@ -75,6 +77,7 @@ interface Experience {
                       </ul>
                     </div>
                     
+                    <!-- Stack -->
                     <div class="mb-8">
                       <h4 class="text-xs font-semibold text-accent mb-4 uppercase tracking-wider">Technical Stack</h4>
                       <div class="flex flex-wrap gap-2">
@@ -87,8 +90,9 @@ interface Experience {
                       </div>
                     </div>
                     
+                    <!-- Achievements -->
                     <div class="mb-8">
-                      <h4 class="text-xs font-semibold text-accent mb-4 uppercase tracking-wider">Key Achievements & Impact</h4>
+                      <h4 class="text-xs font-semibold text-accent mb-4 uppercase tracking-wider">Key Achievements</h4>
                       <ul class="list-none space-y-3">
                         <li *ngFor="let achievement of exp.achievements" class="flex items-start">
                           <span class="text-accent mr-3 mt-1.5 flex-shrink-0">▸</span>
@@ -97,6 +101,7 @@ interface Experience {
                       </ul>
                     </div>
                     
+                    <!-- Impact -->
                     <div class="pt-6 mt-6 border-t border-dark-border">
                       <p class="text-sm">
                         <span class="text-accent font-semibold">Impact: </span>
@@ -114,7 +119,7 @@ interface Experience {
   `,
   styles: []
 })
-export class ExperienceComponent {
+export class ExperienceSectionComponent {
   experiences: Experience[] = [
     {
       company: 'Auxia',
@@ -191,3 +196,4 @@ export class ExperienceComponent {
     }
   ];
 }
+

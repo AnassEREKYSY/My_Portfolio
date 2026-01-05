@@ -7,14 +7,14 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
   standalone: true,
   imports: [CommonModule, TranslatePipe],
   template: `
-    <footer class="bg-gray-900 text-gray-300" role="contentinfo">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <footer class="bg-dark-surface border-t border-dark-border" role="contentinfo">
+      <div class="section-container py-12">
         <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <div class="text-center md:text-left">
-            <p class="text-sm">
+            <p class="text-sm text-text-secondary">
               &copy; {{ currentYear }} Anass EREKYSY. All rights reserved.
             </p>
-            <p class="text-xs mt-1 text-gray-400">
+            <p class="text-xs mt-1 text-text-muted">
               Senior Full Stack Developer | Paris, France
             </p>
           </div>
@@ -23,7 +23,7 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
               href="https://www.linkedin.com/in/anass-erekysy"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-900 rounded p-1"
+              class="text-text-muted hover:text-accent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark-surface rounded p-1"
               aria-label="LinkedIn profile"
             >
               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -34,7 +34,7 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
               href="https://github.com/anass-erekysy"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-900 rounded p-1"
+              class="text-text-muted hover:text-accent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark-surface rounded p-1"
               aria-label="GitHub profile"
             >
               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -42,12 +42,12 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
               </svg>
             </a>
             <a
-              href="mailto:contact@anass-erekysy.dev"
-              class="text-gray-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-900 rounded p-1"
+              href="mailto:ereanass@gmail.com"
+              class="text-text-muted hover:text-accent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark-surface rounded p-1"
               aria-label="Send email"
             >
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
               </svg>
             </a>
           </div>

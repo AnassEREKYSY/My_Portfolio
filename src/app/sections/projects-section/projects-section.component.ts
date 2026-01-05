@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslatePipe } from '../../pipes/translate.pipe';
 
 interface Project {
   name: string;
@@ -10,26 +9,29 @@ interface Project {
   stack: string[];
   features: string[];
   highlights: string[];
+  impact: string;
   role: string;
 }
 
 @Component({
-  selector: 'app-projects',
+  selector: 'app-projects-section',
   standalone: true,
-  imports: [CommonModule, TranslatePipe],
+  imports: [CommonModule],
   template: `
     <section class="py-24 lg:py-32 border-b border-dark-border" id="projects">
       <div class="section-container">
         <div class="max-w-7xl mx-auto">
+          <!-- Section header -->
           <div class="text-center mb-20">
             <h2 class="text-4xl sm:text-5xl font-bold text-text-primary mb-6 tracking-tight">
-              {{ 'projects.title' | translate }}
+              Selected Projects
             </h2>
             <p class="text-xl text-text-secondary max-w-2xl mx-auto">
-              {{ 'projects.subtitle' | translate }}
+              Case studies of projects demonstrating engineering excellence and business impact
             </p>
           </div>
           
+          <!-- Projects grid -->
           <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             <article
               *ngFor="let project of projects"
@@ -39,17 +41,17 @@ interface Project {
               <p class="text-text-secondary mb-6 leading-relaxed flex-grow">{{ project.description }}</p>
               
               <div class="mb-6">
-                <h4 class="text-xs font-semibold text-accent mb-2 uppercase tracking-wider">{{ 'projects.problem' | translate }}</h4>
+                <h4 class="text-xs font-semibold text-accent mb-2 uppercase tracking-wider">Problem</h4>
                 <p class="text-sm text-text-secondary leading-relaxed">{{ project.problem }}</p>
               </div>
               
               <div class="mb-6">
-                <h4 class="text-xs font-semibold text-accent mb-2 uppercase tracking-wider">{{ 'projects.solution' | translate }}</h4>
+                <h4 class="text-xs font-semibold text-accent mb-2 uppercase tracking-wider">Solution</h4>
                 <p class="text-sm text-text-secondary leading-relaxed">{{ project.solution }}</p>
               </div>
               
               <div class="mb-6">
-                <h4 class="text-xs font-semibold text-accent mb-3 uppercase tracking-wider">{{ 'projects.stack' | translate }}</h4>
+                <h4 class="text-xs font-semibold text-accent mb-3 uppercase tracking-wider">Technical Stack</h4>
                 <div class="flex flex-wrap gap-2">
                   <span
                     *ngFor="let tech of project.stack"
@@ -61,7 +63,7 @@ interface Project {
               </div>
               
               <div class="mb-6">
-                <h4 class="text-xs font-semibold text-accent mb-3 uppercase tracking-wider">{{ 'projects.features' | translate }}</h4>
+                <h4 class="text-xs font-semibold text-accent mb-3 uppercase tracking-wider">Key Features</h4>
                 <ul class="list-none space-y-2">
                   <li *ngFor="let feature of project.features" class="flex items-start">
                     <span class="text-accent mr-2 mt-1 flex-shrink-0 text-xs">▸</span>
@@ -71,7 +73,7 @@ interface Project {
               </div>
               
               <div class="mb-6">
-                <h4 class="text-xs font-semibold text-accent mb-3 uppercase tracking-wider">{{ 'projects.highlights' | translate }}</h4>
+                <h4 class="text-xs font-semibold text-accent mb-3 uppercase tracking-wider">Technical Highlights</h4>
                 <ul class="list-none space-y-2">
                   <li *ngFor="let highlight of project.highlights" class="flex items-start">
                     <span class="text-accent mr-2 mt-1 flex-shrink-0 text-xs">▸</span>
@@ -80,9 +82,12 @@ interface Project {
                 </ul>
               </div>
               
-              <div class="pt-6 mt-auto border-t border-dark-border">
+              <div class="pt-6 mt-auto border-t border-dark-border space-y-2">
                 <p class="text-sm text-text-secondary">
-                  <span class="font-semibold text-text-primary">{{ 'projects.role' | translate }}: </span>{{ project.role }}
+                  <span class="font-semibold text-text-primary">Role: </span>{{ project.role }}
+                </p>
+                <p class="text-sm text-text-muted italic">
+                  {{ project.impact }}
                 </p>
               </div>
             </article>
@@ -93,7 +98,7 @@ interface Project {
   `,
   styles: []
 })
-export class ProjectsComponent {
+export class ProjectsSectionComponent {
   projects: Project[] = [
     {
       name: 'PayChase',
@@ -117,6 +122,7 @@ export class ProjectsComponent {
         'Centralized monitoring and logging with Azure Application Insights',
         'API rate limiting and security best practices'
       ],
+      impact: 'Enabled businesses to process international payments securely with full compliance and real-time visibility.',
       role: 'Lead Developer - Architecture design, backend/frontend development, DevOps implementation'
     },
     {
@@ -141,6 +147,7 @@ export class ProjectsComponent {
         'E2E tests with Cypress',
         'CI/CD pipeline with automated testing and deployment'
       ],
+      impact: 'Delivered a scalable P2P payment solution supporting multiple countries and payment methods.',
       role: 'Full Stack Developer - Complete development, integrations, performance optimization'
     },
     {
@@ -165,6 +172,7 @@ export class ProjectsComponent {
         'Scalable architecture for millions of users',
         'Automated testing strategy with high coverage'
       ],
+      impact: 'Built a scalable streaming platform with intelligent recommendations and social features.',
       role: 'Senior Developer - Backend architecture, recommendation algorithms, streaming optimization'
     },
     {
@@ -189,6 +197,7 @@ export class ProjectsComponent {
         'Security system with 2FA',
         'Automated testing and CI/CD pipeline'
       ],
+      impact: 'Delivered a high-performance trading platform with real-time data and advanced analytics.',
       role: 'Full Stack Developer - Real-time architecture, exchange integrations, UI/UX design'
     },
     {
@@ -213,6 +222,7 @@ export class ProjectsComponent {
         'Comprehensive automated tests',
         'CI/CD pipeline with automated deployments'
       ],
+      impact: 'Enabled startups to efficiently manage fundraising campaigns with comprehensive analytics.',
       role: 'Lead Developer - Architecture design, full-stack development, third-party integrations'
     },
     {
@@ -237,6 +247,7 @@ export class ProjectsComponent {
         'Advanced e-commerce analytics',
         'Automated testing and CI/CD implementation'
       ],
+      impact: 'Built an intelligent e-commerce platform with personalized recommendations driving higher conversion rates.',
       role: 'Full Stack Developer - E-commerce development, recommendation system, conversion optimization'
     },
     {
@@ -261,7 +272,9 @@ export class ProjectsComponent {
         'Intuitive and responsive user interface',
         'Automated testing and deployment pipeline'
       ],
+      impact: 'Created an engaging content discovery platform with personalized recommendations and social features.',
       role: 'Full Stack Developer - Complete development, API integrations, UX optimization'
     }
   ];
 }
+

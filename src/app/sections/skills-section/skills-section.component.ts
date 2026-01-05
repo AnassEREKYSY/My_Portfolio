@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslatePipe } from '../../pipes/translate.pipe';
 
 interface SkillCategory {
   name: string;
@@ -8,22 +7,24 @@ interface SkillCategory {
 }
 
 @Component({
-  selector: 'app-skills',
+  selector: 'app-skills-section',
   standalone: true,
-  imports: [CommonModule, TranslatePipe],
+  imports: [CommonModule],
   template: `
     <section class="py-24 lg:py-32 border-b border-dark-border" id="skills">
       <div class="section-container">
         <div class="max-w-6xl mx-auto">
+          <!-- Section header -->
           <div class="text-center mb-20">
             <h2 class="text-4xl sm:text-5xl font-bold text-text-primary mb-6 tracking-tight">
-              {{ 'skills.title' | translate }}
+              Skills & Tooling
             </h2>
             <p class="text-xl text-text-secondary max-w-2xl mx-auto">
-              {{ 'skills.subtitle' | translate }}
+              Technical expertise and tools I use to build reliable, scalable applications
             </p>
           </div>
           
+          <!-- Skills grid -->
           <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <div
               *ngFor="let category of skillCategories"
@@ -44,9 +45,10 @@ interface SkillCategory {
             </div>
           </div>
           
+          <!-- Methodologies -->
           <div class="mt-16 card-base p-10">
             <h3 class="text-2xl font-bold text-text-primary mb-8 text-center">
-              Methodologies & Tools
+              Methodologies & Practices
             </h3>
             <div class="flex flex-wrap justify-center gap-3">
               <span
@@ -63,7 +65,7 @@ interface SkillCategory {
   `,
   styles: []
 })
-export class SkillsComponent {
+export class SkillsSectionComponent {
   skillCategories: SkillCategory[] = [
     {
       name: 'Frontend',
@@ -86,11 +88,11 @@ export class SkillsComponent {
       skills: ['PostgreSQL', 'SQL Server', 'MongoDB', 'Redis', 'Database Design', 'Query Optimization', 'Entity Framework', 'Mongoose']
     },
     {
-      name: 'Architecture & Methodologies',
+      name: 'Architecture',
       skills: ['Clean Architecture', 'SOLID Principles', 'Design Patterns', 'Microservices', 'Event-Driven Architecture', 'Domain-Driven Design']
     },
     {
-      name: 'Tools & Others',
+      name: 'Tools',
       skills: ['Git', 'PowerShell', 'Bash', 'VS Code', 'Visual Studio', 'Postman', 'Swagger', 'JIRA', 'Confluence']
     }
   ];
@@ -108,3 +110,4 @@ export class SkillsComponent {
     'Continuous Deployment'
   ];
 }
+

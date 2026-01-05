@@ -2,19 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Base styles for accessibility and readability */
+/* Import Inter font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Base styles for dark theme */
 @layer base {
   html {
     scroll-behavior: smooth;
+    @apply bg-dark-bg text-text-primary;
   }
   
   body {
-    @apply antialiased;
+    @apply antialiased bg-dark-bg text-text-primary;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
   
   /* Focus styles for keyboard navigation */
   *:focus-visible {
-    @apply outline-2 outline-offset-2 outline-primary-600;
+    @apply outline-2 outline-offset-2 outline-accent;
+  }
+
+  /* Selection color */
+  ::selection {
+    @apply bg-accent/30 text-text-primary;
   }
 }
 
@@ -47,5 +57,48 @@
     clip: auto;
     white-space: normal;
   }
-}
 
+  /* Section container */
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Card base style */
+  .card-base {
+    @apply bg-dark-surface border border-dark-border rounded-lg;
+  }
+
+  /* Subtle hover effect */
+  .hover-lift {
+    @apply transition-all duration-200 hover:-translate-y-0.5;
+  }
+
+  /* Fade in animation */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  /* Stagger animation delay */
+  .animate-delay-100 {
+    animation-delay: 0.1s;
+  }
+
+  .animate-delay-200 {
+    animation-delay: 0.2s;
+  }
+
+  .animate-delay-300 {
+    animation-delay: 0.3s;
+  }
+}

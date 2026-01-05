@@ -7,69 +7,69 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
   standalone: true,
   imports: [CommonModule, TranslatePipe],
   template: `
-    <section class="py-20 lg:py-32 bg-white" id="about">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="py-24 lg:py-32 border-b border-dark-border" id="about">
+      <div class="section-container">
         <div class="max-w-4xl mx-auto">
-          <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-12 text-center">
+          <h2 class="text-4xl sm:text-5xl font-bold text-text-primary mb-16 text-center tracking-tight">
             {{ 'about.title' | translate }}
           </h2>
           
-          <div class="prose prose-lg max-w-none">
-            <div class="bg-gradient-to-br from-gray-50 to-white rounded-xl p-8 mb-10 shadow-sm border border-gray-100">
-              <h3 class="text-2xl font-semibold text-gray-900 mb-4">
+          <div class="space-y-12">
+            <div class="card-base p-8 mb-12">
+              <h3 class="text-2xl font-semibold text-text-primary mb-6">
                 {{ 'about.name' | translate }}
               </h3>
-              <p class="text-lg text-gray-700 mb-4 leading-relaxed">
-                <strong>{{ 'about.role' | translate }}</strong> based in {{ 'about.location' | translate }}, specialized in enterprise application development and robust DevOps pipeline implementation.
+              <p class="text-lg text-text-secondary mb-4 leading-relaxed">
+                <strong class="text-text-primary">{{ 'about.role' | translate }}</strong> based in {{ 'about.location' | translate }}, specialized in enterprise application development and robust DevOps pipeline implementation.
               </p>
-              <p class="text-gray-700 mb-0 leading-relaxed">
+              <p class="text-text-secondary leading-relaxed">
                 {{ 'about.paragraph1' | translate }}
               </p>
             </div>
             
-            <div class="space-y-8">
-              <div class="bg-white rounded-lg p-6 border-l-4 border-primary-500 hover:shadow-md transition-shadow">
-                <h3 class="text-xl font-semibold text-gray-900 mb-3">
+            <div class="space-y-6">
+              <div class="card-base p-8 border-l-2 border-accent hover-lift">
+                <h3 class="text-xl font-semibold text-text-primary mb-4">
                   {{ 'about.expertiseTitle' | translate }}
                 </h3>
-                <p class="text-gray-700 leading-relaxed">
+                <p class="text-text-secondary leading-relaxed">
                   {{ 'about.expertiseDesc' | translate }}
                 </p>
               </div>
               
-              <div class="bg-white rounded-lg p-6 border-l-4 border-primary-500 hover:shadow-md transition-shadow">
-                <h3 class="text-xl font-semibold text-gray-900 mb-3">
+              <div class="card-base p-8 border-l-2 border-accent hover-lift">
+                <h3 class="text-xl font-semibold text-text-primary mb-4">
                   {{ 'about.devopsTitle' | translate }}
                 </h3>
-                <p class="text-gray-700 leading-relaxed">
+                <p class="text-text-secondary leading-relaxed">
                   {{ 'about.devopsDesc' | translate }}
                 </p>
               </div>
               
-              <div class="bg-white rounded-lg p-6 border-l-4 border-primary-500 hover:shadow-md transition-shadow">
-                <h3 class="text-xl font-semibold text-gray-900 mb-3">
+              <div class="card-base p-8 border-l-2 border-accent hover-lift">
+                <h3 class="text-xl font-semibold text-text-primary mb-4">
                   {{ 'about.productTitle' | translate }}
                 </h3>
-                <p class="text-gray-700 leading-relaxed">
+                <p class="text-text-secondary leading-relaxed">
                   {{ 'about.productDesc' | translate }}
                 </p>
               </div>
               
-              <div class="bg-white rounded-lg p-6 border-l-4 border-primary-500 hover:shadow-md transition-shadow">
-                <h3 class="text-xl font-semibold text-gray-900 mb-3">
+              <div class="card-base p-8 border-l-2 border-accent hover-lift">
+                <h3 class="text-xl font-semibold text-text-primary mb-4">
                   {{ 'about.missionsTitle' | translate }}
                 </h3>
-                <p class="text-gray-700 leading-relaxed">
+                <p class="text-text-secondary leading-relaxed">
                   {{ 'about.missionsDesc' | translate }}
                 </p>
               </div>
             </div>
             
-            <div class="mt-12 bg-primary-50 rounded-lg p-8 border-l-4 border-primary-600 shadow-sm">
-              <p class="text-gray-800 font-semibold mb-3 text-lg">
+            <div class="mt-12 card-base p-8 border-l-4 border-accent">
+              <p class="text-text-primary font-semibold mb-3 text-lg">
                 {{ 'about.availableTitle' | translate }}
               </p>
-              <p class="text-gray-700 leading-relaxed">
+              <p class="text-text-secondary leading-relaxed">
                 {{ 'about.availableDesc' | translate }}
               </p>
             </div>
