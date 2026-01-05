@@ -31,11 +31,17 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_TOKEN }}
 
+      - name: Set lowercase image name
+        id: image
+        run: |
+          IMAGE_NAME_LOWER=$(echo "${{ env.IMAGE_NAME }}" | tr '[:upper:]' '[:lower:]')
+          echo "name=$IMAGE_NAME_LOWER" >> $GITHUB_OUTPUT
+
       - name: Extract metadata (tags, labels)
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/${{ steps.image.outputs.name }}
           tags: |
             type=ref,event=branch
             type=sha,prefix={{branch}}-
@@ -63,10 +69,11 @@ jobs:
 
       - name: Deploy to OVH VPS
         run: |
+          IMAGE_NAME_LOWER=$(echo "${{ env.IMAGE_NAME }}" | tr '[:upper:]' '[:lower:]')
           ssh ${{ secrets.OVH_USER }}@${{ secrets.OVH_HOST }} << EOF
             set -e
             
-            IMAGE_FULL_NAME="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
+            IMAGE_FULL_NAME="${{ env.REGISTRY }}/$IMAGE_NAME_LOWER:latest"
             
             # Log in to GHCR
             echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
