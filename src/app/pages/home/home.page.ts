@@ -27,7 +27,6 @@ import { translations } from '../../translations';
   ],
   template: `
     <div class="min-h-screen flex flex-col bg-dark-bg">
-      <app-header></app-header>
       <main id="main-content" class="flex-grow" role="main">
         <app-hero-section></app-hero-section>
         <app-what-i-do-section></app-what-i-do-section>
