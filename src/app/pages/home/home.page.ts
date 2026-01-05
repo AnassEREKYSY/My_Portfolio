@@ -1,6 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from '../../components/header/header.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { HeroSectionComponent } from '../../sections/hero-section/hero-section.component';
 import { WhatIDoSectionComponent } from '../../sections/what-i-do-section/what-i-do-section.component';
@@ -17,7 +16,6 @@ import { translations } from '../../translations';
   standalone: true,
   imports: [
     CommonModule,
-    HeaderComponent,
     FooterComponent,
     HeroSectionComponent,
     WhatIDoSectionComponent,

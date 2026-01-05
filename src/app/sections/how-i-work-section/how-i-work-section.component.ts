@@ -20,10 +20,10 @@ interface WorkPrinciple {
               How I Work
             </h2>
             <p class="text-xl text-text-secondary max-w-2xl mx-auto">
-              My approach to building reliable, maintainable software
+              My approach to delivering reliable, maintainable, and business-oriented software
             </p>
           </div>
-          
+
           <!-- Principles grid -->
           <div class="grid md:grid-cols-2 gap-8 mb-16">
             <div
@@ -38,7 +38,7 @@ interface WorkPrinciple {
               </p>
             </div>
           </div>
-          
+
           <!-- Process highlight -->
           <div class="card-base p-10 border-l-4 border-accent">
             <h3 class="text-2xl font-bold text-text-primary mb-6">
@@ -49,82 +49,116 @@ interface WorkPrinciple {
                 <div class="flex items-start">
                   <span class="text-accent mr-3 mt-1 flex-shrink-0 font-bold">1.</span>
                   <div>
-                    <p class="text-text-primary font-semibold mb-1">Requirements & Planning</p>
-                    <p class="text-text-secondary text-sm">Understand business goals, define technical requirements, and plan architecture</p>
+                    <p class="text-text-primary font-semibold mb-1">
+                      Requirements & Understanding
+                    </p>
+                    <p class="text-text-secondary text-sm">
+                      Analyze business needs, understand functional constraints, and clarify expectations with stakeholders.
+                    </p>
                   </div>
                 </div>
+
                 <div class="flex items-start">
                   <span class="text-accent mr-3 mt-1 flex-shrink-0 font-bold">2.</span>
                   <div>
-                    <p class="text-text-primary font-semibold mb-1">Design & Architecture</p>
-                    <p class="text-text-secondary text-sm">Design scalable architecture, define APIs, and establish coding standards</p>
+                    <p class="text-text-primary font-semibold mb-1">
+                      Technical Design
+                    </p>
+                    <p class="text-text-secondary text-sm">
+                      Define application structure, data models, and technical choices with a focus on clarity and maintainability.
+                    </p>
                   </div>
                 </div>
+
                 <div class="flex items-start">
                   <span class="text-accent mr-3 mt-1 flex-shrink-0 font-bold">3.</span>
                   <div>
-                    <p class="text-text-primary font-semibold mb-1">Development & Testing</p>
-                    <p class="text-text-secondary text-sm">Write clean, tested code following TDD principles and best practices</p>
+                    <p class="text-text-primary font-semibold mb-1">
+                      Development & Testing
+                    </p>
+                    <p class="text-text-secondary text-sm">
+                      Implement features incrementally with clean code and automated tests to reduce regressions and improve reliability.
+                    </p>
                   </div>
                 </div>
               </div>
+
               <div class="space-y-4">
                 <div class="flex items-start">
                   <span class="text-accent mr-3 mt-1 flex-shrink-0 font-bold">4.</span>
                   <div>
-                    <p class="text-text-primary font-semibold mb-1">CI/CD & Deployment</p>
-                    <p class="text-text-secondary text-sm">Automate testing and deployment, ensure reliable delivery pipelines</p>
+                    <p class="text-text-primary font-semibold mb-1">
+                      CI/CD & Deployment
+                    </p>
+                    <p class="text-text-secondary text-sm">
+                      Use CI/CD pipelines and containerization to ensure consistent builds, testing, and deployments.
+                    </p>
                   </div>
                 </div>
+
                 <div class="flex items-start">
                   <span class="text-accent mr-3 mt-1 flex-shrink-0 font-bold">5.</span>
                   <div>
-                    <p class="text-text-primary font-semibold mb-1">Monitoring & Optimization</p>
-                    <p class="text-text-secondary text-sm">Monitor performance, gather feedback, and continuously improve</p>
+                    <p class="text-text-primary font-semibold mb-1">
+                      Review & Improvement
+                    </p>
+                    <p class="text-text-secondary text-sm">
+                      Review code, address feedback, and continuously improve performance, quality, and usability.
+                    </p>
                   </div>
                 </div>
+
                 <div class="flex items-start">
                   <span class="text-accent mr-3 mt-1 flex-shrink-0 font-bold">6.</span>
                   <div>
-                    <p class="text-text-primary font-semibold mb-1">Documentation & Knowledge Sharing</p>
-                    <p class="text-text-secondary text-sm">Document decisions, share knowledge, and ensure maintainability</p>
+                    <p class="text-text-primary font-semibold mb-1">
+                      Documentation & Knowledge Sharing
+                    </p>
+                    <p class="text-text-secondary text-sm">
+                      Document key decisions and share knowledge to ensure long-term maintainability and team alignment.
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>
-  `,
-  styles: []
+  `
 })
 export class HowIWorkSectionComponent {
   principles: WorkPrinciple[] = [
     {
-      title: 'Code Quality First',
-      description: 'I prioritize clean, maintainable code over quick fixes. Every line is written with future developers in mind, following SOLID principles and design patterns.'
+      title: 'Clean & Maintainable Code',
+      description:
+        'I focus on writing clean, readable, and maintainable code with a clear structure and consistent conventions, making applications easier to understand and evolve.'
     },
     {
-      title: 'Test-Driven Development',
-      description: 'Comprehensive testing is not optional. I write tests alongside code, ensuring reliability and making refactoring safe and confident.'
+      title: 'Quality Through Testing',
+      description:
+        'I use automated testing to secure application behavior and reduce regressions, relying on unit, integration, and end-to-end tests when relevant.'
     },
     {
-      title: 'Automation & DevOps',
-      description: 'Manual processes are error-prone. I automate everything possible: testing, deployment, monitoring, and infrastructure provisioning.'
+      title: 'Pragmatic DevOps & Automation',
+      description:
+        'I leverage CI/CD pipelines and containerization to automate builds, tests, and deployments, improving delivery reliability and consistency.'
     },
     {
-      title: 'Collaboration & Communication',
-      description: 'Technical excellence means nothing without clear communication. I document decisions, share knowledge, and work closely with teams.'
+      title: 'Collaboration & Documentation',
+      description:
+        'I collaborate closely with technical and functional teams, communicate clearly, and document technical decisions to ensure alignment and maintainability.'
     },
     {
-      title: 'Continuous Learning',
-      description: 'Technology evolves rapidly. I stay current with best practices, experiment with new tools, and continuously improve my craft.'
+      title: 'Continuous Improvement',
+      description:
+        'I continuously refine my approach by learning from real projects, feedback, and best practices rather than following rigid methodologies.'
     },
     {
-      title: 'Business Impact Focus',
-      description: 'Code serves business goals. I understand requirements deeply, ask the right questions, and deliver solutions that create real value.'
+      title: 'Business-Oriented Delivery',
+      description:
+        'I keep business objectives in mind, balancing technical quality with practical constraints to deliver solutions that create real value.'
     }
   ];
 }
-

@@ -120,80 +120,120 @@ interface Experience {
   styles: []
 })
 export class ExperienceSectionComponent {
-  experiences: Experience[] = [
-    {
-      company: 'Auxia',
-      role: 'Senior Full Stack Developer',
-      period: '2022 - Present',
-      location: 'Paris, France',
-      context: 'Development of enterprise applications for clients in finance and public sector. Implementation of CI/CD pipelines and test automation.',
-      businessGoals: 'Deliver scalable, secure, and maintainable solutions for critical business processes while reducing time-to-market and improving code quality.',
-      responsibilities: [
-        'Design and develop full-stack applications using Angular and .NET Core',
-        'Implement and maintain CI/CD pipelines using Azure DevOps',
-        'Write comprehensive test suites (unit, integration, E2E) with >80% coverage',
-        'Architect microservices solutions for high-traffic financial applications',
-        'Mentor junior developers and conduct code reviews',
-        'Collaborate with product managers and stakeholders to define technical requirements'
-      ],
-      stack: ['Angular', '.NET Core', 'Node.js', 'Docker', 'Azure DevOps', 'PostgreSQL', 'Jest', 'Cypress', 'TypeScript', 'RxJS'],
-      achievements: [
-        'Implemented a complete CI/CD pipeline reducing deployment time by 80% and enabling daily releases',
-        'Developed a scalable microservices architecture for a financial application handling millions of transactions',
-        'Achieved >85% test coverage across unit, integration, and E2E tests, reducing production bugs by 70%',
-        'Successfully migrated a legacy application to modern Angular/.NET stack, improving performance by 60%',
-        'Established coding standards and best practices, improving team productivity by 40%'
-      ],
-      impact: 'Significantly improved delivery speed and code quality, enabling the team to ship features faster while maintaining high reliability standards.'
-    },
-    {
-      company: 'Dimo Maint',
-      role: 'Full Stack Developer',
-      period: '2020 - 2022',
-      location: 'Paris, France',
-      context: 'Development and maintenance of a SaaS industrial maintenance management application. Industrialization of the development process and quality improvement.',
-      businessGoals: 'Transform a monolithic legacy application into a modern, scalable SaaS platform while maintaining business continuity and improving user experience.',
-      responsibilities: [
-        'Develop and maintain Angular frontend and .NET Core backend',
-        'Refactor monolithic architecture into modular, maintainable components',
-        'Implement automated testing strategies and CI/CD workflows',
-        'Optimize database queries and application performance',
-        'Collaborate with cross-functional teams to deliver features on time',
-        'Document technical decisions and architecture patterns'
-      ],
-      stack: ['Angular', '.NET Core', 'SQL Server', 'Docker', 'GitLab CI', 'Selenium', 'Entity Framework', 'TypeScript'],
-      achievements: [
-        'Migrated monolithic application to modular architecture, improving maintainability and reducing technical debt',
-        'Industrialized development process with CI/CD and automated tests, reducing manual deployment errors by 90%',
-        'Improved application performance by 60% through query optimization and caching strategies',
-        'Trained team on DevOps best practices and code quality standards',
-        'Reduced application load time from 8s to 3s, significantly improving user experience'
-      ],
-      impact: 'Enabled the company to scale the platform efficiently while maintaining high code quality and reducing operational costs.'
-    },
-    {
-      company: 'Institutional Projects',
-      role: 'Full Stack Developer',
-      period: '2019 - 2020',
-      location: 'France',
-      context: 'Development of applications for public sector and institutions. Focus on security, compliance, and robustness.',
-      businessGoals: 'Deliver secure, compliant, and reliable solutions meeting strict regulatory requirements while ensuring long-term maintainability.',
-      responsibilities: [
-        'Develop secure applications following public sector security standards',
-        'Implement authentication and authorization mechanisms',
-        'Ensure compliance with data protection regulations (RGPD)',
-        'Create comprehensive technical documentation',
-        'Participate in security audits and compliance reviews'
-      ],
-      stack: ['Angular', '.NET Framework', 'SQL Server', 'Azure', 'PowerShell', 'Identity Server'],
-      achievements: [
-        'Developed applications compliant with public sector security standards (ANSSI guidelines)',
-        'Implemented secure deployment processes with full traceability and audit trails',
-        'Created comprehensive technical documentation ensuring long-term maintainability',
-        'Successfully passed security audits with zero critical findings'
-      ],
-      impact: 'Delivered mission-critical applications that met all regulatory requirements and established a foundation for secure development practices.'
-    }
-  ];
-}
+    experiences: Experience[] = [
+      {
+        company: 'Auxia',
+        role: 'Full Stack Developer (.NET / Angular) | DevOps',
+        period: '09/2023 – 08/2025',
+        location: 'Paris, France',
+        context: 'Maintenance and evolution of an enterprise Angular/.NET subscription management portal in a finance-oriented environment.',
+        businessGoals: 'Ensure application stability, improve delivery processes, and support long-term evolution of a critical business platform.',
+        responsibilities: [
+          'Maintain and evolve a production Angular frontend and .NET backend',
+          'Implement CI/CD pipelines and DevOps practices to improve delivery reliability',
+          'Introduce automated testing to improve code quality and reduce regressions',
+          'Collaborate with functional teams to analyze requirements and deliver new features',
+          'Participate in code reviews and contribute to technical best practices'
+        ],
+        stack: [
+          'Angular',
+          '.NET',
+          'TypeScript',
+          'SQL',
+          'Docker',
+          'Azure DevOps',
+          'Jest',
+          'Cypress'
+        ],
+        achievements: [
+          'Improved deployment reliability through CI/CD automation',
+          'Enhanced code quality and maintainability with automated testing',
+          'Contributed to the long-term stability of a business-critical application'
+        ],
+        impact: 'Helped maintain a stable and reliable enterprise application while improving development workflows and delivery quality.'
+      },
+  
+      {
+        company: 'Dimo Maint',
+        role: 'Full Stack Developer (.NET / Angular)',
+        period: '04/2023 – 08/2023',
+        location: 'Lyon, France',
+        context: 'Migration of a CMMS (Computerized Maintenance Management System) from a legacy stack to Angular and .NET.',
+        businessGoals: 'Modernize the application stack and industrialize the development workflow.',
+        responsibilities: [
+          'Participate in the migration of a legacy CMMS application to Angular and .NET',
+          'Develop new frontend and backend features',
+          'Industrialize the development workflow using Azure DevOps',
+          'Contribute to codebase structuring and technical documentation',
+          'Work closely with the team to ensure functional continuity during migration'
+        ],
+        stack: [
+          'Angular',
+          '.NET',
+          'TypeScript',
+          'SQL',
+          'Azure DevOps'
+        ],
+        achievements: [
+          'Successfully contributed to the migration toward a modern Angular/.NET stack',
+          'Helped industrialize the development process with structured pipelines',
+          'Improved maintainability and readability of the codebase'
+        ],
+        impact: 'Supported the modernization of a business application and improved the development lifecycle.'
+      },
+  
+      {
+        company: 'Préfecture de Meknès',
+        role: 'Mobile Developer (Flutter)',
+        period: '03/2022 – 06/2022',
+        location: 'Meknès, Morocco',
+        context: 'Development of a mobile application for internal mail management within a public institution.',
+        businessGoals: 'Digitize and streamline internal mail processing.',
+        responsibilities: [
+          'Develop a mobile application using Flutter',
+          'Design application architecture using Merise and UML models',
+          'Implement core business features for mail tracking',
+          'Collaborate with stakeholders to validate functional requirements'
+        ],
+        stack: [
+          'Flutter',
+          'Dart',
+          'UML',
+          'Merise'
+        ],
+        achievements: [
+          'Delivered a functional mobile application adapted to institutional needs',
+          'Provided clear technical documentation for future maintenance'
+        ],
+        impact: 'Contributed to the digitalization of internal processes within a public administration.'
+      },
+  
+      {
+        company: 'First Instance Court of Sidi Kacem',
+        role: 'Web Developer (PHP)',
+        period: '07/2021 – 09/2021',
+        location: 'Sidi Kacem, Morocco',
+        context: 'Assistance in the development of a case-session management web application for a court.',
+        businessGoals: 'Improve the management and organization of court sessions.',
+        responsibilities: [
+          'Assist in the development of a web application using PHP and HTML/CSS',
+          'Contribute to database modeling and business logic implementation',
+          'Work closely with the main developer to deliver functional features',
+          'Support testing and validation of application workflows'
+        ],
+        stack: [
+          'PHP',
+          'HTML',
+          'CSS',
+          'SQL'
+        ],
+        achievements: [
+          'Contributed to a real institutional web application',
+          'Gained experience in business-oriented and regulated environments'
+        ],
+        impact: 'Supported the delivery of a functional judicial application in a real-world institutional context.'
+      }
+    ];
+  }
+  
 

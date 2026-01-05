@@ -53,8 +53,8 @@ interface Service {
                   Full-Stack Expertise
                 </h3>
                 <p class="text-text-secondary leading-relaxed mb-6">
-                  I design and build complete web applications from frontend to backend, 
-                  ensuring seamless integration, optimal performance, and maintainable architecture.
+                  I design and build complete web applications, covering both frontend and backend layers,
+                  with a strong focus on clean architecture, performance, and long-term maintainability.
                 </p>
                 <div class="flex flex-wrap gap-3">
                   <span class="px-4 py-2 bg-dark-muted/50 text-text-secondary rounded border border-dark-border text-sm font-medium">
@@ -68,26 +68,36 @@ interface Service {
                   </span>
                 </div>
               </div>
+
               <div class="space-y-4">
                 <div class="flex items-start">
                   <span class="text-accent mr-3 mt-1 flex-shrink-0">▸</span>
-                  <p class="text-text-secondary">Enterprise-grade application development</p>
+                  <p class="text-text-secondary">
+                    Development of business-critical and enterprise-oriented web applications
+                  </p>
                 </div>
                 <div class="flex items-start">
                   <span class="text-accent mr-3 mt-1 flex-shrink-0">▸</span>
-                  <p class="text-text-secondary">Microservices and scalable architectures</p>
+                  <p class="text-text-secondary">
+                    Scalable and modular application architectures using modern frameworks
+                  </p>
                 </div>
                 <div class="flex items-start">
                   <span class="text-accent mr-3 mt-1 flex-shrink-0">▸</span>
-                  <p class="text-text-secondary">Automated testing and quality assurance</p>
+                  <p class="text-text-secondary">
+                    Automated testing, quality assurance, and reliable delivery pipelines
+                  </p>
                 </div>
                 <div class="flex items-start">
                   <span class="text-accent mr-3 mt-1 flex-shrink-0">▸</span>
-                  <p class="text-text-secondary">Cloud deployment and infrastructure</p>
+                  <p class="text-text-secondary">
+                    Containerized deployments and CI/CD-driven infrastructure workflows
+                  </p>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>
@@ -98,19 +108,20 @@ export class WhatIDoSectionComponent {
   services: Service[] = [
     {
       title: 'Frontend Development',
-      description: 'Building responsive, performant user interfaces with Angular, TypeScript, and modern CSS. Focus on user experience, accessibility, and code quality.',
+      description: 'Designing and building modern, performant web interfaces primarily with Angular/React and TypeScript/JavaScript. Strong focus on clean architecture, maintainable code, responsive design, and user experience, using modern CSS solutions such as Tailwind CSS and Bootstrap.',
       icon: '⚡'
     },
     {
       title: 'Backend Development',
-      description: 'Designing and implementing robust APIs and services using .NET Core and Node.js. Emphasis on scalability, security, and maintainability.',
+      description: 'Developing robust and scalable backend services and REST APIs using .NET Core and Node.js. Experienced in business-oriented application logic, database integration (SQL and NoSQL), authentication, and building maintainable, secure backend architectures.',
       icon: '🔧'
     },
     {
-      title: 'DevOps & Automation',
-      description: 'Setting up CI/CD pipelines, containerization with Docker, and cloud infrastructure. Automating deployments and ensuring reliable delivery.',
+      title: 'DevOps, CI/CD & Automation',
+      description: 'Implementing CI/CD pipelines, containerization with Docker, and cloud-ready infrastructures. Hands-on experience with GitHub Actions, GitLab CI, Azure DevOps, monitoring tools, and automated testing to ensure reliable, high-quality deliveries.',
       icon: '🚀'
     }
   ];
 }
+
 
