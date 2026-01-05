@@ -92,21 +92,39 @@ jobs:
             docker image prune -f
             
             # Run new container
-            docker run -d \
+            echo "Starting new container..."
+            CONTAINER_ID=$(docker run -d \
               --name portfolio \
               --restart=unless-stopped \
               -p 6328:6328 \
-              "\$IMAGE_FULL_NAME"
+              "\$IMAGE_FULL_NAME")
+            echo "Container started with ID: \$CONTAINER_ID"
             
             # Verify deployment
+            echo "Waiting for container to be ready..."
             sleep 5
-            if docker ps | grep -q portfolio; then
-              echo "Deployment successful!"
-              docker ps | grep portfolio
+            
+            # Check if container is running
+            if docker ps --format '{{.Names}}' | grep -q '^portfolio$'; then
               echo ""
-              echo "Application accessible at: http://${{ secrets.OVH_HOST }}:6328"
+              echo "✅ Deployment successful!"
+              echo ""
+              echo "Container status:"
+              docker ps --filter name=portfolio --format "table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}"
+              echo ""
+              echo "Container logs (last 20 lines):"
+              docker logs --tail 20 portfolio
+              echo ""
+              echo "🌐 Application accessible at: http://${{ secrets.OVH_HOST }}:6328"
+              echo ""
             else
-              echo "Deployment failed!"
+              echo ""
+              echo "❌ Deployment failed - container is not running!"
+              echo ""
+              echo "Container status:"
+              docker ps -a --filter name=portfolio
+              echo ""
+              echo "Container logs:"
               docker logs portfolio
               exit 1
             fi
