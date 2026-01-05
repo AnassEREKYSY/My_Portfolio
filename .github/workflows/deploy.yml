@@ -63,15 +63,16 @@ jobs:
 
       - name: Deploy to OVH VPS
         run: |
-          IMAGE_FULL_NAME="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
           ssh ${{ secrets.OVH_USER }}@${{ secrets.OVH_HOST }} << EOF
             set -e
+            
+            IMAGE_FULL_NAME="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
             
             # Log in to GHCR
             echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
             
             # Pull latest image
-            docker pull "$IMAGE_FULL_NAME"
+            docker pull "\$IMAGE_FULL_NAME"
             
             # Stop and remove existing container if it exists
             if [ "\$(docker ps -aq -f name=portfolio)" ]; then
@@ -88,17 +89,17 @@ jobs:
               --name portfolio \
               --restart=unless-stopped \
               -p 6328:6328 \
-              "$IMAGE_FULL_NAME"
+              "\$IMAGE_FULL_NAME"
             
             # Verify deployment
             sleep 5
             if docker ps | grep -q portfolio; then
-              echo "âœ… Deployment successful!"
+              echo "Deployment successful!"
               docker ps | grep portfolio
               echo ""
               echo "Application accessible at: http://${{ secrets.OVH_HOST }}:6328"
             else
-              echo "âŒ Deployment failed!"
+              echo "Deployment failed!"
               docker logs portfolio
               exit 1
             fi
