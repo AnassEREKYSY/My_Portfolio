@@ -71,9 +71,10 @@ jobs:
         run: |
           IMAGE_NAME_LOWER=$(echo "${{ env.IMAGE_NAME }}" | tr '[:upper:]' '[:lower:]')
           IMAGE_FULL_NAME="${{ env.REGISTRY }}/$IMAGE_NAME_LOWER:latest"
-          ssh ${{ secrets.OVH_USER }}@${{ secrets.OVH_HOST }} "IMAGE_FULL_NAME='$IMAGE_FULL_NAME' bash -s" << 'REMOTE_SCRIPT'
+          ssh ${{ secrets.OVH_USER }}@${{ secrets.OVH_HOST }} << EOF
             set -e
             
+            IMAGE_FULL_NAME="$IMAGE_FULL_NAME"
             echo "Using image: \$IMAGE_FULL_NAME"
             
             # Log in to GHCR
@@ -130,4 +131,4 @@ jobs:
               docker logs portfolio
               exit 1
             fi
-          REMOTE_SCRIPT
+          EOF
