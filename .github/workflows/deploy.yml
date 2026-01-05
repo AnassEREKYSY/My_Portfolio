@@ -71,7 +71,7 @@ jobs:
         run: |
           IMAGE_NAME_LOWER=$(echo "${{ env.IMAGE_NAME }}" | tr '[:upper:]' '[:lower:]')
           IMAGE_FULL_NAME="${{ env.REGISTRY }}/$IMAGE_NAME_LOWER:latest"
-          ssh ${{ secrets.OVH_USER }}@${{ secrets.OVH_HOST }} IMAGE_FULL_NAME="$IMAGE_FULL_NAME" bash -s << 'REMOTE_SCRIPT'
+          ssh ${{ secrets.OVH_USER }}@${{ secrets.OVH_HOST }} "IMAGE_FULL_NAME='$IMAGE_FULL_NAME' bash -s" << 'REMOTE_SCRIPT'
             set -e
             
             echo "Using image: \$IMAGE_FULL_NAME"
