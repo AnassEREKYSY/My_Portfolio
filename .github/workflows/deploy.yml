@@ -80,6 +80,9 @@ jobs:
             # Log in to GHCR
             echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
             
+            # ⚠️ ADDED: force remove old image so pull is guaranteed fresh
+            docker rmi -f "\$IMAGE_FULL_NAME" || true
+            
             # Pull latest image
             echo "Pulling image: \$IMAGE_FULL_NAME"
             docker pull "\$IMAGE_FULL_NAME"
@@ -107,27 +110,10 @@ jobs:
             echo "Waiting for container to be ready..."
             sleep 5
             
-            # Check if container is running
             if docker ps --format '{{.Names}}' | grep -q '^portfolio$'; then
-              echo ""
               echo "✅ Deployment successful!"
-              echo ""
-              echo "Container status:"
-              docker ps --filter name=portfolio --format "table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}"
-              echo ""
-              echo "Container logs (last 20 lines):"
-              docker logs --tail 20 portfolio
-              echo ""
-              echo "🌐 Application accessible at: http://${{ secrets.OVH_HOST }}:6328"
-              echo ""
             else
-              echo ""
-              echo "❌ Deployment failed - container is not running!"
-              echo ""
-              echo "Container status:"
-              docker ps -a --filter name=portfolio
-              echo ""
-              echo "Container logs:"
+              echo "❌ Deployment failed!"
               docker logs portfolio
               exit 1
             fi
