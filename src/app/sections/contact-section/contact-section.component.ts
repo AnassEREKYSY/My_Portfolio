@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 @Component({
   selector: 'app-contact-section',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   template: `
     <section class="py-24 lg:py-32 border-b border-dark-border" id="contact">
       <div class="section-container">
@@ -13,7 +14,7 @@ import { CommonModule } from '@angular/common';
           <!-- Header -->
           <div class="text-center mb-14">
             <h2 class="text-4xl sm:text-5xl font-bold text-text-primary mb-4 tracking-tight">
-              Let’s Work Together
+              {{ 'contact.title' | translate }}
             </h2>
           </div>
 
@@ -54,7 +55,7 @@ import { CommonModule } from '@angular/common';
             <!-- Professional Profiles -->
             <div class="text-center space-y-6">
               <h3 class="text-sm font-semibold text-text-muted uppercase tracking-wider">
-                Professional Profiles
+                {{ 'contact.professionalProfiles' | translate }}
               </h3>
 
               <div class="flex flex-wrap justify-center gap-6">
@@ -131,17 +132,17 @@ import { CommonModule } from '@angular/common';
                  style="background: linear-gradient(180deg, rgba(59,130,246,0.08), rgba(59,130,246,0.04));
                         border: 1px solid rgba(59,130,246,0.18);">
               <p class="text-base font-semibold text-text-primary mb-1">
-                Availability
+                {{ 'contact.availability' | translate }}
               </p>
               <p class="text-text-secondary mb-4">
-                Open to short- and long-term missions
+                {{ 'contact.availabilityDesc' | translate }}
               </p>
 
               <div class="flex flex-wrap justify-center gap-4">
-                <span class="availability-chip">Short-term</span>
-                <span class="availability-chip">Long-term</span>
-                <span class="availability-chip">Full Stack</span>
-                <span class="availability-chip">Paris / Remote</span>
+                <span class="availability-chip">{{ 'contact.shortTerm' | translate }}</span>
+                <span class="availability-chip">{{ 'contact.longTerm' | translate }}</span>
+                <span class="availability-chip">{{ 'contact.fullStack' | translate }}</span>
+                <span class="availability-chip">{{ 'contact.parisRemote' | translate }}</span>
               </div>
             </div>
 

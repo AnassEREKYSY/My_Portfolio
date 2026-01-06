@@ -3,7 +3,7 @@ import { Injectable, signal } from '@angular/core';
 export type Language = 'en' | 'fr';
 
 export interface Translations {
-  [key: string]: string | Translations;
+  [key: string]: string | string[] | Translations;
 }
 
 @Injectable({
@@ -15,13 +15,17 @@ export class TranslationService {
     fr: {}
   };
 
-  currentLanguage = signal<Language>('en');
+  currentLanguage = signal<Language>('fr'); // Default to French
 
   constructor() {
-    // Load saved language preference
+    // Load saved language preference, default to French if none saved
     const saved = localStorage.getItem('portfolio-language') as Language;
     if (saved && (saved === 'en' || saved === 'fr')) {
       this.currentLanguage.set(saved);
+    } else {
+      // First visit: default to French
+      this.currentLanguage.set('fr');
+      localStorage.setItem('portfolio-language', 'fr');
     }
   }
 
@@ -46,9 +50,9 @@ export class TranslationService {
       if (value && typeof value === 'object' && k in value) {
         value = value[k];
       } else {
-        // Fallback to English if translation missing
-        if (lang !== 'en') {
-          value = this.translations.en;
+        // Fallback to French if translation missing
+        if (lang !== 'fr') {
+          value = this.translations.fr;
           for (const k2 of keys) {
             if (value && typeof value === 'object' && k2 in value) {
               value = value[k2];
@@ -76,6 +80,38 @@ export class TranslationService {
 
   get currentLang(): Language {
     return this.currentLanguage();
+  }
+
+  translateArray(key: string): string[] {
+    const lang = this.currentLanguage();
+    const keys = key.split('.');
+    let value: any = this.translations[lang];
+
+    for (const k of keys) {
+      if (value && typeof value === 'object' && k in value) {
+        value = value[k];
+      } else {
+        // Fallback to French if translation missing
+        if (lang !== 'fr') {
+          value = this.translations.fr;
+          for (const k2 of keys) {
+            if (value && typeof value === 'object' && k2 in value) {
+              value = value[k2];
+            } else {
+              return [];
+            }
+          }
+        } else {
+          return [];
+        }
+      }
+    }
+
+    if (Array.isArray(value)) {
+      return value;
+    }
+
+    return [];
   }
 }
 

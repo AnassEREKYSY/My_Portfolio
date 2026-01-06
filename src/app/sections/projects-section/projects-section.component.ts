@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '../../pipes/translate.pipe';
+import { TranslationService } from '../../services/translation.service';
 
 interface Project {
   name: string;
@@ -20,7 +22,7 @@ interface Project {
 @Component({
   selector: 'app-projects-section',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   template: `
     <section class="py-24 lg:py-32 border-b border-dark-border" id="projects">
       <div class="section-container">
@@ -29,10 +31,10 @@ interface Project {
           <!-- Header -->
           <div class="text-center mb-16">
             <h2 class="text-4xl sm:text-5xl font-bold text-text-primary mb-4">
-              Selected Projects
+              {{ 'projects.title' | translate }}
             </h2>
             <p class="text-lg text-text-secondary max-w-2xl mx-auto">
-              Real-world projects showcasing architecture choices, technical depth, and delivery-focused engineering.
+              {{ 'projects.subtitle' | translate }}
             </p>
           </div>
 
@@ -107,18 +109,18 @@ interface Project {
         <div class="space-y-10 text-sm">
 
           <section>
-            <h4 class="modal-section-title">Context & Problem</h4>
+            <h4 class="modal-section-title">{{ 'projects.contextProblem' | translate }}</h4>
             <p class="modal-text">{{ selectedProject.problem }}</p>
           </section>
 
           <section>
-            <h4 class="modal-section-title">Solution & Approach</h4>
+            <h4 class="modal-section-title">{{ 'projects.solutionApproach' | translate }}</h4>
             <p class="modal-text">{{ selectedProject.solution }}</p>
           </section>
 
           <section class="grid md:grid-cols-2 gap-10">
             <div>
-              <h4 class="modal-section-title">Key Features</h4>
+              <h4 class="modal-section-title">{{ 'projects.keyFeatures' | translate }}</h4>
               <ul class="list-disc pl-5 space-y-1 modal-text">
                 <li *ngFor="let feature of selectedProject.features">
                   {{ feature }}
@@ -127,7 +129,7 @@ interface Project {
             </div>
 
             <div>
-              <h4 class="modal-section-title">Technical Highlights</h4>
+              <h4 class="modal-section-title">{{ 'projects.technicalHighlights' | translate }}</h4>
               <ul class="list-disc pl-5 space-y-1 modal-text">
                 <li *ngFor="let highlight of selectedProject.highlights">
                   {{ highlight }}
@@ -137,7 +139,7 @@ interface Project {
           </section>
 
           <section>
-            <h4 class="modal-section-title">Technology Stack</h4>
+            <h4 class="modal-section-title">{{ 'projects.technologyStack' | translate }}</h4>
             <div class="flex flex-wrap gap-2">
               <span *ngFor="let tech of selectedProject.stack" class="tech-chip">
                 {{ tech }}
@@ -146,7 +148,7 @@ interface Project {
           </section>
 
           <section>
-            <h4 class="modal-section-title">Role & Impact</h4>
+            <h4 class="modal-section-title">{{ 'projects.roleImpact' | translate }}</h4>
             <p class="modal-text">
               <strong>{{ selectedProject.role }}</strong><br />
               <span class="italic">{{ selectedProject.impact }}</span>
@@ -154,7 +156,7 @@ interface Project {
           </section>
 
           <section>
-            <h4 class="modal-section-title">Source Code</h4>
+            <h4 class="modal-section-title">{{ 'projects.sourceCode' | translate }}</h4>
             <div class="flex flex-wrap gap-4">
               <a
                 *ngFor="let repo of selectedProject.githubRepos"
@@ -216,7 +218,8 @@ interface Project {
   `]
 })
 export class ProjectsSectionComponent {
-
+  private translationService = inject(TranslationService);
+  
   selectedProject: Project | null = null;
 
   openProject(project: Project) {
@@ -229,12 +232,13 @@ export class ProjectsSectionComponent {
     document.body.style.overflow = '';
   }
 
-  projects: Project[] = [
+  get projects(): Project[] {
+    return [
     {
       name: 'PayChase',
-      description: 'B2B SaaS application for invoice management and automated payment follow-ups.',
-      problem: 'Small and medium businesses relied on manual invoice tracking and reminders, leading to delayed payments and poor cash-flow visibility.',
-      solution: 'Design and development of a modular SaaS platform with dedicated backend services to manage invoices, automate reminders, and track payment statuses.',
+      description: this.translationService.translate('projects.proj1.description'),
+      problem: this.translationService.translate('projects.proj1.problem'),
+      solution: this.translationService.translate('projects.proj1.solution'),
       stack: [
         'Angular',
         '.NET',
@@ -243,21 +247,10 @@ export class ProjectsSectionComponent {
         'Docker',
         'CI/CD'
       ],
-      features: [
-        'Invoice creation, management, and status tracking',
-        'Automated email reminders for unpaid invoices',
-        'Authentication and role-based access',
-        'Payment status dashboard and reporting',
-        'Business-oriented workflows'
-      ],
-      highlights: [
-        'Service-oriented architecture with independent backend services',
-        'Clear separation between authentication and business domains',
-        'Dockerized services for local and production environments',
-        'Scalable and maintainable backend design'
-      ],
-      impact: 'Improved payment follow-up efficiency and provided better cash-flow visibility for businesses.',
-      role: 'Full Stack Developer – Architecture design, frontend development, backend services, DevOps setup',
+      features: this.translationService.translateArray('projects.proj1.features'),
+      highlights: this.translationService.translateArray('projects.proj1.highlights'),
+      impact: this.translationService.translate('projects.proj1.impact'),
+      role: this.translationService.translate('projects.proj1.role'),
       githubRepos: [
         {
           label: 'Auth Service',
@@ -272,29 +265,19 @@ export class ProjectsSectionComponent {
   
     {
       name: 'Melodify',
-      description: 'Music streaming web application inspired by Spotify, focused on playlists and user interactions.',
-      problem: 'Users needed a simple platform to browse music, manage playlists, and interact with content in a clean UI.',
-      solution: 'Development of a full-stack web application integrating the Spotify Developer API for music data and user features.',
+      description: this.translationService.translate('projects.proj2.description'),
+      problem: this.translationService.translate('projects.proj2.problem'),
+      solution: this.translationService.translate('projects.proj2.solution'),
       stack: [
         'Angular',
         '.NET',
         'SQL',
         'Spotify Developer API'
       ],
-      features: [
-        'Music search and browsing',
-        'Playlist creation and management',
-        'User authentication',
-        'Favorites and personal library'
-      ],
-      highlights: [
-        'Clean and modular Angular frontend',
-        'Structured backend API',
-        'Integration with external third-party APIs',
-        'Focus on usability and performance'
-      ],
-      impact: 'Delivered a functional streaming-like experience with essential social and playlist features.',
-      role: 'Full Stack Developer – Frontend, backend APIs, external API integration',
+      features: this.translationService.translateArray('projects.proj2.features'),
+      highlights: this.translationService.translateArray('projects.proj2.highlights'),
+      impact: this.translationService.translate('projects.proj2.impact'),
+      role: this.translationService.translate('projects.proj2.role'),
       githubRepos: [
         {
           label: 'GitHub Repository',
@@ -305,29 +288,19 @@ export class ProjectsSectionComponent {
   
     {
       name: 'CoinHawk',
-      description: 'Cryptocurrency monitoring platform for tracking prices and market trends.',
-      problem: 'Crypto users needed a clear and reliable way to monitor market prices and trends in real time.',
-      solution: 'Development of a web application consuming public crypto APIs and presenting market data through dashboards.',
+      description: this.translationService.translate('projects.proj3.description'),
+      problem: this.translationService.translate('projects.proj3.problem'),
+      solution: this.translationService.translate('projects.proj3.solution'),
       stack: [
         'Angular',
         '.NET',
         'External Crypto APIs',
         'Keycloak'
       ],
-      features: [
-        'Real-time cryptocurrency price tracking',
-        'Market overview dashboard',
-        'Coin search and filtering',
-        'Price evolution charts'
-      ],
-      highlights: [
-        'Secure authentication with Keycloak',
-        'External API consumption and data normalization',
-        'Clear and readable data visualizations',
-        'Responsive user interface'
-      ],
-      impact: 'Enabled users to easily monitor crypto markets through a centralized interface.',
-      role: 'Full Stack Developer – API integration, authentication, frontend development',
+      features: this.translationService.translateArray('projects.proj3.features'),
+      highlights: this.translationService.translateArray('projects.proj3.highlights'),
+      impact: this.translationService.translate('projects.proj3.impact'),
+      role: this.translationService.translate('projects.proj3.role'),
       githubRepos: [
         {
           label: 'GitHub Repository',
@@ -338,29 +311,19 @@ export class ProjectsSectionComponent {
   
     {
       name: 'Skinet',
-      description: 'E-commerce web application for online product sales and payment processing.',
-      problem: 'Need for a simple, secure, and complete e-commerce workflow for online sales.',
-      solution: 'Development of a full-stack e-commerce platform covering product catalog, cart, checkout, and payments.',
+      description: this.translationService.translate('projects.proj4.description'),
+      problem: this.translationService.translate('projects.proj4.problem'),
+      solution: this.translationService.translate('projects.proj4.solution'),
       stack: [
         'Angular',
         '.NET',
         'SQL',
         'Stripe'
       ],
-      features: [
-        'Product catalog management',
-        'Shopping cart',
-        'Secure checkout and payments',
-        'Order management'
-      ],
-      highlights: [
-        'End-to-end e-commerce workflow',
-        'Stripe payment integration',
-        'Clean and maintainable codebase',
-        'Separation of business and infrastructure concerns'
-      ],
-      impact: 'Provided a functional and secure e-commerce solution ready for online sales.',
-      role: 'Full Stack Developer – E-commerce features, payment integration, backend APIs',
+      features: this.translationService.translateArray('projects.proj4.features'),
+      highlights: this.translationService.translateArray('projects.proj4.highlights'),
+      impact: this.translationService.translate('projects.proj4.impact'),
+      role: this.translationService.translate('projects.proj4.role'),
       githubRepos: [
         {
           label: 'GitHub Repository',
@@ -371,26 +334,17 @@ export class ProjectsSectionComponent {
   
     {
       name: 'RaiseUp',
-      description: 'Marketplace platform connecting startups with potential investors.',
-      problem: 'Startups lacked a centralized platform to showcase projects and reach investors efficiently.',
-      solution: 'Development of a marketplace web application enabling project presentation and user interactions.',
+      description: this.translationService.translate('projects.proj5.description'),
+      problem: this.translationService.translate('projects.proj5.problem'),
+      solution: this.translationService.translate('projects.proj5.solution'),
       stack: [
         'Angular',
         'Node.js'
       ],
-      features: [
-        'Startup project listings',
-        'User roles (startup / investor)',
-        'Project discovery and browsing',
-        'Basic interaction features'
-      ],
-      highlights: [
-        'Marketplace-oriented architecture',
-        'Clear separation between frontend and backend',
-        'Focus on simplicity and usability'
-      ],
-      impact: 'Enabled startups to showcase projects and connect with potential investors.',
-      role: 'Full Stack Developer – Marketplace design and implementation',
+      features: this.translationService.translateArray('projects.proj5.features'),
+      highlights: this.translationService.translateArray('projects.proj5.highlights'),
+      impact: this.translationService.translate('projects.proj5.impact'),
+      role: this.translationService.translate('projects.proj5.role'),
       githubRepos: [
         {
           label: 'GitHub Repository',
@@ -401,27 +355,18 @@ export class ProjectsSectionComponent {
   
     {
       name: 'ShowTracker',
-      description: 'Web application for tracking TV series and movies.',
-      problem: 'Users wanted an easy way to track watched content and discover new shows.',
-      solution: 'Development of a web application integrating external movie and TV APIs.',
+      description: this.translationService.translate('projects.proj6.description'),
+      problem: this.translationService.translate('projects.proj6.problem'),
+      solution: this.translationService.translate('projects.proj6.solution'),
       stack: [
         'Angular',
         'Node.js',
         'External Content APIs'
       ],
-      features: [
-        'Watchlist and favorites',
-        'Series and movie tracking',
-        'Content discovery',
-        'User preferences management'
-      ],
-      highlights: [
-        'External API integration',
-        'Responsive and intuitive UI',
-        'Clean frontend architecture'
-      ],
-      impact: 'Delivered a lightweight and user-friendly entertainment tracking application.',
-      role: 'Full Stack Developer – Frontend, backend, and API integration',
+      features: this.translationService.translateArray('projects.proj6.features'),
+      highlights: this.translationService.translateArray('projects.proj6.highlights'),
+      impact: this.translationService.translate('projects.proj6.impact'),
+      role: this.translationService.translate('projects.proj6.role'),
       githubRepos: [
         {
           label: 'GitHub Repository',
@@ -432,29 +377,19 @@ export class ProjectsSectionComponent {
   
     {
       name: 'YallaPay',
-      description: 'Backend system for a digital wallet supporting cashless transactions through an agent-based model.',
-      problem: 'Digital wallet applications require secure, consistent, and auditable transaction handling.',
-      solution: 'Development of backend services managing wallet balances, deposits, withdrawals, and transaction workflows.',
+      description: this.translationService.translate('projects.proj7.description'),
+      problem: this.translationService.translate('projects.proj7.problem'),
+      solution: this.translationService.translate('projects.proj7.solution'),
       stack: [
         'Node.js',
         'JavaScript',
         'Docker',
         'CI/CD'
       ],
-      features: [
-        'Wallet balance management',
-        'Deposit and withdrawal workflows',
-        'Transaction history tracking',
-        'Agent-based transaction validation'
-      ],
-      highlights: [
-        'Business-oriented backend logic',
-        'Transaction consistency and validation',
-        'Containerized backend services',
-        'CI/CD-ready architecture'
-      ],
-      impact: 'Provided a solid backend foundation for a digital wallet application.',
-      role: 'Backend Developer – Backend architecture and business logic implementation',
+      features: this.translationService.translateArray('projects.proj7.features'),
+      highlights: this.translationService.translateArray('projects.proj7.highlights'),
+      impact: this.translationService.translate('projects.proj7.impact'),
+      role: this.translationService.translate('projects.proj7.role'),
       githubRepos: [
         {
           label: 'GitHub Repository',
@@ -462,6 +397,7 @@ export class ProjectsSectionComponent {
         }
       ]
     }
-  ]; 
+  ];
+  }
 }
 

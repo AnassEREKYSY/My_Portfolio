@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 interface SkillCategory {
   name: string;
@@ -9,7 +10,7 @@ interface SkillCategory {
 @Component({
   selector: 'app-skills-section',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   template: `
     <section class="py-24 lg:py-32 border-b border-dark-border" id="skills">
       <div class="section-container">
@@ -17,10 +18,10 @@ interface SkillCategory {
           <!-- Section header -->
           <div class="text-center mb-20">
             <h2 class="text-4xl sm:text-5xl font-bold text-text-primary mb-6 tracking-tight">
-              Skills & Tooling
+              {{ 'skills.title' | translate }}
             </h2>
             <p class="text-xl text-text-secondary max-w-2xl mx-auto">
-              Technical expertise and tools I use to build reliable, scalable applications
+              {{ 'skills.subtitle' | translate }}
             </p>
           </div>
           
@@ -48,7 +49,7 @@ interface SkillCategory {
           <!-- Methodologies -->
           <div class="mt-16 card-base p-10">
             <h3 class="text-2xl font-bold text-text-primary mb-8 text-center">
-              Methodologies & Practices
+              {{ 'skills.methodologies' | translate }}
             </h3>
             <div class="flex flex-wrap justify-center gap-3">
               <span

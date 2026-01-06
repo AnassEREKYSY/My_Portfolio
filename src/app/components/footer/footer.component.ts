@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslatePipe } from '../../pipes/translate.pipe';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [CommonModule, TranslatePipe],
+  imports: [CommonModule],
   template: `
     <footer class="bg-dark-surface border-t border-dark-border" role="contentinfo">
       <div class="section-container py-10">

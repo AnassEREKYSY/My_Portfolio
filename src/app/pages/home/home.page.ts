@@ -8,6 +8,8 @@ import { ProjectsSectionComponent } from '../../sections/projects-section/projec
 import { SkillsSectionComponent } from '../../sections/skills-section/skills-section.component';
 import { HowIWorkSectionComponent } from '../../sections/how-i-work-section/how-i-work-section.component';
 import { ContactSectionComponent } from '../../sections/contact-section/contact-section.component';
+import { ThemeControlsComponent } from '../../components/theme-controls/theme-controls.component';
+import { LanguageToggleComponent } from '../../components/language-toggle/language-toggle.component';
 import { TranslationService } from '../../services/translation.service';
 import { translations } from '../../translations';
 
@@ -23,10 +25,14 @@ import { translations } from '../../translations';
     ProjectsSectionComponent,
     SkillsSectionComponent,
     HowIWorkSectionComponent,
-    ContactSectionComponent
+    ContactSectionComponent,
+    ThemeControlsComponent,
+    LanguageToggleComponent
   ],
   template: `
-    <div class="min-h-screen flex flex-col bg-dark-bg">
+    <div class="min-h-screen flex flex-col bg-dark-bg transition-colors duration-300">
+      <app-theme-controls></app-theme-controls>
+      <app-language-toggle></app-language-toggle>
       <main id="main-content" class="flex-grow" role="main">
         <app-hero-section></app-hero-section>
         <app-what-i-do-section></app-what-i-do-section>

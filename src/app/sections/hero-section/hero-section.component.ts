@@ -33,24 +33,23 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
           <h1
             class="text-6xl sm:text-7xl lg:text-8xl font-bold text-text-primary mb-6 tracking-tight"
           >
-            Full Stack Developer
+            {{ 'hero.title' | translate }}
           </h1>
 
           <!-- Subheadline -->
           <p
             class="text-xl sm:text-2xl text-text-secondary mb-8 max-w-3xl mx-auto leading-relaxed font-light"
           >
-            Over 3 years of experience building scalable and reliable web applications
-            using .NET, Angular, Node.js, and modern DevOps practices.
+            {{ 'hero.subtitle' | translate }}
           </p>
 
           <!-- Positioning -->
           <p class="text-xl sm:text-2xl text-text-secondary max-w-2xl mx-auto mb-14">
-            Open to
+            {{ 'hero.positioning' | translate }}
             <span class="text-accent font-medium">
-              short- and long-term missions
+              {{ 'hero.positioningHighlight' | translate }}
             </span>
-            as a Full Stack Developer
+            {{ 'hero.positioningSuffix' | translate }}
           </p>
 
           <!-- CTA BUTTONS -->
@@ -68,7 +67,7 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
                      focus:outline-none focus:ring-2 focus:ring-accent
                      focus:ring-offset-2 focus:ring-offset-dark-bg"
             >
-              View My Work
+              {{ 'hero.viewMyWork' | translate }}
             </a>
 
             <!-- Secondary -->
@@ -83,7 +82,7 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
                      focus:outline-none focus:ring-2 focus:ring-accent
                      focus:ring-offset-2 focus:ring-offset-dark-bg"
             >
-              Get In Touch
+              {{ 'hero.getInTouch' | translate }}
             </a>
 
             <!-- Navigation buttons -->
@@ -97,7 +96,7 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
                      hover:bg-dark-muted/30
                      transition-all duration-200"
             >
-              Experience
+              {{ 'hero.experience' | translate }}
             </a>
 
             <a
@@ -110,7 +109,7 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
                      hover:bg-dark-muted/30
                      transition-all duration-200"
             >
-              Projects
+              {{ 'hero.projects' | translate }}
             </a>
 
             <a
@@ -123,7 +122,7 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
                      hover:bg-dark-muted/30
                      transition-all duration-200"
             >
-              Skills
+              {{ 'hero.skills' | translate }}
             </a>
           </div>
 
@@ -136,7 +135,7 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
                 {{ yearsExperience }}+
               </div>
               <div class="text-sm text-text-muted uppercase tracking-wider">
-                Years Experience
+                {{ 'hero.yearsExperience' | translate }}
               </div>
             </div>
 
@@ -145,7 +144,7 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
                 {{ projectsDelivered }}+
               </div>
               <div class="text-sm text-text-muted uppercase tracking-wider">
-                Projects Delivered
+                {{ 'hero.projectsDelivered' | translate }}
               </div>
             </div>
 
@@ -154,7 +153,7 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
                 {{ qualityFocus }}%
               </div>
               <div class="text-sm text-text-muted uppercase tracking-wider">
-                Quality Focus
+                {{ 'hero.qualityFocus' | translate }}
               </div>
             </div>
           </div>

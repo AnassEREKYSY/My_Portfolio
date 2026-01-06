@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '../../pipes/translate.pipe';
+import { TranslationService } from '../../services/translation.service';
 
 interface Experience {
   company: string;
@@ -17,7 +19,7 @@ interface Experience {
 @Component({
   selector: 'app-experience-section',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   template: `
     <section class="py-24 lg:py-32 border-b border-dark-border" id="experience">
       <div class="section-container">
@@ -25,10 +27,10 @@ interface Experience {
           <!-- Section header -->
           <div class="text-center mb-20">
             <h2 class="text-4xl sm:text-5xl font-bold text-text-primary mb-6 tracking-tight">
-              Experience
+              {{ 'experience.title' | translate }}
             </h2>
             <p class="text-xl text-text-secondary max-w-2xl mx-auto">
-              Over 3 years of professional experience delivering impactful solutions
+              {{ 'experience.subtitle' | translate }}
             </p>
           </div>
           
@@ -61,14 +63,14 @@ interface Experience {
                     
                     <!-- Context -->
                     <div class="mb-8">
-                      <h4 class="text-xs font-semibold text-accent mb-3 uppercase tracking-wider">Context & Business Goals</h4>
+                      <h4 class="text-xs font-semibold text-accent mb-3 uppercase tracking-wider">{{ 'experience.contextGoals' | translate }}</h4>
                       <p class="text-text-secondary leading-relaxed mb-3">{{ exp.context }}</p>
                       <p class="text-text-muted leading-relaxed italic text-sm">{{ exp.businessGoals }}</p>
                     </div>
                     
                     <!-- Responsibilities -->
                     <div class="mb-8">
-                      <h4 class="text-xs font-semibold text-accent mb-4 uppercase tracking-wider">Key Responsibilities</h4>
+                      <h4 class="text-xs font-semibold text-accent mb-4 uppercase tracking-wider">{{ 'experience.keyResponsibilities' | translate }}</h4>
                       <ul class="list-none space-y-3">
                         <li *ngFor="let resp of exp.responsibilities" class="flex items-start">
                           <span class="text-accent mr-3 mt-1.5 flex-shrink-0">▸</span>
@@ -79,7 +81,7 @@ interface Experience {
                     
                     <!-- Stack -->
                     <div class="mb-8">
-                      <h4 class="text-xs font-semibold text-accent mb-4 uppercase tracking-wider">Technical Stack</h4>
+                      <h4 class="text-xs font-semibold text-accent mb-4 uppercase tracking-wider">{{ 'experience.technicalStack' | translate }}</h4>
                       <div class="flex flex-wrap gap-2">
                         <span
                           *ngFor="let tech of exp.stack"
@@ -92,7 +94,7 @@ interface Experience {
                     
                     <!-- Achievements -->
                     <div class="mb-8">
-                      <h4 class="text-xs font-semibold text-accent mb-4 uppercase tracking-wider">Key Achievements</h4>
+                      <h4 class="text-xs font-semibold text-accent mb-4 uppercase tracking-wider">{{ 'experience.keyAchievements' | translate }}</h4>
                       <ul class="list-none space-y-3">
                         <li *ngFor="let achievement of exp.achievements" class="flex items-start">
                           <span class="text-accent mr-3 mt-1.5 flex-shrink-0">▸</span>
@@ -104,7 +106,7 @@ interface Experience {
                     <!-- Impact -->
                     <div class="pt-6 mt-6 border-t border-dark-border">
                       <p class="text-sm">
-                        <span class="text-accent font-semibold">Impact: </span>
+                        <span class="text-accent font-semibold">{{ 'experience.impact' | translate }}: </span>
                         <span class="text-text-secondary">{{ exp.impact }}</span>
                       </p>
                     </div>
@@ -120,21 +122,19 @@ interface Experience {
   styles: []
 })
 export class ExperienceSectionComponent {
-    experiences: Experience[] = [
+  private translationService = inject(TranslationService);
+  
+  get experiences(): Experience[] {
+    const lang = this.translationService.currentLanguage();
+    return [
       {
         company: 'Auxia',
-        role: 'Full Stack Developer (.NET / Angular) | DevOps',
+        role: this.translationService.translate('experience.exp1.role'),
         period: '09/2023 – 08/2025',
         location: 'Paris, France',
-        context: 'Maintenance and evolution of an enterprise Angular/.NET subscription management portal in a finance-oriented environment.',
-        businessGoals: 'Ensure application stability, improve delivery processes, and support long-term evolution of a critical business platform.',
-        responsibilities: [
-          'Maintain and evolve a production Angular frontend and .NET backend',
-          'Implement CI/CD pipelines and DevOps practices to improve delivery reliability',
-          'Introduce automated testing to improve code quality and reduce regressions',
-          'Collaborate with functional teams to analyze requirements and deliver new features',
-          'Participate in code reviews and contribute to technical best practices'
-        ],
+        context: this.translationService.translate('experience.exp1.context'),
+        businessGoals: this.translationService.translate('experience.exp1.businessGoals'),
+        responsibilities: this.translationService.translateArray('experience.exp1.responsibilities'),
         stack: [
           'Angular',
           '.NET',
@@ -145,28 +145,18 @@ export class ExperienceSectionComponent {
           'Jest',
           'Cypress'
         ],
-        achievements: [
-          'Improved deployment reliability through CI/CD automation',
-          'Enhanced code quality and maintainability with automated testing',
-          'Contributed to the long-term stability of a business-critical application'
-        ],
-        impact: 'Helped maintain a stable and reliable enterprise application while improving development workflows and delivery quality.'
+        achievements: this.translationService.translateArray('experience.exp1.achievements'),
+        impact: this.translationService.translate('experience.exp1.impact')
       },
   
       {
         company: 'Dimo Maint',
-        role: 'Full Stack Developer (.NET / Angular)',
+        role: this.translationService.translate('experience.exp2.role'),
         period: '04/2023 – 08/2023',
         location: 'Lyon, France',
-        context: 'Migration of a CMMS (Computerized Maintenance Management System) from a legacy stack to Angular and .NET.',
-        businessGoals: 'Modernize the application stack and industrialize the development workflow.',
-        responsibilities: [
-          'Participate in the migration of a legacy CMMS application to Angular and .NET',
-          'Develop new frontend and backend features',
-          'Industrialize the development workflow using Azure DevOps',
-          'Contribute to codebase structuring and technical documentation',
-          'Work closely with the team to ensure functional continuity during migration'
-        ],
+        context: this.translationService.translate('experience.exp2.context'),
+        businessGoals: this.translationService.translate('experience.exp2.businessGoals'),
+        responsibilities: this.translationService.translateArray('experience.exp2.responsibilities'),
         stack: [
           'Angular',
           '.NET',
@@ -174,66 +164,46 @@ export class ExperienceSectionComponent {
           'SQL',
           'Azure DevOps'
         ],
-        achievements: [
-          'Successfully contributed to the migration toward a modern Angular/.NET stack',
-          'Helped industrialize the development process with structured pipelines',
-          'Improved maintainability and readability of the codebase'
-        ],
-        impact: 'Supported the modernization of a business application and improved the development lifecycle.'
+        achievements: this.translationService.translateArray('experience.exp2.achievements'),
+        impact: this.translationService.translate('experience.exp2.impact')
       },
   
       {
         company: 'Préfecture de Meknès',
-        role: 'Mobile Developer (Flutter)',
+        role: this.translationService.translate('experience.exp3.role'),
         period: '03/2022 – 06/2022',
         location: 'Meknès, Morocco',
-        context: 'Development of a mobile application for internal mail management within a public institution.',
-        businessGoals: 'Digitize and streamline internal mail processing.',
-        responsibilities: [
-          'Develop a mobile application using Flutter',
-          'Design application architecture using Merise and UML models',
-          'Implement core business features for mail tracking',
-          'Collaborate with stakeholders to validate functional requirements'
-        ],
+        context: this.translationService.translate('experience.exp3.context'),
+        businessGoals: this.translationService.translate('experience.exp3.businessGoals'),
+        responsibilities: this.translationService.translateArray('experience.exp3.responsibilities'),
         stack: [
           'Flutter',
           'Dart',
           'UML',
           'Merise'
         ],
-        achievements: [
-          'Delivered a functional mobile application adapted to institutional needs',
-          'Provided clear technical documentation for future maintenance'
-        ],
-        impact: 'Contributed to the digitalization of internal processes within a public administration.'
+        achievements: this.translationService.translateArray('experience.exp3.achievements'),
+        impact: this.translationService.translate('experience.exp3.impact')
       },
   
       {
         company: 'First Instance Court of Sidi Kacem',
-        role: 'Web Developer (PHP)',
+        role: this.translationService.translate('experience.exp4.role'),
         period: '07/2021 – 09/2021',
         location: 'Sidi Kacem, Morocco',
-        context: 'Assistance in the development of a case-session management web application for a court.',
-        businessGoals: 'Improve the management and organization of court sessions.',
-        responsibilities: [
-          'Assist in the development of a web application using PHP and HTML/CSS',
-          'Contribute to database modeling and business logic implementation',
-          'Work closely with the main developer to deliver functional features',
-          'Support testing and validation of application workflows'
-        ],
+        context: this.translationService.translate('experience.exp4.context'),
+        businessGoals: this.translationService.translate('experience.exp4.businessGoals'),
+        responsibilities: this.translationService.translateArray('experience.exp4.responsibilities'),
         stack: [
           'PHP',
           'HTML',
           'CSS',
           'SQL'
         ],
-        achievements: [
-          'Contributed to a real institutional web application',
-          'Gained experience in business-oriented and regulated environments'
-        ],
-        impact: 'Supported the delivery of a functional judicial application in a real-world institutional context.'
+        achievements: this.translationService.translateArray('experience.exp4.achievements'),
+        impact: this.translationService.translate('experience.exp4.impact')
       }
     ];
   }
-  
+}
 

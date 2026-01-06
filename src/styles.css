@@ -1,30 +1,67 @@
+/* Import Inter font - must come first */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Import Inter font */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+/* CSS Variables for Theming */
+:root {
+  /* Light Theme (Default) */
+  --bg: #ffffff;
+  --surface: #f5f5f5;
+  --border: #e5e7eb;
+  --muted: #e0e0e0;
+  --text-primary: #1a1a1a;
+  --text-secondary: #4a4a4a;
+  --text-muted: #6b7280;
+  --accent: #0ea5e9;
+  --accent-hover: #0284c7;
+  --accent-light: #38bdf8;
+  --accent-dark: #0c4a6e;
+}
 
-/* Base styles for dark theme */
+html.dark {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --border: #1f1f1f;
+  --muted: #2a2a2a;
+  --text-primary: #f5f5f5;
+  --text-secondary: #a3a3a3;
+  --text-muted: #737373;
+  --accent: #3b82f6;
+  --accent-hover: #2563eb;
+  --accent-light: #60a5fa;
+  --accent-dark: #1e40af;
+}
+
+/* Base styles */
 @layer base {
   html {
     scroll-behavior: smooth;
-    @apply bg-dark-bg text-text-primary;
+    background-color: var(--bg);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   
   body {
-    @apply antialiased bg-dark-bg text-text-primary;
+    @apply antialiased;
+    background-color: var(--bg);
+    color: var(--text-primary);
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   
   /* Focus styles for keyboard navigation */
   *:focus-visible {
-    @apply outline-2 outline-offset-2 outline-accent;
+    @apply outline-2 outline-offset-2;
+    outline-color: var(--accent);
   }
 
   /* Selection color */
   ::selection {
-    @apply bg-accent/30 text-text-primary;
+    background-color: var(--accent-light);
+    color: var(--text-primary);
   }
 }
 
@@ -65,7 +102,10 @@
 
   /* Card base style */
   .card-base {
-    @apply bg-dark-surface border border-dark-border rounded-lg;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    @apply rounded-lg;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
   }
 
   /* Subtle hover effect */

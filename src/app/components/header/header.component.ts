@@ -21,33 +21,6 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
           </a>
           
           <div class="flex items-center gap-6">
-            <!-- Language Switcher -->
-            <div class="flex items-center gap-1 bg-dark-muted/50 border border-dark-border rounded-lg p-1">
-              <button
-                type="button"
-                [class.bg-accent]="translationService.currentLang === 'en'"
-                [class.text-white]="translationService.currentLang === 'en'"
-                [class.text-text-secondary]="translationService.currentLang !== 'en'"
-                class="px-3 py-1.5 rounded text-xs font-medium transition-all duration-200 hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark-bg"
-                (click)="translationService.setLanguage('en')"
-                aria-label="Switch to English"
-                [attr.aria-pressed]="translationService.currentLang === 'en'"
-              >
-                EN
-              </button>
-              <button
-                type="button"
-                [class.bg-accent]="translationService.currentLang === 'fr'"
-                [class.text-white]="translationService.currentLang === 'fr'"
-                [class.text-text-secondary]="translationService.currentLang !== 'fr'"
-                class="px-3 py-1.5 rounded text-xs font-medium transition-all duration-200 hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark-bg"
-                (click)="translationService.setLanguage('fr')"
-                aria-label="Switch to French"
-                [attr.aria-pressed]="translationService.currentLang === 'fr'"
-              >
-                FR
-              </button>
-            </div>
             
             <button
               type="button"
@@ -70,35 +43,35 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
               class="text-text-secondary hover:text-accent transition-colors duration-200 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark-bg rounded px-1"
               (click)="scrollToSection($event, 'what-i-do')"
             >
-              What I Do
+              {{ 'nav.whatIDo' | translate }}
             </a>
             <a
               href="#experience"
               class="text-text-secondary hover:text-accent transition-colors duration-200 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark-bg rounded px-1"
               (click)="scrollToSection($event, 'experience')"
             >
-              Experience
+              {{ 'nav.experience' | translate }}
             </a>
             <a
               href="#projects"
               class="text-text-secondary hover:text-accent transition-colors duration-200 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark-bg rounded px-1"
               (click)="scrollToSection($event, 'projects')"
             >
-              Projects
+              {{ 'nav.projects' | translate }}
             </a>
             <a
               href="#skills"
               class="text-text-secondary hover:text-accent transition-colors duration-200 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark-bg rounded px-1"
               (click)="scrollToSection($event, 'skills')"
             >
-              Skills
+              {{ 'nav.skills' | translate }}
             </a>
             <a
               href="#contact"
               class="text-text-secondary hover:text-accent transition-colors duration-200 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark-bg rounded px-1"
               (click)="scrollToSection($event, 'contact')"
             >
-              Contact
+              {{ 'nav.contact' | translate }}
             </a>
           </div>
         </div>
@@ -115,35 +88,35 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
               class="text-text-secondary hover:text-accent hover:bg-dark-muted/30 transition-colors rounded-lg px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent"
               (click)="scrollToSection($event, 'what-i-do'); closeMenu()"
             >
-              What I Do
+              {{ 'nav.whatIDo' | translate }}
             </a>
             <a
               href="#experience"
               class="text-text-secondary hover:text-accent hover:bg-dark-muted/30 transition-colors rounded-lg px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent"
               (click)="scrollToSection($event, 'experience'); closeMenu()"
             >
-              Experience
+              {{ 'nav.experience' | translate }}
             </a>
             <a
               href="#projects"
               class="text-text-secondary hover:text-accent hover:bg-dark-muted/30 transition-colors rounded-lg px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent"
               (click)="scrollToSection($event, 'projects'); closeMenu()"
             >
-              Projects
+              {{ 'nav.projects' | translate }}
             </a>
             <a
               href="#skills"
               class="text-text-secondary hover:text-accent hover:bg-dark-muted/30 transition-colors rounded-lg px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent"
               (click)="scrollToSection($event, 'skills'); closeMenu()"
             >
-              Skills
+              {{ 'nav.skills' | translate }}
             </a>
             <a
               href="#contact"
               class="text-text-secondary hover:text-accent hover:bg-dark-muted/30 transition-colors rounded-lg px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-accent"
               (click)="scrollToSection($event, 'contact'); closeMenu()"
             >
-              Contact
+              {{ 'nav.contact' | translate }}
             </a>
           </div>
         </div>

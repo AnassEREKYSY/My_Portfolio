@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 interface Service {
   title: string;
@@ -10,7 +11,7 @@ interface Service {
 @Component({
   selector: 'app-what-i-do-section',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   template: `
     <section class="py-24 lg:py-32 border-b border-dark-border" id="what-i-do">
       <div class="section-container">
@@ -18,10 +19,10 @@ interface Service {
           <!-- Section header -->
           <div class="text-center mb-20">
             <h2 class="text-4xl sm:text-5xl font-bold text-text-primary mb-6 tracking-tight">
-              What I Do
+              {{ 'whatIDo.title' | translate }}
             </h2>
             <p class="text-xl text-text-secondary max-w-2xl mx-auto">
-              Full-stack development with a focus on scalability, reliability, and engineering excellence
+              {{ 'whatIDo.subtitle' | translate }}
             </p>
           </div>
           
@@ -36,10 +37,10 @@ interface Service {
                   <span class="text-2xl">{{ service.icon }}</span>
                 </div>
                 <h3 class="text-xl font-bold text-text-primary mb-3">
-                  {{ service.title }}
+                  {{ ('whatIDo.' + service.title) | translate }}
                 </h3>
                 <p class="text-text-secondary leading-relaxed">
-                  {{ service.description }}
+                  {{ ('whatIDo.' + service.description) | translate }}
                 </p>
               </div>
             </div>
@@ -50,21 +51,20 @@ interface Service {
             <div class="grid md:grid-cols-2 gap-8 items-center">
               <div>
                 <h3 class="text-2xl font-bold text-text-primary mb-4">
-                  Full-Stack Expertise
+                  {{ 'whatIDo.expertiseTitle' | translate }}
                 </h3>
                 <p class="text-text-secondary leading-relaxed mb-6">
-                  I design and build complete web applications, covering both frontend and backend layers,
-                  with a strong focus on clean architecture, performance, and long-term maintainability.
+                  {{ 'whatIDo.expertiseDesc' | translate }}
                 </p>
                 <div class="flex flex-wrap gap-3">
                   <span class="px-4 py-2 bg-dark-muted/50 text-text-secondary rounded border border-dark-border text-sm font-medium">
-                    Frontend Development
+                    {{ 'whatIDo.frontendDev' | translate }}
                   </span>
                   <span class="px-4 py-2 bg-dark-muted/50 text-text-secondary rounded border border-dark-border text-sm font-medium">
-                    Backend Architecture
+                    {{ 'whatIDo.backendArch' | translate }}
                   </span>
                   <span class="px-4 py-2 bg-dark-muted/50 text-text-secondary rounded border border-dark-border text-sm font-medium">
-                    DevOps & CI/CD
+                    {{ 'whatIDo.devopsCICD' | translate }}
                   </span>
                 </div>
               </div>
@@ -73,25 +73,25 @@ interface Service {
                 <div class="flex items-start">
                   <span class="text-accent mr-3 mt-1 flex-shrink-0">▸</span>
                   <p class="text-text-secondary">
-                    Development of business-critical and enterprise-oriented web applications
+                    {{ 'whatIDo.bullet1' | translate }}
                   </p>
                 </div>
                 <div class="flex items-start">
                   <span class="text-accent mr-3 mt-1 flex-shrink-0">▸</span>
                   <p class="text-text-secondary">
-                    Scalable and modular application architectures using modern frameworks
+                    {{ 'whatIDo.bullet2' | translate }}
                   </p>
                 </div>
                 <div class="flex items-start">
                   <span class="text-accent mr-3 mt-1 flex-shrink-0">▸</span>
                   <p class="text-text-secondary">
-                    Automated testing, quality assurance, and reliable delivery pipelines
+                    {{ 'whatIDo.bullet3' | translate }}
                   </p>
                 </div>
                 <div class="flex items-start">
                   <span class="text-accent mr-3 mt-1 flex-shrink-0">▸</span>
                   <p class="text-text-secondary">
-                    Containerized deployments and CI/CD-driven infrastructure workflows
+                    {{ 'whatIDo.bullet4' | translate }}
                   </p>
                 </div>
               </div>
@@ -107,21 +107,22 @@ interface Service {
 export class WhatIDoSectionComponent {
   services: Service[] = [
     {
-      title: 'Frontend Development',
-      description: 'Designing and building modern, performant web interfaces primarily with Angular/React and TypeScript/JavaScript. Strong focus on clean architecture, maintainable code, responsive design, and user experience, using modern CSS solutions such as Tailwind CSS and Bootstrap.',
+      title: 'frontendTitle',
+      description: 'frontendDesc',
       icon: '⚡'
     },
     {
-      title: 'Backend Development',
-      description: 'Developing robust and scalable backend services and REST APIs using .NET Core and Node.js. Experienced in business-oriented application logic, database integration (SQL and NoSQL), authentication, and building maintainable, secure backend architectures.',
+      title: 'backendTitle',
+      description: 'backendDesc',
       icon: '🔧'
     },
     {
-      title: 'DevOps, CI/CD & Automation',
-      description: 'Implementing CI/CD pipelines, containerization with Docker, and cloud-ready infrastructures. Hands-on experience with GitHub Actions, GitLab CI, Azure DevOps, monitoring tools, and automated testing to ensure reliable, high-quality deliveries.',
+      title: 'devopsTitle',
+      description: 'devopsDesc',
       icon: '🚀'
     }
   ];
 }
+
 
 

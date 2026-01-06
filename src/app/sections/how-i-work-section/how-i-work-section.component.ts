@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '../../pipes/translate.pipe';
+import { TranslationService } from '../../services/translation.service';
 
 interface WorkPrinciple {
   title: string;
@@ -9,7 +11,7 @@ interface WorkPrinciple {
 @Component({
   selector: 'app-how-i-work-section',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   template: `
     <section class="py-24 lg:py-32 border-b border-dark-border" id="how-i-work">
       <div class="section-container">
@@ -17,10 +19,10 @@ interface WorkPrinciple {
           <!-- Section header -->
           <div class="text-center mb-20">
             <h2 class="text-4xl sm:text-5xl font-bold text-text-primary mb-6 tracking-tight">
-              How I Work
+              {{ 'howIWork.title' | translate }}
             </h2>
             <p class="text-xl text-text-secondary max-w-2xl mx-auto">
-              My approach to delivering reliable, maintainable, and business-oriented software
+              {{ 'howIWork.subtitle' | translate }}
             </p>
           </div>
 
@@ -42,80 +44,32 @@ interface WorkPrinciple {
           <!-- Process highlight -->
           <div class="card-base p-10 border-l-4 border-accent">
             <h3 class="text-2xl font-bold text-text-primary mb-6">
-              Development Process
+              {{ 'howIWork.processTitle' | translate }}
             </h3>
             <div class="grid md:grid-cols-2 gap-8">
               <div class="space-y-4">
-                <div class="flex items-start">
-                  <span class="text-accent mr-3 mt-1 flex-shrink-0 font-bold">1.</span>
+                <div class="flex items-start" *ngFor="let step of processSteps.slice(0, 3); let i = index">
+                  <span class="text-accent mr-3 mt-1 flex-shrink-0 font-bold">{{ i + 1 }}.</span>
                   <div>
                     <p class="text-text-primary font-semibold mb-1">
-                      Requirements & Understanding
+                      {{ step.title }}
                     </p>
                     <p class="text-text-secondary text-sm">
-                      Analyze business needs, understand functional constraints, and clarify expectations with stakeholders.
-                    </p>
-                  </div>
-                </div>
-
-                <div class="flex items-start">
-                  <span class="text-accent mr-3 mt-1 flex-shrink-0 font-bold">2.</span>
-                  <div>
-                    <p class="text-text-primary font-semibold mb-1">
-                      Technical Design
-                    </p>
-                    <p class="text-text-secondary text-sm">
-                      Define application structure, data models, and technical choices with a focus on clarity and maintainability.
-                    </p>
-                  </div>
-                </div>
-
-                <div class="flex items-start">
-                  <span class="text-accent mr-3 mt-1 flex-shrink-0 font-bold">3.</span>
-                  <div>
-                    <p class="text-text-primary font-semibold mb-1">
-                      Development & Testing
-                    </p>
-                    <p class="text-text-secondary text-sm">
-                      Implement features incrementally with clean code and automated tests to reduce regressions and improve reliability.
+                      {{ step.description }}
                     </p>
                   </div>
                 </div>
               </div>
 
               <div class="space-y-4">
-                <div class="flex items-start">
-                  <span class="text-accent mr-3 mt-1 flex-shrink-0 font-bold">4.</span>
+                <div class="flex items-start" *ngFor="let step of processSteps.slice(3); let i = index">
+                  <span class="text-accent mr-3 mt-1 flex-shrink-0 font-bold">{{ i + 4 }}.</span>
                   <div>
                     <p class="text-text-primary font-semibold mb-1">
-                      CI/CD & Deployment
+                      {{ step.title }}
                     </p>
                     <p class="text-text-secondary text-sm">
-                      Use CI/CD pipelines and containerization to ensure consistent builds, testing, and deployments.
-                    </p>
-                  </div>
-                </div>
-
-                <div class="flex items-start">
-                  <span class="text-accent mr-3 mt-1 flex-shrink-0 font-bold">5.</span>
-                  <div>
-                    <p class="text-text-primary font-semibold mb-1">
-                      Review & Improvement
-                    </p>
-                    <p class="text-text-secondary text-sm">
-                      Review code, address feedback, and continuously improve performance, quality, and usability.
-                    </p>
-                  </div>
-                </div>
-
-                <div class="flex items-start">
-                  <span class="text-accent mr-3 mt-1 flex-shrink-0 font-bold">6.</span>
-                  <div>
-                    <p class="text-text-primary font-semibold mb-1">
-                      Documentation & Knowledge Sharing
-                    </p>
-                    <p class="text-text-secondary text-sm">
-                      Document key decisions and share knowledge to ensure long-term maintainability and team alignment.
+                      {{ step.description }}
                     </p>
                   </div>
                 </div>
@@ -129,36 +83,45 @@ interface WorkPrinciple {
   `
 })
 export class HowIWorkSectionComponent {
-  principles: WorkPrinciple[] = [
-    {
-      title: 'Clean & Maintainable Code',
-      description:
-        'I focus on writing clean, readable, and maintainable code with a clear structure and consistent conventions, making applications easier to understand and evolve.'
-    },
-    {
-      title: 'Quality Through Testing',
-      description:
-        'I use automated testing to secure application behavior and reduce regressions, relying on unit, integration, and end-to-end tests when relevant.'
-    },
-    {
-      title: 'Pragmatic DevOps & Automation',
-      description:
-        'I leverage CI/CD pipelines and containerization to automate builds, tests, and deployments, improving delivery reliability and consistency.'
-    },
-    {
-      title: 'Collaboration & Documentation',
-      description:
-        'I collaborate closely with technical and functional teams, communicate clearly, and document technical decisions to ensure alignment and maintainability.'
-    },
-    {
-      title: 'Continuous Improvement',
-      description:
-        'I continuously refine my approach by learning from real projects, feedback, and best practices rather than following rigid methodologies.'
-    },
-    {
-      title: 'Business-Oriented Delivery',
-      description:
-        'I keep business objectives in mind, balancing technical quality with practical constraints to deliver solutions that create real value.'
-    }
-  ];
+  private translationService = inject(TranslationService);
+  
+  get principles(): WorkPrinciple[] {
+    return [
+      {
+        title: this.translationService.translate('howIWork.principle1.title'),
+        description: this.translationService.translate('howIWork.principle1.description')
+      },
+      {
+        title: this.translationService.translate('howIWork.principle2.title'),
+        description: this.translationService.translate('howIWork.principle2.description')
+      },
+      {
+        title: this.translationService.translate('howIWork.principle3.title'),
+        description: this.translationService.translate('howIWork.principle3.description')
+      },
+      {
+        title: this.translationService.translate('howIWork.principle4.title'),
+        description: this.translationService.translate('howIWork.principle4.description')
+      },
+      {
+        title: this.translationService.translate('howIWork.principle5.title'),
+        description: this.translationService.translate('howIWork.principle5.description')
+      },
+      {
+        title: this.translationService.translate('howIWork.principle6.title'),
+        description: this.translationService.translate('howIWork.principle6.description')
+      }
+    ];
+  }
+  
+  get processSteps() {
+    return [
+      { title: this.translationService.translate('howIWork.step1.title'), description: this.translationService.translate('howIWork.step1.description') },
+      { title: this.translationService.translate('howIWork.step2.title'), description: this.translationService.translate('howIWork.step2.description') },
+      { title: this.translationService.translate('howIWork.step3.title'), description: this.translationService.translate('howIWork.step3.description') },
+      { title: this.translationService.translate('howIWork.step4.title'), description: this.translationService.translate('howIWork.step4.description') },
+      { title: this.translationService.translate('howIWork.step5.title'), description: this.translationService.translate('howIWork.step5.description') },
+      { title: this.translationService.translate('howIWork.step6.title'), description: this.translationService.translate('howIWork.step6.description') }
+    ];
+  }
 }
