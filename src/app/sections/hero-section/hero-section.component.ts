@@ -44,13 +44,26 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
           </p>
 
           <!-- Positioning -->
-          <p class="text-xl sm:text-2xl text-text-secondary max-w-2xl mx-auto mb-14">
+          <p class="text-xl sm:text-2xl text-text-secondary max-w-2xl mx-auto mb-6">
             {{ 'hero.positioning' | translate }}
             <span class="text-accent font-medium">
               {{ 'hero.positioningHighlight' | translate }}
             </span>
             {{ 'hero.positioningSuffix' | translate }}
           </p>
+
+          <!-- Available Status -->
+          <div class="flex items-center justify-center gap-3 mb-14">
+            <div class="availability-dot-wrapper">
+              <span class="availability-dot"></span>
+              <span class="ripple-wave ripple-1"></span>
+              <span class="ripple-wave ripple-2"></span>
+              <span class="ripple-wave ripple-3"></span>
+            </div>
+            <p class="text-lg sm:text-xl text-green-400">
+              {{ 'hero.availableForProjects' | translate }}
+            </p>
+          </div>
 
           <!-- CTA BUTTONS -->
           <div class="flex flex-wrap justify-center gap-4 items-center mb-20">
@@ -179,7 +192,73 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
       </div>
     </section>
   `,
-  styles: []
+  styles: [`
+    .availability-dot-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+    }
+
+    .availability-dot {
+      width: 12px;
+      height: 12px;
+      background: #22c55e;
+      border-radius: 50%;
+      display: inline-block;
+      position: relative;
+      z-index: 10;
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+      animation: dotPulse 2s ease-out infinite;
+    }
+
+    @keyframes dotPulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 6px rgba(34, 197, 94, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+      }
+    }
+
+    .ripple-wave {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid #22c55e;
+      opacity: 0;
+      animation: ripple 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    .ripple-1 {
+      animation-delay: 0s;
+    }
+
+    .ripple-2 {
+      animation-delay: 1.33s;
+    }
+
+    .ripple-3 {
+      animation-delay: 2.67s;
+    }
+
+    @keyframes ripple {
+      0% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+  `]
 })
 export class HeroSectionComponent implements AfterViewInit {
 
@@ -192,6 +271,7 @@ export class HeroSectionComponent implements AfterViewInit {
     this.incrementCounter(15, 80, value => this.projectsDelivered = value);
     this.incrementCounter(100, 20, value => this.qualityFocus = value);
   }
+
 
   /**
    * Increment counter step-by-step with visible latency

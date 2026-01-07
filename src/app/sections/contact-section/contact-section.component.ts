@@ -58,71 +58,56 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
                 {{ 'contact.professionalProfiles' | translate }}
               </h3>
 
-              <div class="flex flex-wrap justify-center gap-6">
+              <div class="flex flex-wrap justify-center gap-4">
                 <a href="https://www.linkedin.com/in/anass-erekysy-5a8939204/"
                    target="_blank" rel="noopener noreferrer"
-                   class="profile-link">
-                  <span class="icon-box-sm">
-                    <!-- LinkedIn -->
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M4.98 3.5A2.48 2.48 0 002.5 6a2.5 2.5 0 105 0 2.48 2.48 0 00-2.52-2.5zM2.5 21h5V8.5h-5V21zM9 8.5h4.8v1.7h.07c.67-1.27 2.3-2.6 4.73-2.6 5.05 0 6 3.32 6 7.63V21h-5v-5.6c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.96V21H9z"/>
-                    </svg>
-                  </span>
-                  LinkedIn
+                   class="social-button linkedin-button">
+                  <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                  </svg>
+                  <span class="social-text">LinkedIn</span>
                 </a>
 
                 <a href="https://github.com/AnassEREKYSY"
                    target="_blank" rel="noopener noreferrer"
-                   class="profile-link">
-                  <span class="icon-box-sm">
-                    <!-- GitHub -->
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 2C6.48 2 2 6.58 2 12.2c0 4.5 2.87 8.32 6.84 9.67.5.1.68-.22.68-.48v-1.7c-2.78.62-3.36-1.37-3.36-1.37-.46-1.18-1.11-1.5-1.11-1.5-.9-.64.07-.63.07-.63 1 .07 1.52 1.05 1.52 1.05.9 1.57 2.34 1.12 2.91.86.09-.66.35-1.12.64-1.38-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.27 2.75 1.03a9.2 9.2 0 015 0c1.9-1.3 2.74-1.03 2.74-1.03.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.8-4.57 5.06.36.32.68.95.68 1.92v2.85c0 .27.18.59.69.48A10.2 10.2 0 0022 12.2C22 6.58 17.52 2 12 2z"/>
-                    </svg>
-                  </span>
-                  GitHub
+                   class="social-button github-button">
+                  <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                  </svg>
+                  <span class="social-text">GitHub</span>
                 </a>
 
                 <a href="https://www.malt.fr/profile/anasserekysy"
                    target="_blank" rel="noopener noreferrer"
-                   class="profile-link">
-                  <span class="icon-box-sm">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                         stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M18 3h3v3"/>
-                      <path d="M10 14L21 3"/>
-                      <path d="M21 14v7H3V3h7"/>
-                    </svg>
-                  </span>
-                  Malt
+                   class="social-button malt-button">
+                  <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                       stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 3h3v3"/>
+                    <path d="M10 14L21 3"/>
+                    <path d="M21 14v7H3V3h7"/>
+                  </svg>
+                  <span class="social-text">Malt</span>
                 </a>
 
                 <a href="https://app.collective.work/collective/anass-erekysy/profile?tab=1"
                    target="_blank" rel="noopener noreferrer"
-                   class="profile-link">
-                  <span class="icon-box-sm">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                         stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M18 3h3v3"/>
-                      <path d="M10 14L21 3"/>
-                      <path d="M21 14v7H3V3h7"/>
-                    </svg>
-                  </span>
-                  Collective
+                   class="social-button collective-button">
+                  <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                       stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 3h3v3"/>
+                    <path d="M10 14L21 3"/>
+                    <path d="M21 14v7H3V3h7"/>
+                  </svg>
+                  <span class="social-text">Collective</span>
                 </a>
 
                 <a href="https://www.upwork.com/freelancers/~019f535ba57e87cbb4"
                    target="_blank" rel="noopener noreferrer"
-                   class="profile-link">
-                  <span class="icon-box-sm">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                         stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M18 3h3v3"/>
-                      <path d="M10 14L21 3"/>
-                      <path d="M21 14v7H3V3h7"/>
-                    </svg>
-                  </span>
-                  Upwork
+                   class="social-button upwork-button">
+                  <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076.008-.042c.207-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.704 2.702zm0-8.14c-2.539 0-4.51 1.649-5.31 4.366-1.22-1.834-2.148-4.036-2.687-5.892H7.828v7.112c-.002 1.406-1.141 2.546-2.547 2.546-1.405 0-2.543-1.14-2.545-2.546V3.492H0v7.112c0 2.914 2.37 5.303 5.281 5.303 2.913 0 5.283-2.389 5.283-5.303v-1.19c.529 1.107 1.182 2.229 1.974 3.221l-1.673 7.873h2.797l1.213-5.71c1.063.679 2.285 1.109 3.686 1.109 3 0 5.439-2.452 5.439-5.45 0-3-2.439-5.439-5.439-5.439z"/>
+                  </svg>
+                  <span class="social-text">Upwork</span>
                 </a>
               </div>
             </div>
@@ -162,24 +147,83 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
       color: var(--text-primary);
     }
 
-    .profile-link {
+    .social-button {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 8px;
-      min-width: 120px;
-      padding: 6px 12px;
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.06);
-      background: rgba(255,255,255,0.02);
-      color: var(--text-secondary);
-      font-size: 0.9rem;
+      gap: 10px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: white;
+      text-decoration: none;
       transition: all 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      min-width: 140px;
+      justify-content: flex-start;
     }
 
-    .profile-link:hover {
-      color: var(--accent);
-      border-color: rgba(255,255,255,0.12);
+    .social-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .social-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .social-text {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    .linkedin-button {
+      background: #0077B5;
+    }
+
+    .linkedin-button:hover {
+      background: #006399;
+    }
+
+    .github-button {
+      background: #000000;
+    }
+
+    html.light .github-button {
+      background: #24292e;
+    }
+
+    .github-button:hover {
+      background: #1a1a1a;
+    }
+
+    html.light .github-button:hover {
+      background: #1c2128;
+    }
+
+    .malt-button {
+      background: #FF6B35;
+    }
+
+    .malt-button:hover {
+      background: #e55a2b;
+    }
+
+    .collective-button {
+      background: #6366F1;
+    }
+
+    .collective-button:hover {
+      background: #4f46e5;
+    }
+
+    .upwork-button {
+      background: #14A800;
+    }
+
+    .upwork-button:hover {
+      background: #0f7d00;
     }
 
     .icon-box {
