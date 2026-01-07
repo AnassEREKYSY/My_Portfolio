@@ -5,6 +5,7 @@ import { HeroSectionComponent } from '../../sections/hero-section/hero-section.c
 import { WhatIDoSectionComponent } from '../../sections/what-i-do-section/what-i-do-section.component';
 import { ExperienceSectionComponent } from '../../sections/experience-section/experience-section.component';
 import { ProjectsSectionComponent } from '../../sections/projects-section/projects-section.component';
+import { EducationSectionComponent } from '../../sections/education-section/education-section.component';
 import { SkillsSectionComponent } from '../../sections/skills-section/skills-section.component';
 import { HowIWorkSectionComponent } from '../../sections/how-i-work-section/how-i-work-section.component';
 import { ContactSectionComponent } from '../../sections/contact-section/contact-section.component';
@@ -23,6 +24,7 @@ import { translations } from '../../translations';
     WhatIDoSectionComponent,
     ExperienceSectionComponent,
     ProjectsSectionComponent,
+    EducationSectionComponent,
     SkillsSectionComponent,
     HowIWorkSectionComponent,
     ContactSectionComponent,
@@ -38,6 +40,7 @@ import { translations } from '../../translations';
         <app-what-i-do-section></app-what-i-do-section>
         <app-experience-section></app-experience-section>
         <app-projects-section></app-projects-section>
+        <app-education-section></app-education-section>
         <app-skills-section></app-skills-section>
         <app-how-i-work-section></app-how-i-work-section>
         <app-contact-section></app-contact-section>

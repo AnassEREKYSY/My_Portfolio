@@ -35,7 +35,7 @@ interface Experience {
           </div>
           
           <!-- Experience timeline -->
-          <div class="space-y-16">
+          <div class="space-y-8">
             <article
               *ngFor="let exp of experiences; let i = index"
               class="relative"
@@ -48,67 +48,95 @@ interface Experience {
                 </div>
                 
                 <!-- Content -->
-                <div class="flex-1 pb-16 last:pb-0">
-                  <div class="card-base p-8 hover-lift">
-                    <!-- Header -->
-                    <div class="mb-8 pb-6 border-b border-dark-border">
-                      <h3 class="text-2xl font-bold text-text-primary mb-2">{{ exp.role }}</h3>
-                      <p class="text-xl text-accent font-semibold mb-3">{{ exp.company }}</p>
-                      <p class="text-sm text-text-muted font-medium">
-                        <span>{{ exp.period }}</span>
-                        <span class="mx-2 text-dark-border">•</span>
-                        <span>{{ exp.location }}</span>
-                      </p>
-                    </div>
-                    
-                    <!-- Context -->
-                    <div class="mb-8">
-                      <h4 class="text-xs font-semibold text-accent mb-3 uppercase tracking-wider">{{ 'experience.contextGoals' | translate }}</h4>
-                      <p class="text-text-secondary leading-relaxed mb-3">{{ exp.context }}</p>
-                      <p class="text-text-muted leading-relaxed italic text-sm">{{ exp.businessGoals }}</p>
-                    </div>
-                    
-                    <!-- Responsibilities -->
-                    <div class="mb-8">
-                      <h4 class="text-xs font-semibold text-accent mb-4 uppercase tracking-wider">{{ 'experience.keyResponsibilities' | translate }}</h4>
-                      <ul class="list-none space-y-3">
-                        <li *ngFor="let resp of exp.responsibilities" class="flex items-start">
-                          <span class="text-accent mr-3 mt-1.5 flex-shrink-0">▸</span>
-                          <span class="text-text-secondary leading-relaxed">{{ resp }}</span>
-                        </li>
-                      </ul>
-                    </div>
-                    
-                    <!-- Stack -->
-                    <div class="mb-8">
-                      <h4 class="text-xs font-semibold text-accent mb-4 uppercase tracking-wider">{{ 'experience.technicalStack' | translate }}</h4>
-                      <div class="flex flex-wrap gap-2">
-                        <span
-                          *ngFor="let tech of exp.stack"
-                          class="px-3 py-1.5 bg-dark-muted/50 text-text-secondary rounded border border-dark-border text-sm font-medium hover:border-accent/50 hover:text-accent transition-colors"
-                        >
-                          {{ tech }}
-                        </span>
+                <div class="flex-1 pb-8 last:pb-0">
+                  <div class="card-base overflow-hidden">
+                    <!-- Clickable Header -->
+                    <button
+                      type="button"
+                      (click)="toggleExpanded(i)"
+                      class="w-full p-8 text-left hover:bg-dark-muted/30 transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-inset"
+                    >
+                      <div class="flex justify-between items-start">
+                        <div class="flex-1">
+                          <h3 class="text-2xl font-bold text-text-primary mb-2">{{ exp.role }}</h3>
+                          <p class="text-xl text-accent font-semibold mb-3">{{ exp.company }}</p>
+                          <p class="text-sm text-text-muted font-medium">
+                            <span>{{ exp.period }}</span>
+                            <span class="mx-2 text-dark-border">•</span>
+                            <span>{{ exp.location }}</span>
+                          </p>
+                        </div>
+                        <!-- Expand/Collapse Icon -->
+                        <div class="ml-4 flex-shrink-0">
+                          <svg
+                            class="w-6 h-6 text-text-secondary transition-transform duration-300"
+                            [class.rotate-180]="isExpanded(i)"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </div>
                       </div>
-                    </div>
+                    </button>
                     
-                    <!-- Achievements -->
-                    <div class="mb-8">
-                      <h4 class="text-xs font-semibold text-accent mb-4 uppercase tracking-wider">{{ 'experience.keyAchievements' | translate }}</h4>
-                      <ul class="list-none space-y-3">
-                        <li *ngFor="let achievement of exp.achievements" class="flex items-start">
-                          <span class="text-accent mr-3 mt-1.5 flex-shrink-0">▸</span>
-                          <span class="text-text-secondary leading-relaxed">{{ achievement }}</span>
-                        </li>
-                      </ul>
-                    </div>
-                    
-                    <!-- Impact -->
-                    <div class="pt-6 mt-6 border-t border-dark-border">
-                      <p class="text-sm">
-                        <span class="text-accent font-semibold">{{ 'experience.impact' | translate }}: </span>
-                        <span class="text-text-secondary">{{ exp.impact }}</span>
-                      </p>
+                    <!-- Expandable Content -->
+                    <div
+                      class="experience-content"
+                      [class.expanded]="isExpanded(i)"
+                    >
+                      <div class="px-8 pb-8 space-y-8 border-t border-dark-border pt-8">
+                        <!-- Context -->
+                        <div>
+                          <h4 class="text-xs font-semibold text-accent mb-3 uppercase tracking-wider">{{ 'experience.contextGoals' | translate }}</h4>
+                          <p class="text-text-secondary leading-relaxed mb-3">{{ exp.context }}</p>
+                          <p class="text-text-muted leading-relaxed italic text-sm">{{ exp.businessGoals }}</p>
+                        </div>
+                        
+                        <!-- Responsibilities -->
+                        <div>
+                          <h4 class="text-xs font-semibold text-accent mb-4 uppercase tracking-wider">{{ 'experience.keyResponsibilities' | translate }}</h4>
+                          <ul class="list-none space-y-3">
+                            <li *ngFor="let resp of exp.responsibilities" class="flex items-start">
+                              <span class="text-accent mr-3 mt-1.5 flex-shrink-0">▸</span>
+                              <span class="text-text-secondary leading-relaxed">{{ resp }}</span>
+                            </li>
+                          </ul>
+                        </div>
+                        
+                        <!-- Stack -->
+                        <div>
+                          <h4 class="text-xs font-semibold text-accent mb-4 uppercase tracking-wider">{{ 'experience.technicalStack' | translate }}</h4>
+                          <div class="flex flex-wrap gap-2">
+                            <span
+                              *ngFor="let tech of exp.stack"
+                              class="px-3 py-1.5 bg-dark-muted/50 text-text-secondary rounded border border-dark-border text-sm font-medium hover:border-accent/50 hover:text-accent transition-colors"
+                            >
+                              {{ tech }}
+                            </span>
+                          </div>
+                        </div>
+                        
+                        <!-- Achievements -->
+                        <div>
+                          <h4 class="text-xs font-semibold text-accent mb-4 uppercase tracking-wider">{{ 'experience.keyAchievements' | translate }}</h4>
+                          <ul class="list-none space-y-3">
+                            <li *ngFor="let achievement of exp.achievements" class="flex items-start">
+                              <span class="text-accent mr-3 mt-1.5 flex-shrink-0">▸</span>
+                              <span class="text-text-secondary leading-relaxed">{{ achievement }}</span>
+                            </li>
+                          </ul>
+                        </div>
+                        
+                        <!-- Impact -->
+                        <div class="pt-6 border-t border-dark-border">
+                          <p class="text-sm">
+                            <span class="text-accent font-semibold">{{ 'experience.impact' | translate }}: </span>
+                            <span class="text-text-secondary">{{ exp.impact }}</span>
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -119,10 +147,35 @@ interface Experience {
       </div>
     </section>
   `,
-  styles: []
+  styles: [`
+    .experience-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
+      opacity: 0;
+    }
+
+    .experience-content.expanded {
+      max-height: 5000px;
+      opacity: 1;
+    }
+  `]
 })
 export class ExperienceSectionComponent {
   private translationService = inject(TranslationService);
+  expandedIndexes = new Set<number>();
+
+  toggleExpanded(index: number): void {
+    if (this.expandedIndexes.has(index)) {
+      this.expandedIndexes.delete(index);
+    } else {
+      this.expandedIndexes.add(index);
+    }
+  }
+
+  isExpanded(index: number): boolean {
+    return this.expandedIndexes.has(index);
+  }
   
   get experiences(): Experience[] {
     const lang = this.translationService.currentLanguage();

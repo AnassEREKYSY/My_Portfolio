@@ -172,6 +172,28 @@ export const translations: Record<'en' | 'fr', Translations> = {
         impact: 'Supported the delivery of a functional judicial application in a real-world institutional context.'
       }
     },
+    education: {
+      title: 'Education',
+      subtitle: 'Academic background and professional training',
+      degree1: {
+        title: 'Master\'s Degree - Information Systems Development (Web Development Track)',
+        institution: 'H3 Hitema',
+        location: 'Paris, France',
+        period: '09/2023 - 08/2025'
+      },
+      degree2: {
+        title: 'Bachelor\'s Degree - Computer Science (Software Development Track)',
+        institution: 'Aix-Marseille University',
+        location: 'Marseille, France',
+        period: '09/2022 - 07/2023'
+      },
+      degree3: {
+        title: 'DUT - Computer Engineering (Software Engineering Option)',
+        institution: 'Higher School of Technology',
+        location: 'Meknès, Morocco',
+        period: '09/2020 - 07/2022'
+      }
+    },
     projects: {
       title: 'Selected Projects',
       subtitle: 'Real-world projects showcasing architecture choices, technical depth, and delivery-focused engineering.',
@@ -319,7 +341,39 @@ export const translations: Record<'en' | 'fr', Translations> = {
     skills: {
       title: 'Skills & Tooling',
       subtitle: 'Technical expertise and tools I use to build reliable, scalable applications',
-      methodologies: 'Methodologies & Practices'
+      methodologies: 'Methodologies & Practices',
+      frontendCategory: 'Frontend',
+      backendCategory: 'Backend',
+      devopsCloudCategory: 'DevOps & Cloud',
+      qaTestingCategory: 'QA & Testing',
+      databasesCategory: 'Databases',
+      architectureDesignCategory: 'Architecture & Design',
+      toolsCollaborationCategory: 'Tools & Collaboration',
+      responsiveDesign: 'Responsive Design',
+      pwaConcepts: 'PWA concepts',
+      restAPIs: 'REST APIs',
+      authAuth: 'Authentication & Authorization',
+      ovhHosting: 'OVH Hosting',
+      shellBash: 'Shell / Bash',
+      unitTesting: 'Unit Testing',
+      integrationTesting: 'Integration Testing',
+      e2eTesting: 'E2E Testing',
+      testAutomation: 'Test Automation',
+      databaseDesign: 'Database Design',
+      queryOptimization: 'Query Optimization',
+      cleanArchitecture: 'Clean Architecture',
+      solidPrinciples: 'SOLID Principles',
+      layeredArchitecture: 'Layered Architecture',
+      designPatterns: 'Design Patterns',
+      agileScrum: 'Agile / Scrum',
+      vModel: 'V-Model',
+      safeBasic: 'SAFe (basic)',
+      codeReview: 'Code Review',
+      documentation: 'Documentation',
+      userStories: 'User Stories',
+      dorDod: 'DoR / DoD',
+      raci: 'RACI',
+      rice: 'RICE'
     },
     contact: {
       title: 'Let\'s Work Together',
@@ -559,6 +613,28 @@ export const translations: Record<'en' | 'fr', Translations> = {
         impact: 'Soutien à la livraison d\'une application judiciaire fonctionnelle dans un contexte institutionnel réel.'
       }
     },
+    education: {
+      title: 'Formation',
+      subtitle: 'Parcours académique et formation professionnelle',
+      degree1: {
+        title: 'Master Expert en développement du SI - option développement web',
+        institution: 'H3 Hitema',
+        location: 'Paris, France',
+        period: '09/2023 - 08/2025'
+      },
+      degree2: {
+        title: 'Licence informatique parcours métiers du développement informatique',
+        institution: 'Université d\'Aix-Marseille',
+        location: 'Marseille, France',
+        period: '09/2022 - 07/2023'
+      },
+      degree3: {
+        title: 'DUT génie informatique option génie logiciel',
+        institution: 'Ecole Supérieur de Technologie',
+        location: 'Meknès, Morocco',
+        period: '09/2020 - 07/2022'
+      }
+    },
     projects: {
       title: 'Projets Sélectionnés',
       subtitle: 'Projets réels mettant en valeur les choix d\'architecture, la profondeur technique et l\'ingénierie axée sur la livraison.',
@@ -706,7 +782,39 @@ export const translations: Record<'en' | 'fr', Translations> = {
     skills: {
       title: 'Compétences & Outils',
       subtitle: 'Expertise technique et outils que j\'utilise pour construire des applications fiables et scalables',
-      methodologies: 'Méthodologies & Pratiques'
+      methodologies: 'Méthodologies & Pratiques',
+      frontendCategory: 'Frontend',
+      backendCategory: 'Backend',
+      devopsCloudCategory: 'DevOps & Cloud',
+      qaTestingCategory: 'QA & Tests',
+      databasesCategory: 'Bases de données',
+      architectureDesignCategory: 'Architecture & Design',
+      toolsCollaborationCategory: 'Outils & Collaboration',
+      responsiveDesign: 'Design Responsive',
+      pwaConcepts: 'Concepts PWA',
+      restAPIs: 'APIs REST',
+      authAuth: 'Authentification & Autorisation',
+      ovhHosting: 'Hébergement OVH',
+      shellBash: 'Shell / Bash',
+      unitTesting: 'Tests Unitaires',
+      integrationTesting: 'Tests d\'Intégration',
+      e2eTesting: 'Tests E2E',
+      testAutomation: 'Automatisation des Tests',
+      databaseDesign: 'Conception de Base de Données',
+      queryOptimization: 'Optimisation de Requêtes',
+      cleanArchitecture: 'Architecture Propre',
+      solidPrinciples: 'Principes SOLID',
+      layeredArchitecture: 'Architecture en Couches',
+      designPatterns: 'Design Patterns',
+      agileScrum: 'Agile / Scrum',
+      vModel: 'Modèle V',
+      safeBasic: 'SAFe (base)',
+      codeReview: 'Revue de Code',
+      documentation: 'Documentation',
+      userStories: 'User Stories',
+      dorDod: 'DoR / DoD',
+      raci: 'RACI',
+      rice: 'RICE'
     },
     contact: {
       title: 'Travaillons ensemble',

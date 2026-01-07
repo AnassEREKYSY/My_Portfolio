@@ -82,7 +82,7 @@ interface Project {
     <!-- MODAL -->
     <div
       *ngIf="selectedProject"
-      class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm"
+      class="modal-overlay"
       (click)="closeProject()"
     >
       <div class="modal-card" (click)="$event.stopPropagation()">
@@ -178,19 +178,51 @@ interface Project {
       padding: 4px 10px;
       font-size: 0.75rem;
       border-radius: 9999px;
-      border: 1px solid var(--dark-border);
+      border: 1px solid var(--border);
       color: var(--text-secondary);
-      background: rgba(255,255,255,0.05);
+      background: rgba(255, 255, 255, 0.05);
+      transition: all 0.2s ease;
+    }
+
+    html.light .tech-chip {
+      background: rgba(0, 0, 0, 0.05);
+      border-color: var(--border);
+    }
+
+    .tech-chip:hover {
+      border-color: var(--accent);
+      color: var(--accent);
     }
 
     .repo-link {
       font-size: 0.85rem;
       color: var(--accent);
       font-weight: 500;
+      transition: opacity 0.2s ease;
+    }
+
+    .repo-link:hover {
+      opacity: 0.8;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    html.light .modal-overlay {
+      background: rgba(0, 0, 0, 0.5);
     }
 
     .modal-card {
-      background: rgba(26, 33, 50, 0.6);
+      background: var(--surface);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-radius: 16px;
@@ -199,7 +231,12 @@ interface Project {
       max-height: 85vh;
       overflow-y: auto;
       padding: 36px;
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    }
+
+    html.light .modal-card {
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.05);
     }
 
     .modal-section-title {
@@ -214,6 +251,25 @@ interface Project {
     .modal-text {
       color: var(--text-secondary);
       line-height: 1.6;
+    }
+
+    /* Scrollbar styling for modal */
+    .modal-card::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .modal-card::-webkit-scrollbar-track {
+      background: var(--muted);
+      border-radius: 4px;
+    }
+
+    .modal-card::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+
+    .modal-card::-webkit-scrollbar-thumb:hover {
+      background: var(--accent);
     }
   `]
 })
