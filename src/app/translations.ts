@@ -207,6 +207,29 @@ export const translations: Record<'en' | 'fr', Translations> = {
       sourceCode: 'Source Code',
       githubRepo: 'GitHub Repository',
       proj1: {
+        description: 'Job market intelligence platform designed to analyze hiring trends, salaries, and demand by location and technology.',
+        problem: 'Developers, recruiters, and decision-makers lack a clear and centralized view of the job market. Data is fragmented across platforms, insights are shallow, and geographic indicators are often missing or unreliable.',
+        solution: 'Design and development of a full-stack analytical platform that aggregates job data from multiple external APIs, normalizes and stores it, and exposes actionable insights through dashboards and interactive maps.',
+        features: [
+          'Advanced job search by keyword, location, and criteria',
+          'Analytical dashboards highlighting job market trends',
+          'Interactive maps showing job density and salary distribution',
+          'Dynamic data visualizations with charts',
+          'Paginated and filterable job listings',
+          'Caching layer to improve performance and reduce API costs'
+        ],
+        highlights: [
+          'Backend built with .NET 8 following Clean Architecture principles',
+          'Aggregation and normalization of data from multiple external job APIs',
+          'Redis caching to optimize performance and response times',
+          'PostgreSQL for data persistence and analytical queries',
+          'Angular 19 frontend with advanced charts and map visualizations',
+          'Fully containerized application using Docker'
+        ],
+        impact: 'Provides clear insights into the job market, supports career and recruitment decision-making, and demonstrates the ability to build data-driven, production-ready analytical systems.',
+        role: 'Full Stack Developer – Architecture design, backend and frontend development, external API integration, caching strategy, and Dockerization'
+      },
+      proj2: {
         description: 'B2B SaaS application for invoice management and automated payment follow-ups.',
         problem: 'Small and medium businesses relied on manual invoice tracking and reminders, leading to delayed payments and poor cash-flow visibility.',
         solution: 'Design and development of a modular SaaS platform with dedicated backend services to manage invoices, automate reminders, and track payment statuses.',
@@ -226,7 +249,7 @@ export const translations: Record<'en' | 'fr', Translations> = {
         impact: 'Improved payment follow-up efficiency and provided better cash-flow visibility for businesses.',
         role: 'Full Stack Developer – Architecture design, frontend development, backend services, DevOps setup'
       },
-      proj2: {
+      proj3: {
         description: 'Music streaming web application inspired by Spotify, focused on playlists and user interactions.',
         problem: 'Users needed a simple platform to browse music, manage playlists, and interact with content in a clean UI.',
         solution: 'Development of a full-stack web application integrating the Spotify Developer API for music data and user features.',
@@ -245,7 +268,7 @@ export const translations: Record<'en' | 'fr', Translations> = {
         impact: 'Delivered a functional streaming-like experience with essential social and playlist features.',
         role: 'Full Stack Developer – Frontend, backend APIs, external API integration'
       },
-      proj3: {
+      proj4: {
         description: 'Cryptocurrency monitoring platform for tracking prices and market trends.',
         problem: 'Crypto users needed a clear and reliable way to monitor market prices and trends in real time.',
         solution: 'Development of a web application consuming public crypto APIs and presenting market data through dashboards.',
@@ -264,7 +287,7 @@ export const translations: Record<'en' | 'fr', Translations> = {
         impact: 'Enabled users to easily monitor crypto markets through a centralized interface.',
         role: 'Full Stack Developer – API integration, authentication, frontend development'
       },
-      proj4: {
+      proj5: {
         description: 'E-commerce web application for online product sales and payment processing.',
         problem: 'Need for a simple, secure, and complete e-commerce workflow for online sales.',
         solution: 'Development of a full-stack e-commerce platform covering product catalog, cart, checkout, and payments.',
@@ -283,7 +306,7 @@ export const translations: Record<'en' | 'fr', Translations> = {
         impact: 'Provided a functional and secure e-commerce solution ready for online sales.',
         role: 'Full Stack Developer – E-commerce features, payment integration, backend APIs'
       },
-      proj5: {
+      proj6: {
         description: 'Marketplace platform connecting startups with potential investors.',
         problem: 'Startups lacked a centralized platform to showcase projects and reach investors efficiently.',
         solution: 'Development of a marketplace web application enabling project presentation and user interactions.',
@@ -301,7 +324,7 @@ export const translations: Record<'en' | 'fr', Translations> = {
         impact: 'Enabled startups to showcase projects and connect with potential investors.',
         role: 'Full Stack Developer – Marketplace design and implementation'
       },
-      proj6: {
+      proj7: {
         description: 'Web application for tracking TV series and movies.',
         problem: 'Users wanted an easy way to track watched content and discover new shows.',
         solution: 'Development of a web application integrating external movie and TV APIs.',
@@ -319,7 +342,7 @@ export const translations: Record<'en' | 'fr', Translations> = {
         impact: 'Delivered a lightweight and user-friendly entertainment tracking application.',
         role: 'Full Stack Developer – Frontend, backend, and API integration'
       },
-      proj7: {
+      proj8: {
         description: 'Backend system for a digital wallet supporting cashless transactions through an agent-based model.',
         problem: 'Digital wallet applications require secure, consistent, and auditable transaction handling.',
         solution: 'Development of backend services managing wallet balances, deposits, withdrawals, and transaction workflows.',
@@ -649,6 +672,29 @@ export const translations: Record<'en' | 'fr', Translations> = {
       sourceCode: 'Code Source',
       githubRepo: 'Dépôt GitHub',
       proj1: {
+        description: 'Plateforme d’intelligence du marché de l’emploi permettant d’analyser les tendances de recrutement, les salaires et la demande par localisation et technologie.',
+        problem: 'Les développeurs, recruteurs et décideurs manquent d’une vision claire et centralisée du marché de l’emploi : données dispersées, peu d’analyses exploitables et absence d’indicateurs géographiques fiables.',
+        solution: 'Conception et développement d’une plateforme full-stack collectant des données issues de plusieurs APIs d’offres d’emploi, les normalisant, les stockant et les exposant via des tableaux de bord analytiques et des cartes interactives.',
+        features: [
+          'Recherche avancée d’offres d’emploi par mot-clé, localisation et critères',
+          'Tableaux de bord analytiques sur les tendances du marché',
+          'Cartes interactives de densité d’offres et de salaires',
+          'Visualisation des données par graphiques dynamiques',
+          'Pagination et filtrage des résultats',
+          'Mise en cache pour améliorer les performances et réduire les coûts API'
+        ],
+        highlights: [
+          'Architecture backend en .NET 8 avec principes Clean Architecture',
+          'Agrégation et normalisation de données issues de plusieurs APIs externes',
+          'Caching avec Redis pour optimiser les performances',
+          'Base de données PostgreSQL pour l’analyse et la persistance',
+          'Frontend Angular 19 avec visualisations avancées (charts & maps)',
+          'Application entièrement conteneurisée avec Docker'
+        ],
+        impact: 'Permet une meilleure compréhension du marché de l’emploi, aide à la prise de décision carrière ou recrutement et démontre une capacité à concevoir des systèmes analytiques orientés données.',
+        role: 'Développeur Full Stack – Conception de l’architecture, développement backend et frontend, intégration d’APIs externes, mise en cache et Dockerisation'
+      },
+      proj2: {
         description: 'Application SaaS B2B pour la gestion des factures et le suivi automatisé des paiements.',
         problem: 'Les petites et moyennes entreprises dépendaient du suivi manuel des factures et des rappels, entraînant des retards de paiement et une mauvaise visibilité de la trésorerie.',
         solution: 'Conception et développement d\'une plateforme SaaS modulaire avec des services backend dédiés pour gérer les factures, automatiser les rappels et suivre les statuts de paiement.',
@@ -668,7 +714,7 @@ export const translations: Record<'en' | 'fr', Translations> = {
         impact: 'Amélioration de l\'efficacité du suivi des paiements et meilleure visibilité de la trésorerie pour les entreprises.',
         role: 'Développeur Full Stack – Conception d\'architecture, développement frontend, services backend, configuration DevOps'
       },
-      proj2: {
+      proj3: {
         description: 'Application web de streaming musical inspirée de Spotify, axée sur les playlists et les interactions utilisateur.',
         problem: 'Les utilisateurs avaient besoin d\'une plateforme simple pour parcourir la musique, gérer les playlists et interagir avec le contenu dans une interface propre.',
         solution: 'Développement d\'une application web full-stack intégrant l\'API Spotify Developer pour les données musicales et les fonctionnalités utilisateur.',
@@ -687,7 +733,7 @@ export const translations: Record<'en' | 'fr', Translations> = {
         impact: 'Livraison d\'une expérience de streaming fonctionnelle avec des fonctionnalités sociales et de playlist essentielles.',
         role: 'Développeur Full Stack – Frontend, APIs backend, intégration d\'API externe'
       },
-      proj3: {
+      proj4: {
         description: 'Plateforme de suivi des cryptomonnaies pour le suivi des prix et des tendances du marché.',
         problem: 'Les utilisateurs de crypto avaient besoin d\'un moyen clair et fiable de suivre les prix du marché et les tendances en temps réel.',
         solution: 'Développement d\'une application web consommant des APIs crypto publiques et présentant les données du marché via des tableaux de bord.',
@@ -706,7 +752,7 @@ export const translations: Record<'en' | 'fr', Translations> = {
         impact: 'Permis aux utilisateurs de suivre facilement les marchés crypto via une interface centralisée.',
         role: 'Développeur Full Stack – Intégration d\'API, authentification, développement frontend'
       },
-      proj4: {
+      proj5: {
         description: 'Application web e-commerce pour la vente en ligne de produits et le traitement des paiements.',
         problem: 'Besoin d\'un workflow e-commerce simple, sécurisé et complet pour les ventes en ligne.',
         solution: 'Développement d\'une plateforme e-commerce full-stack couvrant le catalogue de produits, le panier, le checkout et les paiements.',
@@ -725,7 +771,7 @@ export const translations: Record<'en' | 'fr', Translations> = {
         impact: 'Fourni une solution e-commerce fonctionnelle et sécurisée prête pour les ventes en ligne.',
         role: 'Développeur Full Stack – Fonctionnalités e-commerce, intégration de paiement, APIs backend'
       },
-      proj5: {
+      proj6: {
         description: 'Plateforme de marketplace connectant les startups avec des investisseurs potentiels.',
         problem: 'Les startups manquaient d\'une plateforme centralisée pour présenter leurs projets et atteindre efficacement les investisseurs.',
         solution: 'Développement d\'une application web marketplace permettant la présentation de projets et les interactions utilisateur.',
@@ -743,7 +789,7 @@ export const translations: Record<'en' | 'fr', Translations> = {
         impact: 'Permis aux startups de présenter leurs projets et de se connecter avec des investisseurs potentiels.',
         role: 'Développeur Full Stack – Conception et implémentation de marketplace'
       },
-      proj6: {
+      proj7: {
         description: 'Application web pour le suivi des séries TV et des films.',
         problem: 'Les utilisateurs voulaient un moyen simple de suivre le contenu regardé et découvrir de nouvelles séries.',
         solution: 'Développement d\'une application web intégrant des APIs externes de films et de séries TV.',
@@ -761,7 +807,7 @@ export const translations: Record<'en' | 'fr', Translations> = {
         impact: 'Livraison d\'une application de suivi de divertissement légère et conviviale.',
         role: 'Développeur Full Stack – Frontend, backend et intégration d\'API'
       },
-      proj7: {
+      proj8: {
         description: 'Système backend pour un portefeuille numérique supportant les transactions sans espèces via un modèle basé sur des agents.',
         problem: 'Les applications de portefeuille numérique nécessitent une gestion de transactions sécurisée, cohérente et auditable.',
         solution: 'Développement de services backend gérant les soldes de portefeuille, les dépôts, les retraits et les workflows de transaction.',
@@ -886,4 +932,3 @@ export const translations: Record<'en' | 'fr', Translations> = {
     }
   }
 };
-

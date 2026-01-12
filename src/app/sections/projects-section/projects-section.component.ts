@@ -290,11 +290,40 @@ export class ProjectsSectionComponent {
 
   get projects(): Project[] {
     return [
+      {
+        name: 'MarketPulse',
+        description: this.translationService.translate('projects.proj1.description'),
+        problem: this.translationService.translate('projects.proj1.problem'),
+        solution: this.translationService.translate('projects.proj1.solution'),
+        stack: [
+          'Angular',
+          '.NET 8',
+          'Redis',
+          'Docker',
+          'Nginx',
+          'CI/CD',
+          'External Job APIs (Adzuna)'
+        ],
+        features: this.translationService.translateArray('projects.proj1.features'),
+        highlights: this.translationService.translateArray('projects.proj1.highlights'),
+        impact: this.translationService.translate('projects.proj1.impact'),
+        role: this.translationService.translate('projects.proj1.role'),
+        githubRepos: [
+          {
+            label: 'GitHub Repository',
+            url: 'https://marketpulse.anasserekysy.com/'
+          },
+          {
+            label: 'MarketPulse',
+            url: 'https://github.com/AnassEREKYSY/MarketPulse'
+          }
+        ]
+      },
     {
       name: 'PayChase',
-      description: this.translationService.translate('projects.proj1.description'),
-      problem: this.translationService.translate('projects.proj1.problem'),
-      solution: this.translationService.translate('projects.proj1.solution'),
+      description: this.translationService.translate('projects.proj2.description'),
+      problem: this.translationService.translate('projects.proj2.problem'),
+      solution: this.translationService.translate('projects.proj2.solution'),
       stack: [
         'Angular',
         '.NET',
@@ -303,10 +332,10 @@ export class ProjectsSectionComponent {
         'Docker',
         'CI/CD'
       ],
-      features: this.translationService.translateArray('projects.proj1.features'),
-      highlights: this.translationService.translateArray('projects.proj1.highlights'),
-      impact: this.translationService.translate('projects.proj1.impact'),
-      role: this.translationService.translate('projects.proj1.role'),
+      features: this.translationService.translateArray('projects.proj2.features'),
+      highlights: this.translationService.translateArray('projects.proj2.highlights'),
+      impact: this.translationService.translate('projects.proj2.impact'),
+      role: this.translationService.translate('projects.proj2.role'),
       githubRepos: [
         {
           label: 'Auth Service',
@@ -321,19 +350,19 @@ export class ProjectsSectionComponent {
   
     {
       name: 'Melodify',
-      description: this.translationService.translate('projects.proj2.description'),
-      problem: this.translationService.translate('projects.proj2.problem'),
-      solution: this.translationService.translate('projects.proj2.solution'),
+      description: this.translationService.translate('projects.proj3.description'),
+      problem: this.translationService.translate('projects.proj3.problem'),
+      solution: this.translationService.translate('projects.proj3.solution'),
       stack: [
         'Angular',
         '.NET',
         'SQL',
         'Spotify Developer API'
       ],
-      features: this.translationService.translateArray('projects.proj2.features'),
-      highlights: this.translationService.translateArray('projects.proj2.highlights'),
-      impact: this.translationService.translate('projects.proj2.impact'),
-      role: this.translationService.translate('projects.proj2.role'),
+      features: this.translationService.translateArray('projects.proj3.features'),
+      highlights: this.translationService.translateArray('projects.proj3.highlights'),
+      impact: this.translationService.translate('projects.proj3.impact'),
+      role: this.translationService.translate('projects.proj3.role'),
       githubRepos: [
         {
           label: 'GitHub Repository',
@@ -344,19 +373,19 @@ export class ProjectsSectionComponent {
   
     {
       name: 'CoinHawk',
-      description: this.translationService.translate('projects.proj3.description'),
-      problem: this.translationService.translate('projects.proj3.problem'),
-      solution: this.translationService.translate('projects.proj3.solution'),
+      description: this.translationService.translate('projects.proj4.description'),
+      problem: this.translationService.translate('projects.proj4.problem'),
+      solution: this.translationService.translate('projects.proj4.solution'),
       stack: [
         'Angular',
         '.NET',
         'External Crypto APIs',
         'Keycloak'
       ],
-      features: this.translationService.translateArray('projects.proj3.features'),
-      highlights: this.translationService.translateArray('projects.proj3.highlights'),
-      impact: this.translationService.translate('projects.proj3.impact'),
-      role: this.translationService.translate('projects.proj3.role'),
+      features: this.translationService.translateArray('projects.proj4.features'),
+      highlights: this.translationService.translateArray('projects.proj4.highlights'),
+      impact: this.translationService.translate('projects.proj4.impact'),
+      role: this.translationService.translate('projects.proj4.role'),
       githubRepos: [
         {
           label: 'GitHub Repository',
@@ -367,19 +396,19 @@ export class ProjectsSectionComponent {
   
     {
       name: 'Skinet',
-      description: this.translationService.translate('projects.proj4.description'),
-      problem: this.translationService.translate('projects.proj4.problem'),
-      solution: this.translationService.translate('projects.proj4.solution'),
+      description: this.translationService.translate('projects.proj5.description'),
+      problem: this.translationService.translate('projects.proj5.problem'),
+      solution: this.translationService.translate('projects.proj5.solution'),
       stack: [
         'Angular',
         '.NET',
         'SQL',
         'Stripe'
       ],
-      features: this.translationService.translateArray('projects.proj4.features'),
-      highlights: this.translationService.translateArray('projects.proj4.highlights'),
-      impact: this.translationService.translate('projects.proj4.impact'),
-      role: this.translationService.translate('projects.proj4.role'),
+      features: this.translationService.translateArray('projects.proj5.features'),
+      highlights: this.translationService.translateArray('projects.proj5.highlights'),
+      impact: this.translationService.translate('projects.proj5.impact'),
+      role: this.translationService.translate('projects.proj5.role'),
       githubRepos: [
         {
           label: 'GitHub Repository',
@@ -390,17 +419,17 @@ export class ProjectsSectionComponent {
   
     {
       name: 'RaiseUp',
-      description: this.translationService.translate('projects.proj5.description'),
-      problem: this.translationService.translate('projects.proj5.problem'),
-      solution: this.translationService.translate('projects.proj5.solution'),
+      description: this.translationService.translate('projects.proj6.description'),
+      problem: this.translationService.translate('projects.proj6.problem'),
+      solution: this.translationService.translate('projects.proj6.solution'),
       stack: [
         'Angular',
         'Node.js'
       ],
-      features: this.translationService.translateArray('projects.proj5.features'),
-      highlights: this.translationService.translateArray('projects.proj5.highlights'),
-      impact: this.translationService.translate('projects.proj5.impact'),
-      role: this.translationService.translate('projects.proj5.role'),
+      features: this.translationService.translateArray('projects.proj6.features'),
+      highlights: this.translationService.translateArray('projects.proj6.highlights'),
+      impact: this.translationService.translate('projects.proj6.impact'),
+      role: this.translationService.translate('projects.proj6.role'),
       githubRepos: [
         {
           label: 'GitHub Repository',
@@ -411,18 +440,18 @@ export class ProjectsSectionComponent {
   
     {
       name: 'ShowTracker',
-      description: this.translationService.translate('projects.proj6.description'),
-      problem: this.translationService.translate('projects.proj6.problem'),
-      solution: this.translationService.translate('projects.proj6.solution'),
+      description: this.translationService.translate('projects.proj7.description'),
+      problem: this.translationService.translate('projects.proj7.problem'),
+      solution: this.translationService.translate('projects.proj7.solution'),
       stack: [
         'Angular',
         'Node.js',
         'External Content APIs'
       ],
-      features: this.translationService.translateArray('projects.proj6.features'),
-      highlights: this.translationService.translateArray('projects.proj6.highlights'),
-      impact: this.translationService.translate('projects.proj6.impact'),
-      role: this.translationService.translate('projects.proj6.role'),
+      features: this.translationService.translateArray('projects.proj7.features'),
+      highlights: this.translationService.translateArray('projects.proj7.highlights'),
+      impact: this.translationService.translate('projects.proj7.impact'),
+      role: this.translationService.translate('projects.proj7.role'),
       githubRepos: [
         {
           label: 'GitHub Repository',
@@ -433,19 +462,19 @@ export class ProjectsSectionComponent {
   
     {
       name: 'YallaPay',
-      description: this.translationService.translate('projects.proj7.description'),
-      problem: this.translationService.translate('projects.proj7.problem'),
-      solution: this.translationService.translate('projects.proj7.solution'),
+      description: this.translationService.translate('projects.proj8.description'),
+      problem: this.translationService.translate('projects.proj8.problem'),
+      solution: this.translationService.translate('projects.proj8.solution'),
       stack: [
         'Node.js',
         'JavaScript',
         'Docker',
         'CI/CD'
       ],
-      features: this.translationService.translateArray('projects.proj7.features'),
-      highlights: this.translationService.translateArray('projects.proj7.highlights'),
-      impact: this.translationService.translate('projects.proj7.impact'),
-      role: this.translationService.translate('projects.proj7.role'),
+      features: this.translationService.translateArray('projects.proj8.features'),
+      highlights: this.translationService.translateArray('projects.proj8.highlights'),
+      impact: this.translationService.translate('projects.proj8.impact'),
+      role: this.translationService.translate('projects.proj8.role'),
       githubRepos: [
         {
           label: 'GitHub Repository',
