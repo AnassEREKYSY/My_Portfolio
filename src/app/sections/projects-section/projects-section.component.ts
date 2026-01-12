@@ -311,7 +311,7 @@ export class ProjectsSectionComponent {
         githubRepos: [
           {
             label: 'GitHub Repository',
-            url: 'https://marketpulse.anasserekysy.com/'
+            url: 'https://marketpulse.anasserekysy.com/' 
           },
           {
             label: 'MarketPulse',
