@@ -311,11 +311,11 @@ export class ProjectsSectionComponent {
         githubRepos: [
           {
             label: 'GitHub Repository',
-            url: 'https://marketpulse.anasserekysy.com/' 
+            url: 'https://github.com/AnassEREKYSY/MarketPulse' 
           },
           {
             label: 'MarketPulse',
-            url: 'https://github.com/AnassEREKYSY/MarketPulse'
+            url: 'https://marketpulse.anasserekysy.com/'
           }
         ]
       },
