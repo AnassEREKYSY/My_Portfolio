@@ -13,6 +13,8 @@ interface Project {
   highlights: string[];
   impact: string;
   role: string;
+  imageUrl?: string;
+  hasEmptyIcon?: boolean;
   githubRepos: {
     label: string;
     url: string;
@@ -45,10 +47,40 @@ interface Project {
               (click)="openProject(project)"
               class="card-base p-7 hover-lift cursor-pointer flex flex-col"
             >
-              <h3 class="text-xl font-bold text-text-primary mb-3">
+              <!-- Title at top -->
+              <h3 class="text-xl font-bold text-text-primary mb-4">
                 {{ project.name }}
               </h3>
 
+              <!-- Image in middle (biggest section) -->
+              <div class="project-image-container mb-4">
+                <img
+                  *ngIf="project.imageUrl && !project.hasEmptyIcon"
+                  [src]="project.imageUrl"
+                  [alt]="project.name"
+                  class="project-image"
+                />
+                <div
+                  *ngIf="project.hasEmptyIcon"
+                  class="empty-icon-container"
+                >
+                  <svg
+                    class="empty-icon"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    />
+                  </svg>
+                </div>
+              </div>
+
+              <!-- Description -->
               <p class="text-text-secondary text-sm mb-4 leading-relaxed">
                 {{ project.description }}
               </p>
@@ -271,6 +303,54 @@ interface Project {
     .modal-card::-webkit-scrollbar-thumb:hover {
       background: var(--accent);
     }
+
+    .project-image-container {
+      width: 100%;
+      min-height: 200px;
+      max-height: 300px;
+      overflow: hidden;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.03);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    html.light .project-image-container {
+      background: rgba(0, 0, 0, 0.03);
+    }
+
+    .project-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .card-base:hover .project-image {
+      transform: scale(1.05);
+    }
+
+    .empty-icon-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      color: var(--text-muted);
+    }
+
+    .empty-icon {
+      width: 80px;
+      height: 80px;
+      opacity: 0.5;
+    }
+
+    html.light .empty-icon-container {
+      color: var(--text-muted);
+    }
   `]
 })
 export class ProjectsSectionComponent {
@@ -308,6 +388,7 @@ export class ProjectsSectionComponent {
         highlights: this.translationService.translateArray('projects.proj1.highlights'),
         impact: this.translationService.translate('projects.proj1.impact'),
         role: this.translationService.translate('projects.proj1.role'),
+        imageUrl: 'assets/MarketPulse.png',
         githubRepos: [
           {
             label: 'GitHub Repository',
@@ -336,6 +417,7 @@ export class ProjectsSectionComponent {
       highlights: this.translationService.translateArray('projects.proj2.highlights'),
       impact: this.translationService.translate('projects.proj2.impact'),
       role: this.translationService.translate('projects.proj2.role'),
+      hasEmptyIcon: true,
       githubRepos: [
         {
           label: 'Auth Service',
@@ -363,10 +445,68 @@ export class ProjectsSectionComponent {
       highlights: this.translationService.translateArray('projects.proj3.highlights'),
       impact: this.translationService.translate('projects.proj3.impact'),
       role: this.translationService.translate('projects.proj3.role'),
+      imageUrl: 'assets/Melodify.png',
       githubRepos: [
         {
           label: 'GitHub Repository',
           url: 'https://github.com/AnassEREKYSY/Melodify'
+        },
+        {
+          label: 'Melodify',
+          url: 'https://melodify.anasserekysy.com/'
+        }
+      ]
+    },
+  
+    {
+      name: 'RaiseUp',
+      description: this.translationService.translate('projects.proj6.description'),
+      problem: this.translationService.translate('projects.proj6.problem'),
+      solution: this.translationService.translate('projects.proj6.solution'),
+      stack: [
+        'Angular',
+        'Node.js'
+      ],
+      features: this.translationService.translateArray('projects.proj6.features'),
+      highlights: this.translationService.translateArray('projects.proj6.highlights'),
+      impact: this.translationService.translate('projects.proj6.impact'),
+      role: this.translationService.translate('projects.proj6.role'),
+      imageUrl: 'assets/RaiseUp.png',
+      githubRepos: [
+        {
+          label: 'GitHub Repository',
+          url: 'https://github.com/AnassEREKYSY/RaiseUp'
+        },
+        {
+          label: 'RaiseUp',
+          url: 'https://raiseup.anasserekysy.com/'
+        }
+      ]
+    },
+  
+    {
+      name: 'ShowTracker',
+      description: this.translationService.translate('projects.proj7.description'),
+      problem: this.translationService.translate('projects.proj7.problem'),
+      solution: this.translationService.translate('projects.proj7.solution'),
+      stack: [
+        'Angular',
+        'Node.js',
+        'External Content APIs'
+      ],
+      features: this.translationService.translateArray('projects.proj7.features'),
+      highlights: this.translationService.translateArray('projects.proj7.highlights'),
+      impact: this.translationService.translate('projects.proj7.impact'),
+      role: this.translationService.translate('projects.proj7.role'),
+      imageUrl: 'assets/ShowTracker.png',
+      githubRepos: [
+        {
+          label: 'GitHub Repository',
+          url: 'https://github.com/AnassEREKYSY/ShowTracker'
+        },
+        {
+          label: 'ShowTracker',
+          url: 'https://showtracker.anasserekysy.com/'
         }
       ]
     },
@@ -386,6 +526,7 @@ export class ProjectsSectionComponent {
       highlights: this.translationService.translateArray('projects.proj4.highlights'),
       impact: this.translationService.translate('projects.proj4.impact'),
       role: this.translationService.translate('projects.proj4.role'),
+      imageUrl: 'assets/CoinHawk.png',
       githubRepos: [
         {
           label: 'GitHub Repository',
@@ -409,53 +550,11 @@ export class ProjectsSectionComponent {
       highlights: this.translationService.translateArray('projects.proj5.highlights'),
       impact: this.translationService.translate('projects.proj5.impact'),
       role: this.translationService.translate('projects.proj5.role'),
+      imageUrl: 'assets/Skinet.jpg',
       githubRepos: [
         {
           label: 'GitHub Repository',
           url: 'https://github.com/AnassEREKYSY/SkiNet'
-        }
-      ]
-    },
-  
-    {
-      name: 'RaiseUp',
-      description: this.translationService.translate('projects.proj6.description'),
-      problem: this.translationService.translate('projects.proj6.problem'),
-      solution: this.translationService.translate('projects.proj6.solution'),
-      stack: [
-        'Angular',
-        'Node.js'
-      ],
-      features: this.translationService.translateArray('projects.proj6.features'),
-      highlights: this.translationService.translateArray('projects.proj6.highlights'),
-      impact: this.translationService.translate('projects.proj6.impact'),
-      role: this.translationService.translate('projects.proj6.role'),
-      githubRepos: [
-        {
-          label: 'GitHub Repository',
-          url: 'https://github.com/AnassEREKYSY/RaiseUp'
-        }
-      ]
-    },
-  
-    {
-      name: 'ShowTracker',
-      description: this.translationService.translate('projects.proj7.description'),
-      problem: this.translationService.translate('projects.proj7.problem'),
-      solution: this.translationService.translate('projects.proj7.solution'),
-      stack: [
-        'Angular',
-        'Node.js',
-        'External Content APIs'
-      ],
-      features: this.translationService.translateArray('projects.proj7.features'),
-      highlights: this.translationService.translateArray('projects.proj7.highlights'),
-      impact: this.translationService.translate('projects.proj7.impact'),
-      role: this.translationService.translate('projects.proj7.role'),
-      githubRepos: [
-        {
-          label: 'GitHub Repository',
-          url: 'https://github.com/AnassEREKYSY/ShowTracker'
         }
       ]
     },
@@ -475,6 +574,7 @@ export class ProjectsSectionComponent {
       highlights: this.translationService.translateArray('projects.proj8.highlights'),
       impact: this.translationService.translate('projects.proj8.impact'),
       role: this.translationService.translate('projects.proj8.role'),
+      imageUrl: 'assets/Yallapay.png',
       githubRepos: [
         {
           label: 'GitHub Repository',
