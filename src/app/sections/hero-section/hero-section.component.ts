@@ -29,6 +29,18 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
       <div class="section-container relative z-10 py-32">
         <div class="max-w-6xl mx-auto text-center">
 
+          <!-- Profile Image -->
+          <div class="mb-8 flex flex-col items-center profile-section">
+            <img
+              src="assets/Profile.jpeg"
+              alt="Anass EREKYSY"
+              class="profile-image rounded-full mb-4"
+            />
+            <h2 class="text-2xl sm:text-3xl font-bold text-text-primary tracking-tight">
+              Anass EREKYSY
+            </h2>
+          </div>
+
           <!-- Headline -->
           <h1
             class="text-6xl sm:text-7xl lg:text-8xl font-bold text-text-primary mb-6 tracking-tight"
@@ -256,6 +268,47 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
       100% {
         transform: scale(4);
         opacity: 0;
+      }
+    }
+
+    .profile-section {
+      margin-top: -70px;
+    }
+
+    .profile-image {
+      width: 240px;
+      height: 240px;
+      object-fit: cover;
+      border: 4px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), 0 8px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .profile-image:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2), 0 12px 40px rgba(59, 130, 246, 0.25);
+    }
+
+    html.light .profile-image {
+      border-color: var(--border);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 8px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    html.light .profile-image:hover {
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12), 0 12px 40px rgba(59, 130, 246, 0.15);
+    }
+
+    @media (min-width: 640px) {
+      .profile-image {
+        width: 280px;
+        height: 280px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .profile-image {
+        width: 320px;
+        height: 320px;
       }
     }
   `]

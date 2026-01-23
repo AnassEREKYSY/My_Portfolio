@@ -417,7 +417,7 @@ export class ProjectsSectionComponent {
       highlights: this.translationService.translateArray('projects.proj2.highlights'),
       impact: this.translationService.translate('projects.proj2.impact'),
       role: this.translationService.translate('projects.proj2.role'),
-      hasEmptyIcon: true,
+      imageUrl: 'assets/Paychase.png',
       githubRepos: [
         {
           label: 'Auth Service',
@@ -550,7 +550,7 @@ export class ProjectsSectionComponent {
       highlights: this.translationService.translateArray('projects.proj5.highlights'),
       impact: this.translationService.translate('projects.proj5.impact'),
       role: this.translationService.translate('projects.proj5.role'),
-      imageUrl: 'assets/Skinet.jpg',
+      imageUrl: 'assets/Skinet.png',
       githubRepos: [
         {
           label: 'GitHub Repository',
