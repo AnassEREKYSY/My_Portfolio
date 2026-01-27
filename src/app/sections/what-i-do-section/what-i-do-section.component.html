@@ -1,0 +1,88 @@
+<section class="py-24 lg:py-32 border-b border-dark-border" id="what-i-do">
+  <div class="section-container">
+    <div class="max-w-6xl mx-auto">
+      <!-- Section header -->
+      <div class="text-center mb-20">
+        <h2 class="text-4xl sm:text-5xl font-bold text-text-primary mb-6 tracking-tight">
+          {{ 'whatIDo.title' | translate }}
+        </h2>
+        <p class="text-xl text-text-secondary max-w-2xl mx-auto">
+          {{ 'whatIDo.subtitle' | translate }}
+        </p>
+      </div>
+      
+      <!-- Services grid -->
+      <div class="grid md:grid-cols-3 gap-8">
+        <div
+          *ngFor="let service of services"
+          class="card-base p-8 hover-lift group"
+        >
+          <div class="mb-6">
+            <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
+              <span class="text-2xl">{{ service.icon }}</span>
+            </div>
+            <h3 class="text-xl font-bold text-text-primary mb-3">
+              {{ ('whatIDo.' + service.title) | translate }}
+            </h3>
+            <p class="text-text-secondary leading-relaxed">
+              {{ ('whatIDo.' + service.description) | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Core expertise highlight -->
+      <div class="mt-16 card-base p-10 border-l-4 border-accent">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h3 class="text-2xl font-bold text-text-primary mb-4">
+              {{ 'whatIDo.expertiseTitle' | translate }}
+            </h3>
+            <p class="text-text-secondary leading-relaxed mb-6">
+              {{ 'whatIDo.expertiseDesc' | translate }}
+            </p>
+            <div class="flex flex-wrap gap-3">
+              <span class="px-4 py-2 bg-dark-muted/50 text-text-secondary rounded border border-dark-border text-sm font-medium">
+                {{ 'whatIDo.frontendDev' | translate }}
+              </span>
+              <span class="px-4 py-2 bg-dark-muted/50 text-text-secondary rounded border border-dark-border text-sm font-medium">
+                {{ 'whatIDo.backendArch' | translate }}
+              </span>
+              <span class="px-4 py-2 bg-dark-muted/50 text-text-secondary rounded border border-dark-border text-sm font-medium">
+                {{ 'whatIDo.devopsCICD' | translate }}
+              </span>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex items-start">
+              <span class="text-accent mr-3 mt-1 flex-shrink-0">▸</span>
+              <p class="text-text-secondary">
+                {{ 'whatIDo.bullet1' | translate }}
+              </p>
+            </div>
+            <div class="flex items-start">
+              <span class="text-accent mr-3 mt-1 flex-shrink-0">▸</span>
+              <p class="text-text-secondary">
+                {{ 'whatIDo.bullet2' | translate }}
+              </p>
+            </div>
+            <div class="flex items-start">
+              <span class="text-accent mr-3 mt-1 flex-shrink-0">▸</span>
+              <p class="text-text-secondary">
+                {{ 'whatIDo.bullet3' | translate }}
+              </p>
+            </div>
+            <div class="flex items-start">
+              <span class="text-accent mr-3 mt-1 flex-shrink-0">▸</span>
+              <p class="text-text-secondary">
+                {{ 'whatIDo.bullet4' | translate }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

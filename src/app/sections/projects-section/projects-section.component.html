@@ -1,0 +1,178 @@
+<section class="py-24 lg:py-32 border-b border-dark-border" id="projects">
+  <div class="section-container">
+    <div class="max-w-7xl mx-auto">
+
+      <!-- Header -->
+      <div class="text-center mb-16">
+        <h2 class="text-4xl sm:text-5xl font-bold text-text-primary mb-4">
+          {{ 'projects.title' | translate }}
+        </h2>
+        <p class="text-lg text-text-secondary max-w-2xl mx-auto">
+          {{ 'projects.subtitle' | translate }}
+        </p>
+      </div>
+
+      <!-- Cards -->
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <article
+          *ngFor="let project of projects"
+          (click)="openProject(project)"
+          class="card-base p-7 hover-lift cursor-pointer flex flex-col"
+        >
+          <!-- Title at top -->
+          <h3 class="text-xl font-bold text-text-primary mb-4">
+            {{ project.name }}
+          </h3>
+
+          <!-- Image in middle (biggest section) -->
+          <div class="project-image-container mb-4">
+            <img
+              *ngIf="project.imageUrl && !project.hasEmptyIcon"
+              [src]="project.imageUrl"
+              [alt]="project.name"
+              class="project-image"
+            />
+            <div
+              *ngIf="project.hasEmptyIcon"
+              class="empty-icon-container"
+            >
+              <svg
+                class="empty-icon"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <p class="text-text-secondary text-sm mb-4 leading-relaxed">
+            {{ project.description }}
+          </p>
+
+          <!-- Stack -->
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span *ngFor="let tech of project.stack" class="tech-chip">
+              {{ tech }}
+            </span>
+          </div>
+
+          <!-- Repos -->
+          <div class="mt-auto pt-4 border-t border-dark-border flex flex-wrap gap-3">
+            <a
+              *ngFor="let repo of project.githubRepos"
+              [href]="repo.url"
+              target="_blank"
+              rel="noopener noreferrer"
+              (click)="$event.stopPropagation()"
+              class="repo-link"
+            >
+              ↗ {{ repo.label }}
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div
+  *ngIf="selectedProject"
+  class="modal-overlay"
+  (click)="closeProject()"
+>
+  <div class="modal-card" (click)="$event.stopPropagation()">
+
+    <!-- Header -->
+    <div class="flex justify-between items-start mb-8">
+      <div>
+        <h3 class="text-2xl font-bold text-text-primary">
+          {{ selectedProject.name }}
+        </h3>
+        <p class="text-text-secondary mt-2 max-w-2xl">
+          {{ selectedProject.description }}
+        </p>
+      </div>
+      <button
+        class="text-text-muted hover:text-text-primary text-xl"
+        (click)="closeProject()"
+      >
+        ✕
+      </button>
+    </div>
+
+    <!-- Content -->
+    <div class="space-y-10 text-sm">
+
+      <section>
+        <h4 class="modal-section-title">{{ 'projects.contextProblem' | translate }}</h4>
+        <p class="modal-text">{{ selectedProject.problem }}</p>
+      </section>
+
+      <section>
+        <h4 class="modal-section-title">{{ 'projects.solutionApproach' | translate }}</h4>
+        <p class="modal-text">{{ selectedProject.solution }}</p>
+      </section>
+
+      <section class="grid md:grid-cols-2 gap-10">
+        <div>
+          <h4 class="modal-section-title">{{ 'projects.keyFeatures' | translate }}</h4>
+          <ul class="list-disc pl-5 space-y-1 modal-text">
+            <li *ngFor="let feature of selectedProject.features">
+              {{ feature }}
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="modal-section-title">{{ 'projects.technicalHighlights' | translate }}</h4>
+          <ul class="list-disc pl-5 space-y-1 modal-text">
+            <li *ngFor="let highlight of selectedProject.highlights">
+              {{ highlight }}
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h4 class="modal-section-title">{{ 'projects.technologyStack' | translate }}</h4>
+        <div class="flex flex-wrap gap-2">
+          <span *ngFor="let tech of selectedProject.stack" class="tech-chip">
+            {{ tech }}
+          </span>
+        </div>
+      </section>
+
+      <section>
+        <h4 class="modal-section-title">{{ 'projects.roleImpact' | translate }}</h4>
+        <p class="modal-text">
+          <strong>{{ selectedProject.role }}</strong><br />
+          <span class="italic">{{ selectedProject.impact }}</span>
+        </p>
+      </section>
+
+      <section>
+        <h4 class="modal-section-title">{{ 'projects.sourceCode' | translate }}</h4>
+        <div class="flex flex-wrap gap-4">
+          <a
+            *ngFor="let repo of selectedProject.githubRepos"
+            [href]="repo.url"
+            target="_blank"
+            class="repo-link"
+          >
+            ↗ {{ repo.label }}
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>

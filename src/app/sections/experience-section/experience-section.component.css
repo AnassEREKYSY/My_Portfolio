@@ -1,0 +1,11 @@
+.experience-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
+  opacity: 0;
+}
+
+.experience-content.expanded {
+  max-height: 5000px;
+  opacity: 1;
+}

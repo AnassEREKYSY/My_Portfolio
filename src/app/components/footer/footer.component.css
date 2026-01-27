@@ -1,0 +1,8 @@
+.footer-icon {
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+}
+
+.footer-icon:hover {
+  color: var(--accent);
+}

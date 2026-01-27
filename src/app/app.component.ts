@@ -6,10 +6,7 @@ import { ThemeService } from './services/theme.service';
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet],
-  template: `
-    <router-outlet></router-outlet>
-  `,
-  styles: []
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   title = 'Anass EREKYSY - Portfolio';

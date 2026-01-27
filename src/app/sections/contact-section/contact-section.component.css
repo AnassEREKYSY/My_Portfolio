@@ -1,0 +1,126 @@
+.contact-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.social-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-width: 140px;
+  justify-content: flex-start;
+}
+
+.social-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.social-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.social-text {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.linkedin-button {
+  background: #0077B5;
+}
+
+.linkedin-button:hover {
+  background: #006399;
+}
+
+.github-button {
+  background: #000000;
+}
+
+html.light .github-button {
+  background: #24292e;
+}
+
+.github-button:hover {
+  background: #1a1a1a;
+}
+
+html.light .github-button:hover {
+  background: #1c2128;
+}
+
+.malt-button {
+  background: #FF6B35;
+}
+
+.malt-button:hover {
+  background: #e55a2b;
+}
+
+.collective-button {
+  background: #6366F1;
+}
+
+.collective-button:hover {
+  background: #4f46e5;
+}
+
+.upwork-button {
+  background: #14A800;
+}
+
+.upwork-button:hover {
+  background: #0f7d00;
+}
+
+.icon-box {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-box-sm {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-box svg,
+.icon-box-sm svg {
+  width: 15px;
+  height: 15px;
+  opacity: 0.75;
+}
+
+.availability-chip {
+  padding: 5px 12px;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.03);
+  color: var(--text-secondary);
+}

@@ -105,7 +105,7 @@ export const translations: Record<'en' | 'fr', Translations> = {
       keyAchievements: 'Key Achievements',
       impact: 'Impact',
       exp1: {
-        role: 'Full Stack Developer (.NET / Angular) | DevOps',
+        role: '.NET / Angular Full Stack Developer | DevOps',
         context: 'Maintenance and evolution of an enterprise Angular/.NET subscription management portal in a finance-oriented environment.',
         businessGoals: 'Ensure application stability, improve delivery processes, and support long-term evolution of a critical business platform.',
         responsibilities: [
@@ -123,7 +123,7 @@ export const translations: Record<'en' | 'fr', Translations> = {
         impact: 'Helped maintain a stable and reliable enterprise application while improving development workflows and delivery quality.'
       },
       exp2: {
-        role: 'Full Stack Developer (.NET / Angular)',
+        role: '.NET / Angular Full Stack Developer',
         context: 'Migration of a CMMS (Computerized Maintenance Management System) from a legacy stack to Angular and .NET.',
         businessGoals: 'Modernize the application stack and industrialize the development workflow.',
         responsibilities: [
@@ -141,7 +141,7 @@ export const translations: Record<'en' | 'fr', Translations> = {
         impact: 'Supported the modernization of a business application and improved the development lifecycle.'
       },
       exp3: {
-        role: 'Mobile Developer (Flutter)',
+        role: 'Flutter Mobile Developer',
         context: 'Development of a mobile application for internal mail management within a public institution.',
         businessGoals: 'Digitize and streamline internal mail processing.',
         responsibilities: [
@@ -157,7 +157,7 @@ export const translations: Record<'en' | 'fr', Translations> = {
         impact: 'Contributed to the digitalization of internal processes within a public administration.'
       },
       exp4: {
-        role: 'Web Developer (PHP)',
+        role: 'PHP Web Developer',
         context: 'Assistance in the development of a case-session management web application for a court.',
         businessGoals: 'Improve the management and organization of court sessions.',
         responsibilities: [
@@ -570,7 +570,7 @@ export const translations: Record<'en' | 'fr', Translations> = {
       keyAchievements: 'Réalisations Clés',
       impact: 'Impact',
       exp1: {
-        role: 'Développeur Full Stack (.NET / Angular) | DevOps',
+        role: 'Développeur Full Stack .NET / Angular | DevOps',
         context: 'Maintenance et évolution d\'un portail de gestion d\'abonnements Angular/.NET en environnement orienté finance.',
         businessGoals: 'Assurer la stabilité de l\'application, améliorer les processus de livraison et soutenir l\'évolution à long terme d\'une plateforme métier critique.',
         responsibilities: [
@@ -588,7 +588,7 @@ export const translations: Record<'en' | 'fr', Translations> = {
         impact: 'Aide à maintenir une application d\'entreprise stable et fiable tout en améliorant les workflows de développement et la qualité des livraisons.'
       },
       exp2: {
-        role: 'Développeur Full Stack (.NET / Angular)',
+        role: 'Développeur Full Stack .NET / Angular',
         context: 'Migration d\'un CMMS (Système de Gestion de Maintenance Assistée par Ordinateur) d\'une stack legacy vers Angular et .NET.',
         businessGoals: 'Moderniser la stack applicative et industrialiser le workflow de développement.',
         responsibilities: [
@@ -606,7 +606,7 @@ export const translations: Record<'en' | 'fr', Translations> = {
         impact: 'Soutien à la modernisation d\'une application métier et amélioration du cycle de vie de développement.'
       },
       exp3: {
-        role: 'Développeur Mobile (Flutter)',
+        role: 'Développeur Mobile Flutter',
         context: 'Développement d\'une application mobile pour la gestion du courrier interne au sein d\'une institution publique.',
         businessGoals: 'Numériser et rationaliser le traitement du courrier interne.',
         responsibilities: [
@@ -622,7 +622,7 @@ export const translations: Record<'en' | 'fr', Translations> = {
         impact: 'Contribution à la numérisation des processus internes au sein d\'une administration publique.'
       },
       exp4: {
-        role: 'Développeur Web (PHP)',
+        role: 'Développeur Web PHP',
         context: 'Assistance au développement d\'une application web de gestion des sessions d\'audience pour un tribunal.',
         businessGoals: 'Améliorer la gestion et l\'organisation des sessions d\'audience.',
         responsibilities: [

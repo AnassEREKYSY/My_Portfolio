@@ -14,57 +14,7 @@ interface Education {
   selector: 'app-education-section',
   standalone: true,
   imports: [CommonModule, TranslatePipe],
-  template: `
-    <section class="py-24 lg:py-32 border-b border-dark-border" id="education">
-      <div class="section-container">
-        <div class="max-w-5xl mx-auto">
-          <!-- Section header -->
-          <div class="text-center mb-20">
-            <h2 class="text-4xl sm:text-5xl font-bold text-text-primary mb-6 tracking-tight">
-              {{ 'education.title' | translate }}
-            </h2>
-            <p class="text-xl text-text-secondary max-w-2xl mx-auto">
-              {{ 'education.subtitle' | translate }}
-            </p>
-          </div>
-
-          <!-- Education timeline -->
-          <div class="space-y-12">
-            <article
-              *ngFor="let edu of educationList; let i = index"
-              class="relative"
-            >
-              <div class="flex gap-8">
-                <!-- Timeline indicator -->
-                <div class="flex-shrink-0 w-1 flex flex-col items-center">
-                  <div class="w-3 h-3 bg-accent rounded-full border-4 border-dark-bg"></div>
-                  <div class="flex-1 w-0.5 bg-dark-border mt-2 mb-2" *ngIf="i < educationList.length - 1"></div>
-                </div>
-
-                <!-- Content -->
-                <div class="flex-1 pb-12 last:pb-0">
-                  <div class="card-base p-8 hover-lift">
-                    <h3 class="text-2xl font-bold text-text-primary mb-3">
-                      {{ edu.title }}
-                    </h3>
-                    <p class="text-xl text-accent font-semibold mb-2">
-                      {{ edu.institution }}
-                    </p>
-                    <p class="text-sm text-text-muted font-medium">
-                      <span>{{ edu.period }}</span>
-                      <span class="mx-2 text-dark-border">•</span>
-                      <span>{{ edu.location }}</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-  `,
-  styles: []
+  templateUrl: './education-section.component.html'
 })
 export class EducationSectionComponent {
   private translationService = inject(TranslationService);
