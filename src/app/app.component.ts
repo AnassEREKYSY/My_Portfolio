@@ -9,8 +9,6 @@ import { ThemeService } from './services/theme.service';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  title = 'Anass EREKYSY - Portfolio';
-  
   // Initialize theme service early
   private themeService = inject(ThemeService);
 }
