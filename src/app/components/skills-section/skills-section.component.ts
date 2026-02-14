@@ -23,7 +23,6 @@ interface SkillCategory {
 export class SkillsSectionComponent {
   private translationService = inject(TranslationService);
 
-  // Handle image loading errors
   onImageError(event: Event): void {
     const img = event.target as HTMLImageElement;
     if (img) {
@@ -31,10 +30,10 @@ export class SkillsSectionComponent {
     }
   }
 
-  // Helper function to get logo URL from simple-icons or devicons
   private getLogoUrl(techName: string): string {
     const logoMap: Record<string, string> = {
       'Angular': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg',
+      'React': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
       'TypeScript': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
       'RxJS': 'https://rxjs.dev/assets/images/logos/logo.png',
       'HTML5': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg',
@@ -42,14 +41,18 @@ export class SkillsSectionComponent {
       'Tailwind CSS': 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg',
       'Bootstrap': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg',
       'Ionic': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ionic/ionic-original.svg',
+
       '.NET': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg',
       '.NET Core': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg',
       '.NET Framework': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dot-net/dot-net-original.svg',
       'C#': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg',
       'Node.js': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg',
+      'Laravel': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg',
+      'Python': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
       'GraphQL': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg',
       'ASP.NET Core': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg',
       'Express.js': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg',
+
       'Docker': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg',
       'Azure DevOps': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg',
       'GitLab CI': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg',
@@ -64,15 +67,18 @@ export class SkillsSectionComponent {
       'Grafana': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg',
       'Linux': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg',
       'Nginx': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg',
+
       'Jest': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg',
       'Jasmine': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jasmine/jasmine-original.svg',
       'Cypress': 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/cypress.svg',
       'Selenium': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/selenium/selenium-original.svg',
+
       'SQL Server': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg',
       'PostgreSQL': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg',
       'MySQL': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg',
       'MongoDB': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg',
       'Firebase': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg',
+
       'Git': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg',
       'Visual Studio': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/visualstudio/visualstudio-plain.svg',
       'VS Code': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg',
@@ -81,14 +87,13 @@ export class SkillsSectionComponent {
       'Notion': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/notion/notion-original.svg',
       'Jira': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg'
     };
+
     return logoMap[techName] || '';
   }
 
   get skillCategories(): SkillCategory[] {
-    const lang = this.translationService.currentLanguage();
-    
     const createSkill = (name: string): Skill => ({
-      name: name,
+      name,
       logoUrl: this.getLogoUrl(name)
     });
 
@@ -97,6 +102,7 @@ export class SkillsSectionComponent {
         name: this.translationService.translate('skills.frontendCategory'),
         skills: [
           createSkill('Angular'),
+          createSkill('React'),
           createSkill('TypeScript'),
           createSkill('RxJS'),
           createSkill('HTML5'),
@@ -115,7 +121,9 @@ export class SkillsSectionComponent {
           createSkill('.NET Core'),
           createSkill('.NET Framework'),
           createSkill('C#'),
+          createSkill('Python'),
           createSkill('Node.js'),
+          createSkill('Laravel'),
           { name: this.translationService.translate('skills.restAPIs'), logoUrl: '' },
           createSkill('GraphQL'),
           createSkill('ASP.NET Core'),
@@ -124,76 +132,17 @@ export class SkillsSectionComponent {
         ]
       },
       {
-        name: this.translationService.translate('skills.devopsCloudCategory'),
-        skills: [
-          createSkill('Docker'),
-          { name: 'CI/CD', logoUrl: '' },
-          createSkill('Azure DevOps'),
-          createSkill('GitLab CI'),
-          createSkill('GitHub Actions'),
-          createSkill('Jenkins'),
-          createSkill('AWS'),
-          createSkill('Azure'),
-          createSkill('Terraform'),
-          createSkill('Kubernetes'),
-          createSkill('Ansible'),
-          createSkill('Prometheus'),
-          createSkill('Grafana'),
-          { name: this.translationService.translate('skills.ovhHosting'), logoUrl: '' },
-          createSkill('Linux'),
-          createSkill('Nginx'),
-          { name: this.translationService.translate('skills.shellBash'), logoUrl: '' }
-        ]
-      },
-      {
-        name: this.translationService.translate('skills.qaTestingCategory'),
-        skills: [
-          createSkill('Jest'),
-          createSkill('Jasmine'),
-          createSkill('Cypress'),
-          createSkill('Selenium'),
-          { name: 'Playwright', logoUrl: 'https://playwright.dev/img/playwright-logo.svg' },
-          { name: this.translationService.translate('skills.unitTesting'), logoUrl: '' },
-          { name: this.translationService.translate('skills.integrationTesting'), logoUrl: '' },
-          { name: this.translationService.translate('skills.e2eTesting'), logoUrl: '' },
-          { name: this.translationService.translate('skills.testAutomation'), logoUrl: '' }
-        ]
-      },
-      {
-        name: this.translationService.translate('skills.databasesCategory'),
-        skills: [
-          createSkill('SQL Server'),
-          createSkill('PostgreSQL'),
-          createSkill('MySQL'),
-          createSkill('MongoDB'),
-          createSkill('Firebase'),
-          { name: this.translationService.translate('skills.databaseDesign'), logoUrl: '' },
-          { name: this.translationService.translate('skills.queryOptimization'), logoUrl: '' },
-          { name: 'Entity Framework', logoUrl: '' }
-        ]
-      },
-      {
         name: this.translationService.translate('skills.architectureDesignCategory'),
         skills: [
-          { name: this.translationService.translate('skills.cleanArchitecture'), logoUrl: '' },
-          { name: this.translationService.translate('skills.solidPrinciples'), logoUrl: '' },
-          { name: this.translationService.translate('skills.layeredArchitecture'), logoUrl: '' },
-          { name: this.translationService.translate('skills.designPatterns'), logoUrl: '' },
+          { name: 'Clean Architecture', logoUrl: '' },
+          { name: 'SOLID Principles', logoUrl: '' },
+          { name: 'Layered Architecture', logoUrl: '' },
+          { name: 'Design Patterns', logoUrl: '' },
+          { name: 'DDD (Domain-Driven Design)', logoUrl: '' },
+          { name: 'TDD (Test-Driven Development)', logoUrl: '' },
+          { name: 'BDD (Behavior-Driven Development)', logoUrl: '' },
           { name: 'UML', logoUrl: '' },
           { name: 'Merise', logoUrl: '' }
-        ]
-      },
-      {
-        name: this.translationService.translate('skills.toolsCollaborationCategory'),
-        skills: [
-          createSkill('Git'),
-          createSkill('Visual Studio'),
-          createSkill('VS Code'),
-          createSkill('Postman'),
-          createSkill('Swagger'),
-          createSkill('Notion'),
-          createSkill('Jira'),
-          { name: 'Mantis', logoUrl: '' }
         ]
       }
     ];
@@ -213,5 +162,3 @@ export class SkillsSectionComponent {
     ];
   }
 }
-  
-

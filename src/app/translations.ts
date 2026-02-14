@@ -45,7 +45,7 @@ export const translations: Record<'en' | 'fr', Translations> = {
     },
     hero: {
       title: 'Full Stack Developer',
-      subtitle: 'Over 3 years of experience building scalable and reliable web applications using .NET, Angular, Node.js, and modern DevOps practices.',
+      subtitle: 'Over 3 years of experience building scalable and reliable web applications using .NET, Angular, React, Node.js, Laravel and modern DevOps practices.',
       positioning: 'Open to',
       positioningHighlight: 'short- and long-term missions',
       positioningSuffix: 'as a Full Stack Developer',
@@ -206,6 +206,27 @@ export const translations: Record<'en' | 'fr', Translations> = {
       roleImpact: 'Role & Impact',
       sourceCode: 'Source Code',
       githubRepo: 'GitHub Repository',
+      proj9: {
+        description: 'Modern marketplace platform designed to enable individuals to buy and sell products through a scalable and modular architecture.',
+        problem: 'Existing marketplace solutions are often monolithic, difficult to scale, and lack clean separation between business domains and infrastructure concerns.',
+        solution: 'Design and development of a modular marketplace using Laravel and React, following Clean Architecture and Domain-Driven Design principles to ensure scalability and maintainability.',
+        features: [
+          'User authentication and role management (buyer / seller / admin)',
+          'Product listing and management',
+          'Order management workflow',
+          'Store profiles and seller dashboards',
+          'Secure API communication'
+        ],
+        highlights: [
+          'Backend built with Laravel following DDD principles',
+          'Modern React frontend with clean component architecture',
+          'PostgreSQL database design',
+          'Dockerized development environment',
+          'CI/CD-ready structure'
+        ],
+        impact: 'Demonstrates the ability to build a production-ready marketplace platform with strong architectural foundations.',
+        role: 'Full Stack Developer – Architecture design, backend development with Laravel, frontend development with React, database modeling and DevOps setup'
+      },
       proj1: {
         description: 'Job market intelligence platform designed to analyze hiring trends, salaries, and demand by location and technology.',
         problem: 'Developers, recruiters, and decision-makers lack a clear and centralized view of the job market. Data is fragmented across platforms, insights are shallow, and geographic indicators are often missing or unreliable.',
@@ -510,7 +531,7 @@ export const translations: Record<'en' | 'fr', Translations> = {
     },
     hero: {
       title: 'Développeur Full Stack',
-      subtitle: 'Plus de 3 ans d\'expérience dans le développement d\'applications web scalables et fiables utilisant .NET, Angular, Node.js et les pratiques DevOps modernes.',
+      subtitle: 'Plus de 3 ans d\'expérience dans le développement web full-stack scalables et fiables utilisant .NET, Angular, React, Node.js, Laravel et les pratiques DevOps modernes.',
       positioning: 'Ouvert aux',
       positioningHighlight: 'missions courtes et longues',
       positioningSuffix: 'en tant que Développeur Full Stack',
@@ -671,6 +692,27 @@ export const translations: Record<'en' | 'fr', Translations> = {
       roleImpact: 'Rôle & Impact',
       sourceCode: 'Code Source',
       githubRepo: 'Dépôt GitHub',
+      proj9: {
+        description: 'Plateforme marketplace moderne permettant aux utilisateurs d’acheter et vendre des produits via une architecture scalable et modulaire.',
+        problem: 'Les solutions marketplace existantes sont souvent monolithiques, difficiles à faire évoluer et manquent de séparation claire entre le domaine métier et l’infrastructure.',
+        solution: 'Conception et développement d’une marketplace modulaire avec Laravel et React, en appliquant les principes de Clean Architecture et Domain-Driven Design pour assurer la scalabilité et la maintenabilité.',
+        features: [
+          'Authentification et gestion des rôles (acheteur / vendeur / admin)',
+          'Création et gestion de produits',
+          'Workflow de gestion des commandes',
+          'Profils boutique et dashboards vendeur',
+          'Communication API sécurisée'
+        ],
+        highlights: [
+          'Backend Laravel structuré selon les principes DDD',
+          'Frontend React moderne avec architecture de composants claire',
+          'Modélisation base de données PostgreSQL',
+          'Environnement conteneurisé avec Docker',
+          'Structure prête pour CI/CD'
+        ],
+        impact: 'Démontre la capacité à concevoir une plateforme marketplace prête pour la production avec une base architecturale solide.',
+        role: 'Développeur Full Stack – Conception de l’architecture, développement backend Laravel, développement frontend React, modélisation base de données et mise en place DevOps'
+      },
       proj1: {
         description: 'Plateforme d’intelligence du marché de l’emploi permettant d’analyser les tendances de recrutement, les salaires et la demande par localisation et technologie.',
         problem: 'Les développeurs, recruteurs et décideurs manquent d’une vision claire et centralisée du marché de l’emploi : données dispersées, peu d’analyses exploitables et absence d’indicateurs géographiques fiables.',

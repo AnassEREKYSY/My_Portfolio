@@ -84,7 +84,7 @@ export class ExperienceSectionComponent {
       },
   
       {
-        company: 'Préfecture de Meknès',
+        company: 'Préfecture',
         role: this.translationService.translate('experience.exp3.role'),
         period: '03/2022 – 06/2022',
         location: 'Meknès, Morocco',
@@ -102,7 +102,7 @@ export class ExperienceSectionComponent {
       },
   
       {
-        company: 'First Instance Court of Sidi Kacem',
+        company: 'First Instance Court',
         role: this.translationService.translate('experience.exp4.role'),
         period: '07/2021 – 09/2021',
         location: 'Sidi Kacem, Morocco',
