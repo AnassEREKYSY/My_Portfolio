@@ -43,6 +43,40 @@ export class ExperienceSectionComponent {
     const lang = this.translationService.currentLanguage();
     return [
       {
+        company: 'RS2i',
+        role: this.translationService.translate('experience.exp5.role'),
+        period: this.translationService.translate('experience.exp5.period'),
+        location: this.translationService.translate('experience.exp5.location'),
+        context: this.translationService.translate('experience.exp5.context'),
+        businessGoals: this.translationService.translate('experience.exp5.businessGoals'),
+        responsibilities: this.translationService.translateArray('experience.exp5.responsibilities'),
+        stack: [
+          'C#', '.NET Framework', 'ASP.NET MVC', 'Razor',
+          'JavaScript', 'jQuery', 'SQL Server', 'T-SQL',
+          'Stored Procedures', 'SSMS', 'Azure DevOps', 'Git', 'Jira'
+        ],
+        achievements: this.translationService.translateArray('experience.exp5.achievements'),
+        impact: this.translationService.translate('experience.exp5.impact')
+      },
+
+      {
+        company: 'Freelance',
+        role: this.translationService.translate('experience.exp6.role'),
+        period: this.translationService.translate('experience.exp6.period'),
+        location: this.translationService.translate('experience.exp6.location'),
+        context: this.translationService.translate('experience.exp6.context'),
+        businessGoals: this.translationService.translate('experience.exp6.businessGoals'),
+        responsibilities: this.translationService.translateArray('experience.exp6.responsibilities'),
+        stack: [
+          '.NET 8', 'ASP.NET Core Web API', 'Node.js', 'Angular 19',
+          'TypeScript', 'SQL Server', 'PostgreSQL', 'MongoDB',
+          'Redis', 'Stripe', 'Keycloak', 'Jest', 'Playwright', 'Docker', 'CI/CD'
+        ],
+        achievements: this.translationService.translateArray('experience.exp6.achievements'),
+        impact: this.translationService.translate('experience.exp6.impact')
+      },
+
+      {
         company: 'Auxia',
         role: this.translationService.translate('experience.exp1.role'),
         period: '09/2023 – 08/2025',

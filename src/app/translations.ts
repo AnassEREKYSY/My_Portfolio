@@ -171,6 +171,47 @@ export const translations: Record<'en' | 'fr', Translations> = {
           'Gained experience in business-oriented and regulated environments'
         ],
         impact: 'Supported the delivery of a functional judicial application in a real-world institutional context.'
+      },
+      exp5: {
+        role: '.NET / C# Software Engineer - SOR ERP',
+        period: 'Apr. 2026 - Present',
+        location: 'Paris, France · Hybrid',
+        context: 'SOR is a business ERP developed by RS2i for OPCO management in the professional training sector. The platform covers critical processes such as contracts, cases, members, reference data, authorizations, BackOffice / Extranet workflows, exports, business controls and client-specific configuration.',
+        businessGoals: 'As a .NET software engineer, I work on corrective and evolutionary maintenance of a complex business application, with a strong focus on C# development, application debugging and SQL Server analysis.',
+        responsibilities: [
+          'Full-stack development on a legacy ERP application based on .NET Framework, ASP.NET MVC, C#, Razor, JavaScript/jQuery and SQL Server',
+          'Technical analysis and bug fixing on critical modules: cases, contracts, reference data, authorizations, exports and business workflows',
+          'Development and adaptation of business rules in C#: MVC controllers, Razor views, JavaScript/jQuery scripts and SQL Server integration',
+          'Advanced end-to-end debugging: UI, server-side logic, SQL queries, stored procedures and business data',
+          'Design and correction of SQL Server treatments: complex queries, stored procedures, diagnostic scripts, fixes and rollback scripts',
+          'Multi-client impact analysis, local / staging tests, technical validation and delivery support',
+          'Development workflow with Azure DevOps, Git, branches, commits, pull requests, Jira and technical documentation'
+        ],
+        achievements: [
+          'Identified and resolved critical bugs on high-impact modules including contracts, authorizations and reference data',
+          'Delivered complex SQL Server treatments: stored procedures, diagnostic scripts and rollback strategies',
+          'Maintained code quality and traceability through structured Azure DevOps and Git workflows'
+        ],
+        impact: 'Contributes to the stability and evolution of a business-critical ERP covering sensitive processes for OPCOs in the professional training sector.'
+      },
+      exp6: {
+        role: 'Full-Stack Developer - SaaS, Data & Business Applications',
+        period: '08/2024 – 02/2026',
+        location: 'Remote',
+        context: 'Design and development of several complete web products as a freelancer: MarketPulse for data aggregation and market insight analysis, RaiseUp for startup/investor matching, PayChase for invoice management and payment reminders, ShowTracker for movies/series tracking, CoinHawk for crypto data monitoring, Melodify for music playlists/favorites, and Skinet for e-commerce with Stripe payments.',
+        businessGoals: 'As a freelance full-stack developer, I designed and delivered several complete web platforms, with a strong focus on REST APIs, Angular interfaces, application architecture, CI/CD automation and reliable production delivery.',
+        responsibilities: [
+          'Built robust REST APIs with .NET / Node.js for business modules: data, profiles, workflows, invoices, reminders, search, favorites, orders, payments and reporting',
+          'Developed performant and responsive Angular interfaces focused on productivity, dashboards, smooth navigation and clear user experience',
+          'Designed end-to-end application architecture: data models, backend/frontend integration, authentication, business rules, automated tests and performance optimization',
+          'Industrialized projects with Docker, application environments, CI/CD pipelines, deployments and secure application flows'
+        ],
+        achievements: [
+          'Designed and delivered 7 complete web products independently, each covering full frontend, backend and infrastructure stack',
+          'Integrated Stripe payments, Keycloak authentication, Redis caching and PostgreSQL/MongoDB databases across multiple projects',
+          'Applied Clean Architecture, automated testing (Jest, Playwright) and Docker containerization consistently across all projects'
+        ],
+        impact: 'Demonstrates the ability to independently design, develop and ship production-ready full-stack web applications across multiple domains and technology stacks.'
       }
     },
     education: {
@@ -657,6 +698,47 @@ export const translations: Record<'en' | 'fr', Translations> = {
           'Acquisition d\'expérience dans des environnements orientés métier et réglementés'
         ],
         impact: 'Soutien à la livraison d\'une application judiciaire fonctionnelle dans un contexte institutionnel réel.'
+      },
+      exp5: {
+        role: 'Ingénieur Études et Développement .NET / C# - ERP SOR',
+        period: 'avr. 2026 - aujourd\'hui',
+        location: 'Ville de Paris · Hybride',
+        context: 'SOR est un ERP métier édité par RS2i, dédié à la gestion des OPCO dans le domaine de la formation professionnelle. La solution couvre des processus critiques : contrats, dossiers, adhérents, référentiels, habilitations, traitements BackOffice / Extranet, exports, contrôles métier et paramétrages clients.',
+        businessGoals: 'En tant qu\'ingénieur études et développement .NET, j\'interviens sur la maintenance évolutive et corrective d\'une application métier complexe, avec un focus fort sur le développement C#, le debug applicatif et l\'analyse SQL Server.',
+        responsibilities: [
+          'Développement full-stack sur une application ERP legacy basée sur .NET Framework, ASP.NET MVC, C#, Razor, JavaScript/jQuery et SQL Server',
+          'Analyse technique et correction d\'anomalies sur des modules critiques : dossiers, contrats, référentiels, habilitations, exports et traitements métier',
+          'Développement et adaptation de règles métier en C# : contrôleurs MVC, vues Razor, scripts JavaScript/jQuery et intégration SQL Server',
+          'Debug avancé de flux applicatifs de bout en bout : interface, logique serveur, requêtes SQL, procédures stockées et données métier',
+          'Conception et correction de traitements SQL Server : requêtes complexes, procédures stockées, scripts de diagnostic, correction et rollback',
+          'Analyse d\'impact multi-clients, tests en local / recette, validation technique des corrections et contribution aux livraisons',
+          'Suivi du cycle de développement via Azure DevOps, Git, branches, commits, pull requests, Jira et documentation technique'
+        ],
+        achievements: [
+          'Identification et résolution d\'anomalies critiques sur des modules à fort impact (contrats, habilitations, référentiels)',
+          'Livraison de traitements SQL Server complexes incluant procédures stockées, scripts de diagnostic et stratégies de rollback',
+          'Maintien de la qualité et de la traçabilité du code via des workflows structurés Azure DevOps et Git'
+        ],
+        impact: 'Contribue à la stabilité et à l\'évolution d\'un ERP métier critique couvrant des processus sensibles pour les OPCO dans le domaine de la formation professionnelle.'
+      },
+      exp6: {
+        role: 'Développeur Full-Stack - Plateformes SaaS, data & applications métier',
+        period: '08/2024 – 02/2026',
+        location: 'À distance',
+        context: 'Conception et développement de plusieurs produits web complets en mode freelance : MarketPulse pour l\'agrégation de données et l\'analyse d\'insights marché, RaiseUp pour la mise en relation startups/investisseurs, PayChase pour la gestion de factures et relances de paiement, ShowTracker pour le suivi de films/séries, CoinHawk pour le suivi de données crypto, Melodify pour la gestion musicale type playlists/favoris, et Skinet pour l\'e-commerce avec paiement Stripe.',
+        businessGoals: 'En tant que développeur full-stack freelance, j\'ai conçu et livré plusieurs plateformes web complètes, avec un focus sur les API REST, les interfaces Angular, l\'architecture applicative, l\'automatisation CI/CD et la mise en production de solutions fiables.',
+        responsibilities: [
+          'Développement d\'API REST robustes en .NET / Node.js pour des modules métier variés : données, profils, workflows, factures, relances, recherche, favoris, commandes, paiements et reporting',
+          'Construction d\'interfaces Angular performantes et responsives, orientées productivité, dashboards, navigation fluide et expérience utilisateur claire',
+          'Conception de l\'architecture applicative de bout en bout : modèles de données, intégration backend/frontend, authentification, règles métier, tests automatisés et optimisation des performances',
+          'Industrialisation des projets avec Docker, environnements applicatifs, pipelines CI/CD, déploiements et sécurisation des flux applicatifs'
+        ],
+        achievements: [
+          'Conception et livraison autonome de 7 produits web complets, chacun avec un stack frontend, backend et infrastructure complet',
+          'Intégration de paiements Stripe, authentification Keycloak, caching Redis et bases de données PostgreSQL/MongoDB sur plusieurs projets',
+          'Application cohérente de la Clean Architecture, des tests automatisés (Jest, Playwright) et de la conteneurisation Docker sur l\'ensemble des projets'
+        ],
+        impact: 'Démontre la capacité à concevoir, développer et livrer de manière autonome des applications web full-stack prêtes pour la production dans plusieurs domaines et stacks technologiques.'
       }
     },
     education: {
