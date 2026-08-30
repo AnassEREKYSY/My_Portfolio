@@ -60,7 +60,7 @@ export class SkillsSectionComponent {
       'Razor': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dot-net/dot-net-original.svg',
       'Express.js': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg',
       'Stripe': 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/stripe.svg',
-      'Keycloak': 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/keycloak.svg',
+      'Keycloak': '',
 
       'Docker': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg',
       'Azure DevOps': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg',
@@ -222,6 +222,14 @@ export class SkillsSectionComponent {
         ]
       }
     ];
+  }
+
+  trackByCategoryName(index: number, category: SkillCategory): string {
+    return category.name;
+  }
+
+  trackBySkillName(index: number, skill: Skill): string {
+    return skill.name;
   }
 
   get methodologies(): string[] {
