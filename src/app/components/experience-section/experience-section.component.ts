@@ -38,9 +38,8 @@ export class ExperienceSectionComponent {
   isExpanded(index: number): boolean {
     return this.expandedIndexes.has(index);
   }
-  
+
   get experiences(): Experience[] {
-    const lang = this.translationService.currentLanguage();
     return [
       {
         company: 'RS2i',
@@ -58,7 +57,21 @@ export class ExperienceSectionComponent {
         achievements: this.translationService.translateArray('experience.exp5.achievements'),
         impact: this.translationService.translate('experience.exp5.impact')
       },
-
+      {
+        company: 'Buy & Bye',
+        role: this.translationService.translate('experience.exp7.role'),
+        period: this.translationService.translate('experience.exp7.period'),
+        location: this.translationService.translate('experience.exp7.location'),
+        context: this.translationService.translate('experience.exp7.context'),
+        businessGoals: this.translationService.translate('experience.exp7.businessGoals'),
+        responsibilities: this.translationService.translateArray('experience.exp7.responsibilities'),
+        stack: [
+          'Laravel', 'PHP', 'React', 'TypeScript', 'PostgreSQL',
+          'REST API', 'RBAC', 'Docker', 'CI/CD'
+        ],
+        achievements: this.translationService.translateArray('experience.exp7.achievements'),
+        impact: this.translationService.translate('experience.exp7.impact')
+      },
       {
         company: 'Freelance',
         role: this.translationService.translate('experience.exp6.role'),
@@ -68,14 +81,13 @@ export class ExperienceSectionComponent {
         businessGoals: this.translationService.translate('experience.exp6.businessGoals'),
         responsibilities: this.translationService.translateArray('experience.exp6.responsibilities'),
         stack: [
-          '.NET 8', 'ASP.NET Core Web API', 'Node.js', 'Angular 19',
-          'TypeScript', 'SQL Server', 'PostgreSQL', 'MongoDB',
+          '.NET 8', 'ASP.NET Core Web API', 'C#', 'Node.js', 'Angular 19',
+          'React', 'TypeScript', 'SQL Server', 'PostgreSQL', 'MongoDB',
           'Redis', 'Stripe', 'Keycloak', 'Jest', 'Playwright', 'Docker', 'CI/CD'
         ],
         achievements: this.translationService.translateArray('experience.exp6.achievements'),
         impact: this.translationService.translate('experience.exp6.impact')
       },
-
       {
         company: 'Auxia',
         role: this.translationService.translate('experience.exp1.role'),
@@ -85,74 +97,51 @@ export class ExperienceSectionComponent {
         businessGoals: this.translationService.translate('experience.exp1.businessGoals'),
         responsibilities: this.translationService.translateArray('experience.exp1.responsibilities'),
         stack: [
-          'Angular',
-          '.NET',
-          'TypeScript',
-          'SQL',
-          'Docker',
-          'Azure DevOps',
-          'Jest',
-          'Cypress'
+          'C#', '.NET Framework', '.NET 6', 'ASP.NET',
+          'Angular 11-18', 'TypeScript', 'REST API', 'SQL', 'Git', 'CI/CD'
         ],
         achievements: this.translationService.translateArray('experience.exp1.achievements'),
         impact: this.translationService.translate('experience.exp1.impact')
       },
-  
       {
         company: 'Dimo Maint',
         role: this.translationService.translate('experience.exp2.role'),
-        period: '04/2023 – 08/2023',
+        period: '02/2023 – 08/2023',
         location: 'Lyon, France',
         context: this.translationService.translate('experience.exp2.context'),
         businessGoals: this.translationService.translate('experience.exp2.businessGoals'),
         responsibilities: this.translationService.translateArray('experience.exp2.responsibilities'),
         stack: [
-          'Angular',
-          '.NET',
-          'TypeScript',
-          'SQL',
-          'Azure DevOps'
+          'C#', '.NET', 'Angular', 'TypeScript', 'REST API',
+          'Azure DevOps', 'Git', 'CI/CD'
         ],
         achievements: this.translationService.translateArray('experience.exp2.achievements'),
         impact: this.translationService.translate('experience.exp2.impact')
       },
-  
       {
-        company: 'Préfecture',
+        company: 'Préfecture de Meknès',
         role: this.translationService.translate('experience.exp3.role'),
-        period: '03/2022 – 06/2022',
+        period: '02/2022 – 08/2022',
         location: 'Meknès, Morocco',
         context: this.translationService.translate('experience.exp3.context'),
         businessGoals: this.translationService.translate('experience.exp3.businessGoals'),
         responsibilities: this.translationService.translateArray('experience.exp3.responsibilities'),
-        stack: [
-          'Flutter',
-          'Dart',
-          'UML',
-          'Merise'
-        ],
+        stack: ['Flutter', 'Dart', 'SQLite', 'UML', 'Merise'],
         achievements: this.translationService.translateArray('experience.exp3.achievements'),
         impact: this.translationService.translate('experience.exp3.impact')
       },
-  
       {
         company: 'First Instance Court',
         role: this.translationService.translate('experience.exp4.role'),
-        period: '07/2021 – 09/2021',
+        period: '03/2021 – 10/2021',
         location: 'Sidi Kacem, Morocco',
         context: this.translationService.translate('experience.exp4.context'),
         businessGoals: this.translationService.translate('experience.exp4.businessGoals'),
         responsibilities: this.translationService.translateArray('experience.exp4.responsibilities'),
-        stack: [
-          'PHP',
-          'HTML',
-          'CSS',
-          'SQL'
-        ],
+        stack: ['PHP', 'SQL', 'phpMyAdmin'],
         achievements: this.translationService.translateArray('experience.exp4.achievements'),
         impact: this.translationService.translate('experience.exp4.impact')
       }
     ];
   }
 }
-
