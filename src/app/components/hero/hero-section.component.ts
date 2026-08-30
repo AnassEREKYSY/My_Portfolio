@@ -21,7 +21,6 @@ export class HeroSectionComponent implements AfterViewInit {
     this.incrementCounter(100, 20, value => this.qualityFocus = value);
   }
 
-
   /**
    * Increment counter step-by-step with visible latency
    */
