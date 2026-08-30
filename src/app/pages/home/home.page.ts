@@ -13,6 +13,7 @@ import { ThemeControlsComponent } from '../../components/theme-controls/theme-co
 import { LanguageToggleComponent } from '../../components/language-toggle/language-toggle.component';
 import { TranslationService } from '../../services/translation.service';
 import { translations } from '../../translations';
+import { portfolioContentOverrides } from '../../portfolio-content-overrides';
 
 @Component({
   selector: 'app-home-page',
@@ -39,10 +40,11 @@ export class HomePage implements OnInit {
   ngOnInit(): void {
     this.translationService.registerTranslations('en', translations.en);
     this.translationService.registerTranslations('fr', translations.fr);
-    
+    this.translationService.registerTranslations('en', portfolioContentOverrides.en);
+    this.translationService.registerTranslations('fr', portfolioContentOverrides.fr);
+
     if (typeof document !== 'undefined') {
       document.documentElement.lang = this.translationService.currentLang;
     }
   }
 }
-
