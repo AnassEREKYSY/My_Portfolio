@@ -14,7 +14,7 @@
       <!-- Skills grid - Modern Design -->
       <div class="space-y-12">
         <div
-          *ngFor="let category of skillCategories"
+          *ngFor="let category of skillCategories; trackBy: trackByCategoryName"
           class="card-base p-8 hover-lift"
         >
           <h3 class="text-xl font-bold text-text-primary mb-8 flex items-center">
@@ -23,7 +23,7 @@
           </h3>
           <div class="flex flex-wrap gap-4">
             <div
-              *ngFor="let skill of category.skills"
+              *ngFor="let skill of category.skills; trackBy: trackBySkillName"
               class="skill-item"
               [title]="skill.name"
             >
