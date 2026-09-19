@@ -43,6 +43,112 @@
           </div>
         </div>
 
+        <!-- Message form -->
+        <div class="space-y-6">
+          <div class="text-center space-y-2">
+            <h3 class="text-sm font-semibold text-text-muted uppercase tracking-wider">
+              {{ 'contact.form.heading' | translate }}
+            </h3>
+            <p class="text-sm text-text-secondary">
+              {{ 'contact.form.intro' | translate }}
+            </p>
+          </div>
+
+          <!-- Success -->
+          <div *ngIf="state() === 'success'" class="form-feedback form-feedback-success" role="status">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 6L9 17l-5-5"/>
+            </svg>
+            <div>
+              <p class="font-semibold">{{ 'contact.form.successTitle' | translate }}</p>
+              <p class="text-sm opacity-90">{{ 'contact.form.successDesc' | translate }}</p>
+            </div>
+            <button type="button" class="form-feedback-action" (click)="resetState()">
+              {{ 'contact.form.sendAnother' | translate }}
+            </button>
+          </div>
+
+          <form *ngIf="state() !== 'success'"
+                [formGroup]="form"
+                (ngSubmit)="onSubmit()"
+                novalidate
+                class="space-y-5">
+
+            <!-- Honeypot: hidden from humans -->
+            <input type="checkbox" formControlName="botcheck" class="hp-field"
+                   tabindex="-1" autocomplete="off" aria-hidden="true">
+
+            <div class="form-grid">
+              <div class="form-field">
+                <label for="contact-email">{{ 'contact.form.emailLabel' | translate }}</label>
+                <input id="contact-email"
+                       type="email"
+                       formControlName="email"
+                       autocomplete="email"
+                       [placeholder]="'contact.form.emailPlaceholder' | translate"
+                       [class.has-error]="isInvalid('email')">
+                <p class="field-error" *ngIf="isInvalid('email')">
+                  {{ (email.hasError('required') ? 'contact.form.emailRequired' : 'contact.form.emailInvalid') | translate }}
+                </p>
+              </div>
+
+              <div class="form-field">
+                <label for="contact-subject">{{ 'contact.form.subjectLabel' | translate }}</label>
+                <input id="contact-subject"
+                       type="text"
+                       formControlName="subject"
+                       [placeholder]="'contact.form.subjectPlaceholder' | translate"
+                       [class.has-error]="isInvalid('subject')">
+                <p class="field-error" *ngIf="isInvalid('subject')">
+                  {{ 'contact.form.subjectRequired' | translate }}
+                </p>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label for="contact-message">{{ 'contact.form.messageLabel' | translate }}</label>
+              <textarea id="contact-message"
+                        rows="6"
+                        formControlName="message"
+                        [placeholder]="'contact.form.messagePlaceholder' | translate"
+                        [class.has-error]="isInvalid('message')"></textarea>
+              <p class="field-error" *ngIf="isInvalid('message')">
+                {{ (message.hasError('required') ? 'contact.form.messageRequired' : 'contact.form.messageTooShort') | translate }}
+              </p>
+            </div>
+
+            <!-- Error -->
+            <div *ngIf="state() === 'error'" class="form-feedback form-feedback-error" role="alert">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 8v4M12 16h.01"/>
+              </svg>
+              <div>
+                <p class="font-semibold">{{ 'contact.form.errorTitle' | translate }}</p>
+                <p class="text-sm opacity-90">{{ 'contact.form.errorDesc' | translate }}</p>
+              </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <p class="text-xs text-text-muted">
+                {{ 'contact.form.privacy' | translate }}
+              </p>
+              <button type="submit" class="submit-button" [disabled]="state() === 'sending' || !formEnabled">
+                <span class="spinner" *ngIf="state() === 'sending'"></span>
+                <span>
+                  {{ (state() === 'sending' ? 'contact.form.sending' : 'contact.form.send') | translate }}
+                </span>
+              </button>
+            </div>
+
+            <p class="text-xs text-text-muted" *ngIf="!formEnabled">
+              {{ 'contact.form.notConfigured' | translate }}
+            </p>
+          </form>
+        </div>
+
         <!-- Professional Profiles -->
         <div class="text-center space-y-6">
           <h3 class="text-sm font-semibold text-text-muted uppercase tracking-wider">

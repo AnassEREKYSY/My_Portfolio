@@ -48,6 +48,30 @@ src/
 └── styles.css               # Styles globaux avec Tailwind
 ```
 
+## Formulaire de contact
+
+La section Contact contient un formulaire (email, objet, message) qui envoie les
+messages via [Web3Forms](https://web3forms.com) vers `ereanass@gmail.com`.
+Aucun backend n'est nécessaire, l'appel se fait directement depuis le navigateur.
+
+L'access key est configurée dans `src/app/config/contact.config.ts`. Pour la
+changer (nouvelle boîte de réception, régénération de la clé) :
+
+1. Aller sur https://web3forms.com, saisir l'adresse email et créer une access key
+2. Récupérer la clé reçue par email
+3. La remplacer dans `src/app/config/contact.config.ts`
+4. Rebuild et redéployer
+
+Si la clé est vide ou laissée sur `YOUR_WEB3FORMS_ACCESS_KEY`, le bouton d'envoi
+reste désactivé et un message invite le visiteur à utiliser l'adresse email
+affichée juste au-dessus.
+
+L'access key est un identifiant public en écriture seule : elle est prévue pour
+vivre dans le code client et ne permet ni de lire les messages ni de modifier la
+configuration du compte.
+
+Le formulaire inclut un champ honeypot anti-spam invisible pour les utilisateurs.
+
 ## Déploiement
 
 ### Build de Production
