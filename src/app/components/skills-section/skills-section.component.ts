@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '../../pipes/translate.pipe';
+import { RevealDirective } from '../../directives/reveal.directive';
 import { TranslationService } from '../../services/translation.service';
 
 interface Skill {
@@ -16,7 +17,7 @@ interface SkillCategory {
 @Component({
   selector: 'app-skills-section',
   standalone: true,
-  imports: [CommonModule, TranslatePipe],
+  imports: [CommonModule, TranslatePipe, RevealDirective],
   templateUrl: './skills-section.component.html',
   styleUrls: ['./skills-section.component.css']
 })

@@ -1,37 +1,37 @@
-<header class="site-header" role="banner">
+<header class="site-header" [class.scrolled]="scrolled() || menuOpen()" role="banner">
   <div class="wrap header-inner">
-    <a href="#hero" class="brand">Anass EREKYSY</a>
+    <a href="#hero" class="brand" (click)="closeMenu()">
+      <span class="brand-mark" aria-hidden="true">AE</span>
+      <span class="brand-name">Anass EREKYSY</span>
+    </a>
 
-    <nav class="header-nav" [attr.aria-label]="'nav.main' | translate">
-      <a href="#projects">{{ 'hero.projects' | translate }}</a>
-      <a href="#experience">{{ 'hero.experience' | translate }}</a>
-      <a href="#what-i-do">{{ 'nav.whatIDo' | translate }}</a>
-      <a href="#skills">{{ 'hero.skills' | translate }}</a>
-      <a href="#contact">{{ 'nav.contact' | translate }}</a>
+    <nav class="header-nav" aria-label="Main">
+      <a
+        *ngFor="let item of nav"
+        [href]="'#' + item.id"
+        [class.active]="active() === item.id"
+      >{{ item.key | translate }}</a>
     </nav>
 
     <div class="header-tools">
-      <div class="lang" role="group">
+      <div class="lang" role="group" aria-label="Language">
         <button
           type="button"
           [class.active]="translationService.currentLanguage() === 'fr'"
           [attr.aria-pressed]="translationService.currentLanguage() === 'fr'"
-          [attr.aria-label]="'nav.lang.fr' | translate"
           (click)="translationService.setLanguage('fr')"
         >FR</button>
-        <span aria-hidden="true">/</span>
         <button
           type="button"
           [class.active]="translationService.currentLanguage() === 'en'"
           [attr.aria-pressed]="translationService.currentLanguage() === 'en'"
-          [attr.aria-label]="'nav.lang.en' | translate"
           (click)="translationService.setLanguage('en')"
         >EN</button>
       </div>
 
       <button
         type="button"
-        class="theme-btn"
+        class="icon-btn"
         (click)="themeService.toggleTheme()"
         [attr.aria-label]="themeService.isDark ? 'Switch to light mode' : 'Switch to dark mode'"
       >
@@ -43,6 +43,27 @@
           <path d="M20.4 15.4A9 9 0 0 1 8.6 3.6 9 9 0 1 0 20.4 15.4z" />
         </svg>
       </button>
+
+      <button
+        type="button"
+        class="icon-btn menu-btn"
+        (click)="toggleMenu()"
+        [attr.aria-expanded]="menuOpen()"
+        aria-label="Menu"
+      >
+        <span class="burger" [class.open]="menuOpen()"><i></i><i></i></span>
+      </button>
     </div>
   </div>
+
+  <nav class="mobile-nav" *ngIf="menuOpen()" aria-label="Mobile">
+    <div class="wrap">
+      <a
+        *ngFor="let item of nav; let i = index"
+        [href]="'#' + item.id"
+        (click)="closeMenu()"
+        [style.animation-delay.ms]="i * 50"
+      >{{ item.key | translate }}</a>
+    </div>
+  </nav>
 </header>

@@ -1,23 +1,67 @@
 <section class="section" id="projects">
   <div class="wrap">
 
-    <header class="section-head">
-      <span class="section-index">01</span>
+    <header class="section-head" appReveal>
+      <p class="eyebrow">01</p>
       <h2 class="section-title">{{ 'projects.title' | translate }}</h2>
       <p class="section-sub">{{ 'projects.subtitle' | translate }}</p>
     </header>
 
-    <div class="project-grid">
+    <!-- Featured -->
+    <div class="featured">
       <article
-        *ngFor="let project of projects; let i = index"
-        class="project"
+        *ngFor="let project of featured; let i = index; trackBy: trackByIndex"
+        class="feature card card-hover"
+        [class.flip]="i % 2 === 1"
+        appReveal
         tabindex="0"
         role="button"
         [attr.aria-label]="project.name"
         (click)="openProject(project)"
         (keydown.enter)="openProject(project)"
       >
-        <div class="project-media">
+        <div class="feature-media">
+          <img [src]="project.imageUrl" [alt]="project.name" width="1400" height="933" />
+        </div>
+
+        <div class="feature-body">
+          <span class="badge">{{ 'projects.featured' | translate }} · {{ pad(i) }}</span>
+          <h3 class="feature-name">{{ project.name }}</h3>
+          <p class="feature-desc">{{ project.description }}</p>
+
+          <div class="chips">
+            <span class="chip" *ngFor="let tech of project.stack.slice(0, 6)">{{ tech }}</span>
+          </div>
+
+          <div class="feature-foot">
+            <span class="more">{{ 'projects.viewDetails' | translate }} <span class="arrow" aria-hidden="true">→</span></span>
+            <a
+              *ngFor="let repo of project.githubRepos"
+              [href]="repo.url"
+              target="_blank"
+              rel="noopener noreferrer"
+              (click)="$event.stopPropagation()"
+              class="text-link"
+            >{{ repo.label }} ↗</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Grid -->
+    <div class="grid">
+      <article
+        *ngFor="let project of others; let i = index; trackBy: trackByIndex"
+        class="tile card card-hover"
+        appReveal
+        [revealDelay]="(i % 3) * 90"
+        tabindex="0"
+        role="button"
+        [attr.aria-label]="project.name"
+        (click)="openProject(project)"
+        (keydown.enter)="openProject(project)"
+      >
+        <div class="tile-media">
           <img
             *ngIf="project.imageUrl"
             [src]="project.imageUrl"
@@ -26,28 +70,16 @@
             width="1400"
             height="933"
           />
+          <span class="tile-open" aria-hidden="true">↗</span>
         </div>
 
-        <div class="project-head">
-          <h3 class="project-name">{{ project.name }}</h3>
-          <span class="project-num">{{ pad(i) }}</span>
-        </div>
-
-        <p class="project-desc">{{ project.description }}</p>
-
-        <p class="dot-list project-stack">
-          <span *ngFor="let tech of project.stack">{{ tech }}</span>
-        </p>
-
-        <div class="project-links" *ngIf="project.githubRepos.length">
-          <a
-            *ngFor="let repo of project.githubRepos"
-            [href]="repo.url"
-            target="_blank"
-            rel="noopener noreferrer"
-            (click)="$event.stopPropagation()"
-            class="text-link"
-          >{{ repo.label }} ↗</a>
+        <div class="tile-body">
+          <h3 class="tile-name">{{ project.name }}</h3>
+          <p class="tile-desc">{{ project.description }}</p>
+          <div class="chips">
+            <span class="chip" *ngFor="let tech of project.stack.slice(0, 4)">{{ tech }}</span>
+            <span class="chip chip-more" *ngIf="project.stack.length > 4">+{{ project.stack.length - 4 }}</span>
+          </div>
         </div>
       </article>
     </div>
@@ -111,8 +143,8 @@
 
       <div class="modal-row">
         <dt class="label">{{ 'projects.technologyStack' | translate }}</dt>
-        <dd class="dot-list">
-          <span *ngFor="let tech of selectedProject.stack">{{ tech }}</span>
+        <dd class="chips">
+          <span class="chip" *ngFor="let tech of selectedProject.stack">{{ tech }}</span>
         </dd>
       </div>
 

@@ -3,51 +3,52 @@
     <div class="hero-grid">
 
       <div class="hero-text">
-        <p class="hero-name">Anass EREKYSY</p>
+        <p class="status enter" style="animation-delay: 0ms">
+          <span class="status-dot" aria-hidden="true"></span>
+          {{ 'hero.availableForProjects' | translate }}
+        </p>
 
-        <h1 class="hero-title text-balance">
+        <p class="hero-name enter" style="animation-delay: 80ms">Anass EREKYSY</p>
+
+        <h1 class="hero-title text-balance enter" style="animation-delay: 160ms">
           {{ 'hero.title' | translate }}
         </h1>
 
-        <p class="hero-sub">
+        <p class="hero-sub enter" style="animation-delay: 260ms">
           {{ 'hero.subtitle' | translate }}
         </p>
 
-        <p class="hero-positioning">
+        <p class="hero-positioning enter" style="animation-delay: 340ms">
           {{ 'hero.positioning' | translate }}
           <span class="mark">{{ 'hero.positioningHighlight' | translate }}</span>
           {{ 'hero.positioningSuffix' | translate }}
         </p>
 
-        <p class="hero-status">
-          <span class="status-dot" aria-hidden="true"></span>
-          {{ 'hero.availableForProjects' | translate }}
-        </p>
-
-        <div class="hero-actions">
-          <a href="#projects" class="btn btn-solid">{{ 'hero.viewMyWork' | translate }}</a>
+        <div class="hero-actions enter" style="animation-delay: 420ms">
+          <a href="#projects" class="btn btn-solid">
+            {{ 'hero.viewMyWork' | translate }}
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
           <a href="#contact" class="btn btn-line">{{ 'hero.getInTouch' | translate }}</a>
         </div>
       </div>
 
-      <figure class="hero-photo">
-        <img src="assets/Profile.jpg" alt="Anass EREKYSY" width="480" height="600" />
-      </figure>
+      <div class="hero-visual enter" style="animation-delay: 250ms">
+        <div class="photo-frame">
+          <img src="assets/Profile.jpg" alt="Anass EREKYSY" width="480" height="600" />
+        </div>
+        <div class="photo-tag">
+          <span class="photo-tag-dot" aria-hidden="true"></span>
+          <span>Paris, France</span>
+        </div>
+      </div>
     </div>
 
-    <dl class="hero-stats">
-      <div>
-        <dt>{{ 'hero.yearsExperience' | translate }}</dt>
-        <dd>{{ yearsExperience }}+</dd>
+    <div class="stats" #statsRow>
+      <div class="stat card enter" *ngFor="let stat of stats; let i = index" [style.animation-delay.ms]="500 + i * 90">
+        <span class="stat-value">{{ values()[i] }}{{ stat.suffix }}</span>
+        <span class="stat-label">{{ stat.key | translate }}</span>
       </div>
-      <div>
-        <dt>{{ 'hero.projectsDelivered' | translate }}</dt>
-        <dd>{{ projectsDelivered }}+</dd>
-      </div>
-      <div>
-        <dt>{{ 'hero.qualityFocus' | translate }}</dt>
-        <dd>{{ qualityFocus }}%</dd>
-      </div>
-    </dl>
+    </div>
   </div>
 </section>

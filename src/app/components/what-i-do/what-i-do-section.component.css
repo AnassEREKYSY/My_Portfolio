@@ -1,29 +1,48 @@
 .services {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 40px;
+  gap: 20px;
 }
 
 @media (min-width: 900px) {
-  .services { grid-template-columns: repeat(3, 1fr); gap: 40px; }
+  .services { grid-template-columns: repeat(3, 1fr); gap: 24px; }
 }
 
 .service {
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
+  padding: 30px;
 }
 
-.service-num {
-  display: block;
-  font-size: 0.8rem;
+.service-icon {
+  display: inline-flex;
+  width: 46px;
+  height: 46px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: var(--surface);
   color: var(--accent);
-  font-weight: 600;
-  margin-bottom: 12px;
+  margin-bottom: 24px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.service:hover .service-icon {
+  background: var(--accent);
+  color: var(--on-ink);
+}
+
+:host-context(.dark) .service:hover .service-icon {
+  color: #121211;
+}
+
+.service-icon svg {
+  width: 22px;
+  height: 22px;
 }
 
 .service-title {
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: -0.02em;
   margin-bottom: 10px;
 }
 
@@ -31,31 +50,63 @@
   color: var(--text-secondary);
 }
 
+/* Dark contrast block */
 .expertise {
   display: grid;
   grid-template-columns: 1fr;
   gap: 32px;
-  margin-top: 72px;
+  margin-top: 24px;
   padding: 32px;
-  background: var(--surface);
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
+  background: var(--ink);
+  color: var(--on-ink);
 }
 
 @media (min-width: 900px) {
-  .expertise { grid-template-columns: 1fr 1fr; gap: 56px; padding: 44px; }
+  .expertise { grid-template-columns: 1fr 1fr; gap: 64px; padding: 52px; }
 }
 
 .expertise-title {
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
   margin-bottom: 14px;
 }
 
 .expertise-desc {
-  color: var(--text-secondary);
-  margin-bottom: 18px;
+  opacity: 0.75;
+  margin-bottom: 22px;
 }
 
-.expertise-list > li + li {
-  margin-top: 14px;
+.expertise .chip {
+  background: transparent;
+  border-color: color-mix(in srgb, var(--on-ink) 25%, transparent);
+  color: var(--on-ink);
+}
+
+.expertise-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.expertise-list li {
+  position: relative;
+  padding: 14px 0 14px 28px;
+  border-top: 1px solid color-mix(in srgb, var(--on-ink) 15%, transparent);
+  opacity: 0.9;
+}
+
+.expertise-list li:last-child {
+  border-bottom: 1px solid color-mix(in srgb, var(--on-ink) 15%, transparent);
+}
+
+.expertise-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.45em;
+  width: 12px;
+  height: 1px;
+  background: var(--accent);
 }

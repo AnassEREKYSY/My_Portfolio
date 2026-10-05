@@ -1,32 +1,36 @@
 <section class="section" id="what-i-do">
   <div class="wrap">
 
-    <header class="section-head">
-      <span class="section-index">03</span>
+    <header class="section-head" appReveal>
+      <p class="eyebrow">03</p>
       <h2 class="section-title">{{ 'whatIDo.title' | translate }}</h2>
       <p class="section-sub">{{ 'whatIDo.subtitle' | translate }}</p>
     </header>
 
     <div class="services">
-      <div *ngFor="let service of services; let i = index" class="service">
-        <span class="service-num">0{{ i + 1 }}</span>
+      <div *ngFor="let service of services; let i = index; trackBy: trackByIndex" class="service card card-hover" appReveal [revealDelay]="i * 100">
+        <span class="service-icon" [ngSwitch]="i" aria-hidden="true">
+          <svg *ngSwitchCase="0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18M8 21h8M12 18v3"/></svg>
+          <svg *ngSwitchCase="1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5.5" rx="7" ry="2.5"/><path d="M5 5.5v6c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-6M5 11.5v6c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-6"/></svg>
+          <svg *ngSwitchCase="2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg>
+        </span>
         <h3 class="service-title">{{ ('whatIDo.' + service.title) | translate }}</h3>
         <p class="service-desc">{{ ('whatIDo.' + service.description) | translate }}</p>
       </div>
     </div>
 
-    <div class="expertise">
+    <div class="expertise" appReveal>
       <div>
         <h3 class="expertise-title">{{ 'whatIDo.expertiseTitle' | translate }}</h3>
         <p class="expertise-desc">{{ 'whatIDo.expertiseDesc' | translate }}</p>
-        <p class="dot-list">
-          <span>{{ 'whatIDo.frontendDev' | translate }}</span>
-          <span>{{ 'whatIDo.backendArch' | translate }}</span>
-          <span>{{ 'whatIDo.devopsCICD' | translate }}</span>
-        </p>
+        <div class="chips">
+          <span class="chip">{{ 'whatIDo.frontendDev' | translate }}</span>
+          <span class="chip">{{ 'whatIDo.backendArch' | translate }}</span>
+          <span class="chip">{{ 'whatIDo.devopsCICD' | translate }}</span>
+        </div>
       </div>
 
-      <ul class="rule-list expertise-list">
+      <ul class="expertise-list">
         <li>{{ 'whatIDo.bullet1' | translate }}</li>
         <li>{{ 'whatIDo.bullet2' | translate }}</li>
         <li>{{ 'whatIDo.bullet3' | translate }}</li>

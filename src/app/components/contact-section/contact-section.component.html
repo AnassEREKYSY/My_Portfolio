@@ -1,18 +1,18 @@
 <section class="section" id="contact">
   <div class="wrap">
+    <div class="contact card" appReveal>
 
-    <header class="section-head">
-      <span class="section-index">07</span>
-      <h2 class="section-title">{{ 'contact.title' | translate }}</h2>
-      <p class="section-sub">{{ 'contact.availabilityDesc' | translate }}</p>
-    </header>
-
-    <div class="contact-grid">
-
-      <!-- Left: direct contact, profiles, availability -->
+      <!-- Left: pitch, email, profiles -->
       <div class="contact-side">
-        <a href="mailto:ereanass@gmail.com" class="contact-email">ereanass&#64;gmail.com</a>
-        <p class="contact-location">Paris, France</p>
+        <p class="eyebrow">07</p>
+        <h2 class="contact-title">{{ 'contact.title' | translate }}</h2>
+        <p class="contact-sub">{{ 'contact.subtitle' | translate }}</p>
+
+        <a href="mailto:ereanass@gmail.com" class="contact-email">
+          ereanass&#64;gmail.com
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+        <p class="contact-location">{{ 'contact.location' | translate }}</p>
 
         <div class="contact-block">
           <h3 class="label">{{ 'contact.professionalProfiles' | translate }}</h3>
@@ -33,13 +33,13 @@
         </div>
 
         <div class="contact-block">
-          <h3 class="label">{{ 'contact.availability' | translate }}</h3>
-          <ul class="rule-list">
-            <li>{{ 'contact.shortTerm' | translate }}</li>
-            <li>{{ 'contact.longTerm' | translate }}</li>
-            <li>{{ 'contact.fullStack' | translate }}</li>
-            <li>{{ 'contact.parisRemote' | translate }}</li>
-          </ul>
+          <h3 class="label">{{ 'contact.availability' | translate }} · {{ 'contact.availabilityDesc' | translate }}</h3>
+          <div class="chips">
+            <span class="chip">{{ 'contact.shortTerm' | translate }}</span>
+            <span class="chip">{{ 'contact.longTerm' | translate }}</span>
+            <span class="chip">{{ 'contact.fullStack' | translate }}</span>
+            <span class="chip">{{ 'contact.parisRemote' | translate }}</span>
+          </div>
         </div>
       </div>
 

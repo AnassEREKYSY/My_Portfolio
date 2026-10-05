@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 
 import { TranslatePipe } from '../../pipes/translate.pipe';
+import { RevealDirective } from '../../directives/reveal.directive';
 import { ContactService } from '../../services/contact.service';
 import { isContactFormConfigured } from '../../config/contact.config';
 import { PROFILES } from '../../config/profiles';
@@ -16,7 +17,7 @@ type SubmitState = 'idle' | 'sending' | 'success' | 'error';
 @Component({
   selector: 'app-contact-section',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TranslatePipe],
+  imports: [CommonModule, ReactiveFormsModule, TranslatePipe, RevealDirective],
   templateUrl: './contact-section.component.html',
   styleUrls: ['./contact-section.component.css']
 })

@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '../../pipes/translate.pipe';
+import { RevealDirective } from '../../directives/reveal.directive';
 import { TranslationService } from '../../services/translation.service';
 
 interface Experience {
@@ -19,24 +20,16 @@ interface Experience {
 @Component({
   selector: 'app-experience-section',
   standalone: true,
-  imports: [CommonModule, TranslatePipe],
+  imports: [CommonModule, TranslatePipe, RevealDirective],
   templateUrl: './experience-section.component.html',
   styleUrls: ['./experience-section.component.css']
 })
 export class ExperienceSectionComponent {
   private translationService = inject(TranslationService);
-  expandedIndexes = new Set<number>();
+  active = signal(0);
 
-  toggleExpanded(index: number): void {
-    if (this.expandedIndexes.has(index)) {
-      this.expandedIndexes.delete(index);
-    } else {
-      this.expandedIndexes.add(index);
-    }
-  }
-
-  isExpanded(index: number): boolean {
-    return this.expandedIndexes.has(index);
+  select(index: number): void {
+    this.active.set(index);
   }
   
   get experiences(): Experience[] {
@@ -154,5 +147,8 @@ export class ExperienceSectionComponent {
       }
     ];
   }
-}
 
+  trackByIndex(index: number): number {
+    return index;
+  }
+}

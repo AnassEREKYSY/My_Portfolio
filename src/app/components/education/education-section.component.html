@@ -1,20 +1,23 @@
-<section class="section" id="education">
+<section class="section section-alt" id="education">
   <div class="wrap">
 
-    <header class="section-head">
-      <span class="section-index">06</span>
+    <header class="section-head" appReveal>
+      <p class="eyebrow">06</p>
       <h2 class="section-title">{{ 'education.title' | translate }}</h2>
       <p class="section-sub">{{ 'education.subtitle' | translate }}</p>
     </header>
 
-    <div>
-      <article *ngFor="let edu of educationList" class="row edu">
+    <div class="edu-grid">
+      <article
+        *ngFor="let edu of educationList; let i = index; trackBy: trackByIndex"
+        class="edu card card-hover"
+        appReveal
+        [revealDelay]="i * 100"
+      >
         <span class="edu-period">{{ edu.period }}</span>
-        <div>
-          <h3 class="edu-title">{{ edu.title }}</h3>
-          <p class="edu-school">{{ edu.institution }}</p>
-        </div>
-        <span class="edu-location">{{ edu.location }}</span>
+        <h3 class="edu-title">{{ edu.title }}</h3>
+        <p class="edu-school">{{ edu.institution }}</p>
+        <p class="edu-location">{{ edu.location }}</p>
       </article>
     </div>
   </div>

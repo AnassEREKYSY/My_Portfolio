@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '../../pipes/translate.pipe';
+import { RevealDirective } from '../../directives/reveal.directive';
 
 interface Service {
   title: string;
@@ -10,7 +11,7 @@ interface Service {
 @Component({
   selector: 'app-what-i-do-section',
   standalone: true,
-  imports: [CommonModule, TranslatePipe],
+  imports: [CommonModule, TranslatePipe, RevealDirective],
   templateUrl: './what-i-do-section.component.html',
   styleUrls: ['./what-i-do-section.component.css']
 })
@@ -29,7 +30,8 @@ export class WhatIDoSectionComponent {
       description: 'devopsDesc'
     }
   ];
+
+  trackByIndex(index: number): number {
+    return index;
+  }
 }
-
-
-

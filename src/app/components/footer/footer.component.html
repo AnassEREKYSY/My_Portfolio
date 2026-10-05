@@ -1,9 +1,13 @@
 <footer class="site-footer" role="contentinfo">
-  <div class="wrap footer-inner">
-    <div>
-      <p class="footer-copy">&copy; {{ currentYear }} Anass EREKYSY. All rights reserved.</p>
-      <p class="footer-tag">Full Stack Developer — Web, APIs & Cloud</p>
-    </div>
+  <div class="wrap">
+    <div class="footer-top">
+      <a href="#hero" class="footer-brand">
+        <span class="footer-mark" aria-hidden="true">AE</span>
+        <span>
+          <span class="footer-name">Anass EREKYSY</span>
+          <span class="footer-tag">Full Stack Developer — Web, APIs & Cloud</span>
+        </span>
+      </a>
 
     <nav class="footer-links" aria-label="Profiles">
       <a *ngFor="let p of profiles" [href]="p.url" target="_blank" rel="noopener noreferrer"
@@ -23,5 +27,11 @@
         </svg>
       </a>
     </nav>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; {{ currentYear }} Anass EREKYSY. All rights reserved.</p>
+      <a href="#hero" class="to-top" aria-label="Back to top">↑</a>
+    </div>
   </div>
 </footer>

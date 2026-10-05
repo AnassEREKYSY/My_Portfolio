@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '../../pipes/translate.pipe';
+import { RevealDirective } from '../../directives/reveal.directive';
 import { TranslationService } from '../../services/translation.service';
 
 interface Education {
@@ -13,7 +14,7 @@ interface Education {
 @Component({
   selector: 'app-education-section',
   standalone: true,
-  imports: [CommonModule, TranslatePipe],
+  imports: [CommonModule, TranslatePipe, RevealDirective],
   templateUrl: './education-section.component.html',
   styleUrls: ['./education-section.component.css']
 })
@@ -42,5 +43,8 @@ export class EducationSectionComponent {
       }
     ];
   }
-}
 
+  trackByIndex(index: number): number {
+    return index;
+  }
+}
