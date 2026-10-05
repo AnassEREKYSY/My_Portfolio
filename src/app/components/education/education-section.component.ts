@@ -14,7 +14,8 @@ interface Education {
   selector: 'app-education-section',
   standalone: true,
   imports: [CommonModule, TranslatePipe],
-  templateUrl: './education-section.component.html'
+  templateUrl: './education-section.component.html',
+  styleUrls: ['./education-section.component.css']
 })
 export class EducationSectionComponent {
   private translationService = inject(TranslationService);

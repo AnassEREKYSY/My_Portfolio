@@ -1,8 +1,35 @@
-.footer-icon {
-  color: var(--text-muted);
-  transition: color 0.2s ease;
+.site-footer {
+  border-top: 1px solid var(--ink);
 }
 
-.footer-icon:hover {
-  color: var(--accent);
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 28px;
+  padding-bottom: 36px;
+}
+
+@media (min-width: 768px) {
+  .footer-inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.footer-copy {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.footer-tag {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.footer-links {
+  display: flex;
+  gap: 22px;
+  font-size: 0.9rem;
 }

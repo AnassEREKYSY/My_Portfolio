@@ -1,0 +1,83 @@
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  height: 60px;
+}
+
+.brand {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.header-nav {
+  display: none;
+  gap: 28px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.header-nav a:hover {
+  color: var(--accent);
+}
+
+@media (min-width: 900px) {
+  .header-nav { display: flex; }
+}
+
+.header-tools {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.lang {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.lang button {
+  padding: 2px 0;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-bottom: 1px solid transparent;
+}
+
+.lang button.active {
+  color: var(--text-primary);
+  border-bottom-color: var(--accent);
+}
+
+.theme-btn {
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-secondary);
+}
+
+.theme-btn:hover {
+  border-color: var(--ink);
+  color: var(--text-primary);
+}
+
+.theme-btn svg {
+  width: 16px;
+  height: 16px;
+}

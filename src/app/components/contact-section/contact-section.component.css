@@ -1,110 +1,76 @@
-.contact-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--text-primary);
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 56px;
 }
 
-.social-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-size: 0.95rem;
+@media (min-width: 900px) {
+  .contact-grid { grid-template-columns: 1fr 1.4fr; gap: 72px; }
+}
+
+.contact-email {
+  display: inline-block;
+  font-size: 1.6rem;
   font-weight: 600;
-  color: white;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  min-width: 140px;
-  justify-content: flex-start;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--accent);
+  line-height: 1.3;
+  word-break: break-all;
 }
 
-.social-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+@media (min-width: 640px) {
+  .contact-email { font-size: 2rem; }
 }
 
-.social-icon {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
+.contact-email:hover {
+  color: var(--accent);
 }
 
-.social-text {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+.contact-location {
+  margin-top: 10px;
+  color: var(--text-muted);
 }
 
-.linkedin-button {
-  background: #0077B5;
+.contact-block {
+  margin-top: 40px;
 }
 
-.linkedin-button:hover {
-  background: #006399;
+.contact-block .label {
+  margin-bottom: 12px;
 }
 
-.github-button {
-  background: #000000;
-}
-
-html.light .github-button {
-  background: #24292e;
-}
-
-.github-button:hover {
-  background: #1a1a1a;
-}
-
-html.light .github-button:hover {
-  background: #1c2128;
-}
-
-.malt-button {
-  background: #FF6B35;
-}
-
-.malt-button:hover {
-  background: #e55a2b;
-}
-
-.collective-button {
-  background: #6366F1;
-}
-
-.collective-button:hover {
-  background: #4f46e5;
-}
-
-.upwork-button {
-  background: #14A800;
-}
-
-.upwork-button:hover {
-  background: #0f7d00;
-}
-
-.icon-box {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.06);
-  background: rgba(255,255,255,0.02);
+.profile-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 22px;
 }
 
-.icon-box svg {
-  width: 15px;
-  height: 15px;
-  opacity: 0.75;
+.contact-form {
+  padding: 28px;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
 }
 
-/* ---------- Contact form ---------- */
+@media (min-width: 768px) {
+  .contact-form { padding: 40px; }
+}
+
+.form-heading {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.form-intro {
+  color: var(--text-secondary);
+  margin-bottom: 28px;
+}
+
+/* ---------- Form ---------- */
 
 .form-grid {
   display: grid;
@@ -123,28 +89,28 @@ html.light .github-button:hover {
 }
 
 .form-field label {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 
 .form-field input,
 .form-field textarea {
   width: 100%;
-  padding: 11px 14px;
-  border-radius: 10px;
+  padding: 11px 12px;
+  border-radius: var(--radius);
   border: 1px solid var(--border);
   background: var(--bg);
   color: var(--text-primary);
   font-size: 0.95rem;
   font-family: inherit;
   line-height: 1.5;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  transition: border-color 0.15s ease;
 }
 
 .form-field textarea {
   resize: vertical;
-  min-height: 140px;
+  min-height: 150px;
 }
 
 .form-field ::placeholder {
@@ -154,22 +120,20 @@ html.light .github-button:hover {
 .form-field input:focus,
 .form-field textarea:focus {
   outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+  border-color: var(--ink);
 }
 
 .form-field .has-error {
-  border-color: #ef4444;
-}
-
-.form-field .has-error:focus {
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+  border-color: #b42318;
 }
 
 .field-error {
-  font-size: 0.78rem;
-  color: #ef4444;
+  font-size: 0.8rem;
+  color: #b42318;
 }
+
+html.dark .field-error { color: #f2836b; }
+html.dark .form-field .has-error { border-color: #f2836b; }
 
 /* Honeypot, hidden from real users */
 .hp-field {
@@ -186,35 +150,35 @@ html.light .github-button:hover {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 11px 26px;
-  border-radius: 10px;
-  border: none;
-  background: var(--accent);
-  color: #ffffff;
+  padding: 12px 26px;
+  border-radius: var(--radius);
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--on-ink);
   font-size: 0.95rem;
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
   white-space: nowrap;
 }
 
 .submit-button:hover:not(:disabled) {
-  background: var(--accent-hover);
-  transform: translateY(-1px);
+  background: var(--accent);
+  border-color: var(--accent);
 }
 
 .submit-button:disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
 .spinner {
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.35);
-  border-top-color: #ffffff;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
   animation: spin 0.7s linear infinite;
 }
 
@@ -226,9 +190,11 @@ html.light .github-button:hover {
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  padding: 16px 18px;
-  border-radius: 12px;
+  padding: 16px;
+  border-radius: var(--radius);
   flex-wrap: wrap;
+  border-left: 3px solid currentColor;
+  background: var(--surface);
 }
 
 .form-feedback svg {
@@ -238,20 +204,11 @@ html.light .github-button:hover {
   margin-top: 2px;
 }
 
-.form-feedback-success {
-  background: rgba(34, 197, 94, 0.08);
-  border: 1px solid rgba(34, 197, 94, 0.25);
-  color: #16a34a;
-}
+.form-feedback-success { color: #2f7a4a; }
+.form-feedback-error { color: #b42318; }
 
-.form-feedback-error {
-  background: rgba(239, 68, 68, 0.08);
-  border: 1px solid rgba(239, 68, 68, 0.25);
-  color: #dc2626;
-}
-
-html.dark .form-feedback-success { color: #4ade80; }
-html.dark .form-feedback-error { color: #f87171; }
+html.dark .form-feedback-success { color: #6cc28d; }
+html.dark .form-feedback-error { color: #f2836b; }
 
 .form-feedback-action {
   margin-left: auto;
@@ -265,13 +222,4 @@ html.dark .form-feedback-error { color: #f87171; }
   color: inherit;
   text-decoration: underline;
   cursor: pointer;
-}
-
-.availability-chip {
-  padding: 5px 12px;
-  border-radius: 9999px;
-  font-size: 0.8rem;
-  border: 1px solid rgba(255,255,255,0.06);
-  background: rgba(255,255,255,0.03);
-  color: var(--text-secondary);
 }

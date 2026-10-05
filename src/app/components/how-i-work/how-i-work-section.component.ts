@@ -12,7 +12,8 @@ interface WorkPrinciple {
   selector: 'app-how-i-work-section',
   standalone: true,
   imports: [CommonModule, TranslatePipe],
-  templateUrl: './how-i-work-section.component.html'
+  templateUrl: './how-i-work-section.component.html',
+  styleUrls: ['./how-i-work-section.component.css']
 })
 export class HowIWorkSectionComponent {
   private translationService = inject(TranslationService);
