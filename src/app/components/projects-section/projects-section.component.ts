@@ -1,6 +1,7 @@
 import { Component, HostListener, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '../../pipes/translate.pipe';
+import { RevealDirective } from '../../directives/reveal.directive';
 import { TranslationService } from '../../services/translation.service';
 
 interface Project {
@@ -23,7 +24,7 @@ interface Project {
 @Component({
   selector: 'app-projects-section',
   standalone: true,
-  imports: [CommonModule, TranslatePipe],
+  imports: [CommonModule, TranslatePipe, RevealDirective],
   templateUrl: './projects-section.component.html',
   styleUrls: ['./projects-section.component.css']
 })
@@ -31,6 +32,14 @@ export class ProjectsSectionComponent {
   private translationService = inject(TranslationService);
   
   selectedProject: Project | null = null;
+
+  get featured(): Project[] {
+    return this.projects.slice(0, 2);
+  }
+
+  get others(): Project[] {
+    return this.projects.slice(2);
+  }
 
   pad(index: number): string {
     return String(index + 1).padStart(2, '0');
@@ -345,5 +354,8 @@ export class ProjectsSectionComponent {
       }
     ];
   }
-}
 
+  trackByIndex(index: number): number {
+    return index;
+  }
+}

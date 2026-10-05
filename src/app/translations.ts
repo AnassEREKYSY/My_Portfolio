@@ -249,6 +249,8 @@ export const translations: Record<'en' | 'fr', Translations> = {
       roleImpact: "Role & Impact",
       sourceCode: "Source Code",
       githubRepo: "GitHub Repository",
+      viewDetails: "View details",
+      featured: "Featured",
       proj11: {
         description: "Trading journal SaaS built around discipline: plan each trade, check it against your own rules, then compare the plan with what really happened.",
         problem: "Most trading journals only log results. Traders need to see whether they followed their own plan and rules, and what breaking those rules actually costs them.",
@@ -848,6 +850,8 @@ export const translations: Record<'en' | 'fr', Translations> = {
       roleImpact: "Rôle & Impact",
       sourceCode: "Code Source",
       githubRepo: "Dépôt GitHub",
+      viewDetails: "Voir le détail",
+      featured: "À la une",
       proj11: {
         description: "SaaS de journal de trading centré sur la discipline : planifier chaque trade, le confronter à ses propres règles, puis comparer le plan avec la réalité.",
         problem: "La plupart des journaux de trading se limitent aux résultats. Un trader a besoin de voir s'il a respecté son plan et ses règles, et ce que lui coûtent réellement ses écarts.",

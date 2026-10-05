@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '../../pipes/translate.pipe';
+import { RevealDirective } from '../../directives/reveal.directive';
 import { TranslationService } from '../../services/translation.service';
 
 interface WorkPrinciple {
@@ -11,7 +12,7 @@ interface WorkPrinciple {
 @Component({
   selector: 'app-how-i-work-section',
   standalone: true,
-  imports: [CommonModule, TranslatePipe],
+  imports: [CommonModule, TranslatePipe, RevealDirective],
   templateUrl: './how-i-work-section.component.html',
   styleUrls: ['./how-i-work-section.component.css']
 })
@@ -56,5 +57,9 @@ export class HowIWorkSectionComponent {
       { title: this.translationService.translate('howIWork.step5.title'), description: this.translationService.translate('howIWork.step5.description') },
       { title: this.translationService.translate('howIWork.step6.title'), description: this.translationService.translate('howIWork.step6.description') }
     ];
+  }
+
+  trackByIndex(index: number): number {
+    return index;
   }
 }

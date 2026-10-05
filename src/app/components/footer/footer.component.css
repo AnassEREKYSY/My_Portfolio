@@ -1,56 +1,107 @@
 .site-footer {
-  border-top: 1px solid var(--ink);
+  border-top: 1px solid var(--border);
+  padding: 48px 0 28px;
 }
 
-.footer-inner {
+.footer-top {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding-top: 28px;
-  padding-bottom: 36px;
+  gap: 24px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border);
 }
 
 @media (min-width: 768px) {
-  .footer-inner {
+  .footer-top {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
   }
 }
 
-.footer-copy {
-  font-size: 0.9rem;
-  color: var(--text-primary);
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.footer-mark {
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 11px;
+  background: var(--ink);
+  color: var(--on-ink);
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.footer-name {
+  display: block;
+  font-weight: 700;
 }
 
 .footer-tag {
+  display: block;
   font-size: 0.85rem;
   color: var(--text-muted);
 }
 
 .footer-links {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
 .footer-icon {
   display: inline-flex;
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   align-items: center;
   justify-content: center;
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 50%;
   color: var(--text-secondary);
-  transition: border-color 0.15s ease, color 0.15s ease;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.25s ease;
 }
 
 .footer-icon:hover {
-  border-color: var(--ink);
+  border-color: var(--border-strong);
   color: var(--brand, var(--text-primary));
+  transform: translateY(-2px);
 }
 
 .footer-icon svg {
   width: 18px;
   height: 18px;
+}
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 22px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.to-top {
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  transition: border-color 0.2s ease, transform 0.25s ease;
+}
+
+.to-top:hover {
+  border-color: var(--ink);
+  transform: translateY(-2px);
 }

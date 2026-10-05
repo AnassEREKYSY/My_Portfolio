@@ -11,6 +11,7 @@
   --surface: #f5f4f1;
   --border: #e2e0db;
   --muted: #eeece8;
+  --border-strong: #c9c6bf;
   --text-primary: #161512;
   --text-secondary: #4a4741;
   --text-muted: #7a766e;
@@ -20,14 +21,16 @@
   --accent-dark: #7c2d12;
   --ink: #161512;
   --on-ink: #ffffff;
-  --radius: 2px;
+  --radius: 6px;
+  --radius-lg: 16px;
 }
 
 html.dark {
   --bg: #121211;
-  --surface: #1a1a18;
+  --surface: #171716;
   --border: #2e2d29;
   --muted: #24231f;
+  --border-strong: #46443f;
   --text-primary: #ece9e2;
   --text-secondary: #b3afa6;
   --text-muted: #85817a;
@@ -80,7 +83,7 @@ html.dark {
 
 @layer components {
   .wrap {
-    max-width: 1180px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
   }
@@ -90,50 +93,61 @@ html.dark {
   }
 
   .section {
-    padding: 88px 0;
+    padding: 96px 0;
   }
 
   @media (min-width: 1024px) {
-    .section { padding: 120px 0; }
+    .section { padding: 128px 0; }
   }
 
-  /* Section header: index, title, subtitle on one strong rule */
+  .section-alt {
+    background: var(--surface);
+  }
+
+  /* Section header: eyebrow, title, subtitle stacked */
   .section-head {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px 32px;
-    padding-top: 20px;
-    border-top: 1px solid var(--ink);
+    max-width: 720px;
     margin-bottom: 56px;
   }
 
   @media (min-width: 900px) {
-    .section-head {
-      grid-template-columns: 80px 1fr 1fr;
-      align-items: baseline;
-      margin-bottom: 72px;
-    }
+    .section-head { margin-bottom: 72px; }
   }
 
-  .section-index {
-    font-size: 0.85rem;
-    color: var(--accent);
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.8rem;
     font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 24px;
+    height: 1px;
+    background: currentColor;
   }
 
   .section-title {
-    font-size: 2rem;
-    font-weight: 600;
+    font-size: 2.1rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
     color: var(--text-primary);
+    margin-bottom: 14px;
   }
 
   @media (min-width: 900px) {
-    .section-title { font-size: 2.5rem; }
+    .section-title { font-size: 2.9rem; }
   }
 
   .section-sub {
+    font-size: 1.1rem;
     color: var(--text-secondary);
-    max-width: 34rem;
   }
 
   .label {
@@ -144,17 +158,61 @@ html.dark {
     color: var(--text-muted);
   }
 
+  /* Cards */
+  .card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    transition: border-color 0.3s ease, transform 0.4s cubic-bezier(.2,.7,.2,1), box-shadow 0.4s ease;
+  }
+
+  .section-alt .card {
+    background: var(--bg);
+  }
+
+  .card-hover:hover {
+    border-color: var(--border-strong);
+    transform: translateY(-3px);
+    box-shadow: 0 18px 40px -24px rgba(22, 21, 18, 0.25);
+  }
+
+  html.dark .card-hover:hover {
+    box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.8);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 11px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    background: var(--bg);
+    white-space: nowrap;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 12px 22px;
-    border-radius: var(--radius);
+    padding: 13px 24px;
+    border-radius: 999px;
     font-weight: 600;
     font-size: 0.95rem;
     border: 1px solid var(--ink);
-    transition: background-color 0.15s ease, color 0.15s ease;
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+  }
+
+  .btn:active {
+    transform: scale(0.98);
   }
 
   .btn-solid {
@@ -170,39 +228,35 @@ html.dark {
   .btn-line {
     background: transparent;
     color: var(--text-primary);
+    border-color: var(--border-strong);
   }
 
   .btn-line:hover {
-    background: var(--ink);
-    color: var(--on-ink);
+    border-color: var(--ink);
+  }
+
+  .btn .arrow {
+    transition: transform 0.25s ease;
+  }
+
+  .btn:hover .arrow {
+    transform: translateX(3px);
   }
 
   .text-link {
     color: var(--text-primary);
-    text-decoration: underline;
-    text-decoration-color: var(--border);
-    text-underline-offset: 4px;
-    text-decoration-thickness: 1px;
-    transition: text-decoration-color 0.15s ease, color 0.15s ease;
+    font-weight: 500;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    padding-bottom: 2px;
+    transition: background-size 0.3s ease, color 0.2s ease;
   }
 
   .text-link:hover {
     color: var(--accent);
-    text-decoration-color: var(--accent);
-  }
-
-  /* Plain "A · B · C" lists */
-  .dot-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2px 0;
-    color: var(--text-secondary);
-  }
-
-  .dot-list > span:not(:last-child)::after {
-    content: "·";
-    margin: 0 8px;
-    color: var(--text-muted);
+    background-size: 100% 1px;
   }
 
   /* Bullet lists with a short rule as marker */
@@ -219,7 +273,7 @@ html.dark {
   }
 
   .rule-list > li + li {
-    margin-top: 8px;
+    margin-top: 10px;
   }
 
   .rule-list > li::before {
@@ -232,12 +286,42 @@ html.dark {
     background: var(--accent);
   }
 
-  .row {
-    border-top: 1px solid var(--border);
+  /* Scroll reveal (driven by RevealDirective) */
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.8s cubic-bezier(.2,.7,.2,1), transform 0.8s cubic-bezier(.2,.7,.2,1);
   }
 
-  .row:last-child {
-    border-bottom: 1px solid var(--border);
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Page-load entrance */
+  .enter {
+    opacity: 0;
+    animation: enter 0.9s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+
+  @keyframes enter {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  @keyframes fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal,
+    .enter {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+      transition: none !important;
+    }
   }
 }
 
@@ -266,4 +350,17 @@ html.dark {
     clip: auto;
     white-space: normal;
   }
+}
+
+/* Dark contrast blocks stay dark in dark mode, lifted from the page */
+html.dark .expertise,
+html.dark .contact-side {
+  --on-ink: #ece9e2;
+  background: #1f1e1c;
+  color: #ece9e2;
+}
+
+/* Card hover shadow is too strong on dark */
+html.dark .card-hover:hover {
+  box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.8);
 }

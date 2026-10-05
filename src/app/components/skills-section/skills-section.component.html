@@ -1,28 +1,30 @@
-<section class="section" id="skills">
+<section class="section section-alt" id="skills">
   <div class="wrap">
 
-    <header class="section-head">
-      <span class="section-index">04</span>
+    <header class="section-head" appReveal>
+      <p class="eyebrow">04</p>
       <h2 class="section-title">{{ 'skills.title' | translate }}</h2>
       <p class="section-sub">{{ 'skills.subtitle' | translate }}</p>
     </header>
 
-    <div>
+    <div class="skill-grid">
       <div
-        *ngFor="let category of skillCategories; trackBy: trackByCategoryName"
-        class="row skill-row"
+        *ngFor="let category of skillCategories; let i = index; trackBy: trackByCategoryName"
+        class="skill-card card"
+        appReveal
+        [revealDelay]="(i % 2) * 90"
       >
         <h3 class="skill-cat">{{ category.name }}</h3>
-        <p class="dot-list skill-items">
-          <span *ngFor="let skill of category.skills; trackBy: trackBySkillName">{{ skill.name }}</span>
-        </p>
+        <div class="chips">
+          <span class="chip" *ngFor="let skill of category.skills; trackBy: trackBySkillName">{{ skill.name }}</span>
+        </div>
       </div>
 
-      <div class="row skill-row">
+      <div class="skill-card card" appReveal [revealDelay]="90">
         <h3 class="skill-cat">{{ 'skills.methodologies' | translate }}</h3>
-        <p class="dot-list skill-items">
-          <span *ngFor="let methodology of methodologies">{{ methodology }}</span>
-        </p>
+        <div class="chips">
+          <span class="chip" *ngFor="let methodology of methodologies">{{ methodology }}</span>
+        </div>
       </div>
     </div>
   </div>

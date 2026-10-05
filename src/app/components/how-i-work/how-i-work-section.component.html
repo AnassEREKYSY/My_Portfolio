@@ -1,28 +1,32 @@
 <section class="section" id="how-i-work">
   <div class="wrap">
 
-    <header class="section-head">
-      <span class="section-index">05</span>
+    <header class="section-head" appReveal>
+      <p class="eyebrow">05</p>
       <h2 class="section-title">{{ 'howIWork.title' | translate }}</h2>
       <p class="section-sub">{{ 'howIWork.subtitle' | translate }}</p>
     </header>
 
     <div class="principles">
-      <div *ngFor="let principle of principles" class="principle">
+      <div
+        *ngFor="let principle of principles; let i = index; trackBy: trackByIndex"
+        class="principle"
+        appReveal
+        [revealDelay]="(i % 3) * 90"
+      >
+        <span class="principle-num">0{{ i + 1 }}</span>
         <h3 class="principle-title">{{ principle.title }}</h3>
         <p class="principle-desc">{{ principle.description }}</p>
       </div>
     </div>
 
-    <div class="process">
+    <div class="process card" appReveal>
       <h3 class="process-title">{{ 'howIWork.processTitle' | translate }}</h3>
       <ol class="steps">
-        <li *ngFor="let step of processSteps; let i = index" class="step">
+        <li *ngFor="let step of processSteps; let i = index; trackBy: trackByIndex" class="step">
           <span class="step-num">{{ i + 1 }}</span>
-          <div>
-            <p class="step-title">{{ step.title }}</p>
-            <p class="step-desc">{{ step.description }}</p>
-          </div>
+          <p class="step-title">{{ step.title }}</p>
+          <p class="step-desc">{{ step.description }}</p>
         </li>
       </ol>
     </div>
