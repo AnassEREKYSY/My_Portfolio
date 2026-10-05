@@ -100,7 +100,12 @@ export class ProjectsSectionComponent {
         impact: this.translationService.translate('projects.proj10.impact'),
         role: this.translationService.translate('projects.proj10.role'),
         imageUrl: 'assets/projects/cockpit.webp',
-        githubRepos: []
+        githubRepos: [
+          {
+            label: 'Live demo',
+            url: 'https://business-cockpit-five.vercel.app/'
+          }
+        ]
       },
 
       {

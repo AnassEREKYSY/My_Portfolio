@@ -4,13 +4,13 @@
 
 /*
   Design tokens.
-  Warm paper and ink, one burnt-orange accent. No gradients, no glow, no blur.
+  White and ink, one burnt-orange accent. No gradients, no glow, no blur.
 */
 :root {
-  --bg: #f4f2ee;
-  --surface: #ebe8e2;
-  --border: #d6d2ca;
-  --muted: #e3dfd8;
+  --bg: #ffffff;
+  --surface: #f5f4f1;
+  --border: #e2e0db;
+  --muted: #eeece8;
   --text-primary: #161512;
   --text-secondary: #4a4741;
   --text-muted: #7a766e;
@@ -19,7 +19,7 @@
   --accent-light: #f3c9b4;
   --accent-dark: #7c2d12;
   --ink: #161512;
-  --on-ink: #f4f2ee;
+  --on-ink: #ffffff;
   --radius: 2px;
 }
 
