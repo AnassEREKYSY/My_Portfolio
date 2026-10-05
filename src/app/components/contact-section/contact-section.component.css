@@ -44,9 +44,33 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.profile {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px 22px;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.profile:hover {
+  border-color: var(--ink);
+}
+
+.profile-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--brand, currentColor);
 }
 
 .contact-form {

@@ -17,11 +17,18 @@
         <div class="contact-block">
           <h3 class="label">{{ 'contact.professionalProfiles' | translate }}</h3>
           <ul class="profile-list">
-            <li><a class="text-link" href="https://www.linkedin.com/in/anass-erekysy-5a8939204/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></li>
-            <li><a class="text-link" href="https://github.com/AnassEREKYSY" target="_blank" rel="noopener noreferrer">GitHub ↗</a></li>
-            <li><a class="text-link" href="https://www.malt.fr/profile/anasserekysy" target="_blank" rel="noopener noreferrer">Malt ↗</a></li>
-            <li><a class="text-link" href="https://app.collective.work/collective/anass-erekysy/profile?tab=1" target="_blank" rel="noopener noreferrer">Collective ↗</a></li>
-            <li><a class="text-link" href="https://www.upwork.com/freelancers/~019f535ba57e87cbb4" target="_blank" rel="noopener noreferrer">Upwork ↗</a></li>
+            <li *ngFor="let p of profiles">
+              <a class="profile" [href]="p.url" target="_blank" rel="noopener noreferrer" [style.--brand]="p.color">
+              <svg class="profile-icon" [attr.viewBox]="p.viewBox" aria-hidden="true"
+                   [attr.fill]="p.stroke ? 'none' : 'currentColor'"
+                   [attr.stroke]="p.stroke ? 'currentColor' : null"
+                   [attr.stroke-width]="p.stroke ? 2.6 : null"
+                   stroke-linecap="round">
+                <path [attr.d]="p.path" />
+              </svg>
+                <span>{{ p.name }}</span>
+              </a>
+            </li>
           </ul>
         </div>
 

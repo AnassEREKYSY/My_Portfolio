@@ -9,6 +9,7 @@ import {
 import { TranslatePipe } from '../../pipes/translate.pipe';
 import { ContactService } from '../../services/contact.service';
 import { isContactFormConfigured } from '../../config/contact.config';
+import { PROFILES } from '../../config/profiles';
 
 type SubmitState = 'idle' | 'sending' | 'success' | 'error';
 
@@ -23,6 +24,7 @@ export class ContactSectionComponent {
   private readonly fb = inject(FormBuilder);
   private readonly contactService = inject(ContactService);
 
+  readonly profiles = PROFILES;
   readonly state = signal<SubmitState>('idle');
   readonly formEnabled = isContactFormConfigured();
 
