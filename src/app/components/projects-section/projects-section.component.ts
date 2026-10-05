@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '../../pipes/translate.pipe';
 import { TranslationService } from '../../services/translation.service';
@@ -14,7 +14,6 @@ interface Project {
   impact: string;
   role: string;
   imageUrl?: string;
-  hasEmptyIcon?: boolean;
   githubRepos: {
     label: string;
     url: string;
@@ -33,9 +32,20 @@ export class ProjectsSectionComponent {
   
   selectedProject: Project | null = null;
 
+  pad(index: number): string {
+    return String(index + 1).padStart(2, '0');
+  }
+
   openProject(project: Project) {
     this.selectedProject = project;
     document.body.style.overflow = 'hidden';
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape() {
+    if (this.selectedProject) {
+      this.closeProject();
+    }
   }
 
   closeProject() {
@@ -45,6 +55,54 @@ export class ProjectsSectionComponent {
 
   get projects(): Project[] {
     return [
+      {
+        name: 'Plumb',
+        description: this.translationService.translate('projects.proj11.description'),
+        problem: this.translationService.translate('projects.proj11.problem'),
+        solution: this.translationService.translate('projects.proj11.solution'),
+        stack: [
+          'Next.js',
+          'React',
+          'TypeScript',
+          'Supabase',
+          'PostgreSQL',
+          'Tailwind CSS',
+          'Zod',
+          'Vercel'
+        ],
+        features: this.translationService.translateArray('projects.proj11.features'),
+        highlights: this.translationService.translateArray('projects.proj11.highlights'),
+        impact: this.translationService.translate('projects.proj11.impact'),
+        role: this.translationService.translate('projects.proj11.role'),
+        imageUrl: 'assets/projects/plumb.webp',
+        githubRepos: [
+          {
+            label: 'Live demo',
+            url: 'https://plumb-peach.vercel.app/'
+          }
+        ]
+      },
+
+      {
+        name: 'Cockpit',
+        description: this.translationService.translate('projects.proj10.description'),
+        problem: this.translationService.translate('projects.proj10.problem'),
+        solution: this.translationService.translate('projects.proj10.solution'),
+        stack: [
+          'React',
+          'TypeScript',
+          'Supabase',
+          'PostgreSQL',
+          'Vercel'
+        ],
+        features: this.translationService.translateArray('projects.proj10.features'),
+        highlights: this.translationService.translateArray('projects.proj10.highlights'),
+        impact: this.translationService.translate('projects.proj10.impact'),
+        role: this.translationService.translate('projects.proj10.role'),
+        imageUrl: 'assets/projects/cockpit.webp',
+        githubRepos: []
+      },
+
       {
         name: 'Buy & Bye',
         description: this.translationService.translate('projects.proj9.description'),
@@ -63,13 +121,8 @@ export class ProjectsSectionComponent {
         highlights: this.translationService.translateArray('projects.proj9.highlights'),
         impact: this.translationService.translate('projects.proj9.impact'),
         role: this.translationService.translate('projects.proj9.role'),
-        imageUrl: 'assets/BuyAndBye.png',
-        githubRepos: [
-          {
-            label: 'GitHub Repository coming soon',
-            url: ''
-          }
-        ]
+        imageUrl: 'assets/projects/buyandbye.webp',
+        githubRepos: []
       },
   
       {
@@ -90,7 +143,7 @@ export class ProjectsSectionComponent {
         highlights: this.translationService.translateArray('projects.proj1.highlights'),
         impact: this.translationService.translate('projects.proj1.impact'),
         role: this.translationService.translate('projects.proj1.role'),
-        imageUrl: 'assets/MarketPulse.png',
+        imageUrl: 'assets/projects/marketpulse.webp',
         githubRepos: [
           {
             label: 'GitHub Repository',
@@ -120,7 +173,7 @@ export class ProjectsSectionComponent {
         highlights: this.translationService.translateArray('projects.proj2.highlights'),
         impact: this.translationService.translate('projects.proj2.impact'),
         role: this.translationService.translate('projects.proj2.role'),
-        imageUrl: 'assets/Paychase.png',
+        imageUrl: 'assets/projects/paychase.webp',
         githubRepos: [
           {
             label: 'Auth Service',
@@ -148,7 +201,7 @@ export class ProjectsSectionComponent {
         highlights: this.translationService.translateArray('projects.proj3.highlights'),
         impact: this.translationService.translate('projects.proj3.impact'),
         role: this.translationService.translate('projects.proj3.role'),
-        imageUrl: 'assets/Melodify.png',
+        imageUrl: 'assets/projects/melodify.webp',
         githubRepos: [
           {
             label: 'GitHub Repository',
@@ -174,7 +227,7 @@ export class ProjectsSectionComponent {
         highlights: this.translationService.translateArray('projects.proj6.highlights'),
         impact: this.translationService.translate('projects.proj6.impact'),
         role: this.translationService.translate('projects.proj6.role'),
-        imageUrl: 'assets/RaiseUp.png',
+        imageUrl: 'assets/projects/raiseup.webp',
         githubRepos: [
           {
             label: 'GitHub Repository',
@@ -201,7 +254,7 @@ export class ProjectsSectionComponent {
         highlights: this.translationService.translateArray('projects.proj7.highlights'),
         impact: this.translationService.translate('projects.proj7.impact'),
         role: this.translationService.translate('projects.proj7.role'),
-        imageUrl: 'assets/ShowTracker.png',
+        imageUrl: 'assets/projects/showtracker.webp',
         githubRepos: [
           {
             label: 'GitHub Repository',
@@ -229,7 +282,7 @@ export class ProjectsSectionComponent {
         highlights: this.translationService.translateArray('projects.proj4.highlights'),
         impact: this.translationService.translate('projects.proj4.impact'),
         role: this.translationService.translate('projects.proj4.role'),
-        imageUrl: 'assets/CoinHawk.png',
+        imageUrl: 'assets/projects/coinhawk.webp',
         githubRepos: [
           {
             label: 'GitHub Repository',
@@ -253,7 +306,7 @@ export class ProjectsSectionComponent {
         highlights: this.translationService.translateArray('projects.proj5.highlights'),
         impact: this.translationService.translate('projects.proj5.impact'),
         role: this.translationService.translate('projects.proj5.role'),
-        imageUrl: 'assets/Skinet.png',
+        imageUrl: 'assets/projects/skinet.webp',
         githubRepos: [
           {
             label: 'GitHub Repository',
@@ -277,7 +330,7 @@ export class ProjectsSectionComponent {
         highlights: this.translationService.translateArray('projects.proj8.highlights'),
         impact: this.translationService.translate('projects.proj8.impact'),
         role: this.translationService.translate('projects.proj8.role'),
-        imageUrl: 'assets/Yallapay.png',
+        imageUrl: 'assets/projects/yallapay.webp',
         githubRepos: [
           {
             label: 'GitHub Repository',

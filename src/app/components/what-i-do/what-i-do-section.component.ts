@@ -5,31 +5,28 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
 interface Service {
   title: string;
   description: string;
-  icon: string;
 }
 
 @Component({
   selector: 'app-what-i-do-section',
   standalone: true,
   imports: [CommonModule, TranslatePipe],
-  templateUrl: './what-i-do-section.component.html'
+  templateUrl: './what-i-do-section.component.html',
+  styleUrls: ['./what-i-do-section.component.css']
 })
 export class WhatIDoSectionComponent {
   services: Service[] = [
     {
       title: 'frontendTitle',
-      description: 'frontendDesc',
-      icon: '⚡'
+      description: 'frontendDesc'
     },
     {
       title: 'backendTitle',
-      description: 'backendDesc',
-      icon: '🔧'
+      description: 'backendDesc'
     },
     {
       title: 'devopsTitle',
-      description: 'devopsDesc',
-      icon: '🚀'
+      description: 'devopsDesc'
     }
   ];
 }

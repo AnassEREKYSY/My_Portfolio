@@ -1,0 +1,30 @@
+.edu {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px 24px;
+  padding: 22px 0;
+}
+
+@media (min-width: 768px) {
+  .edu { grid-template-columns: 180px 1fr 220px; align-items: baseline; }
+}
+
+.edu-period,
+.edu-location {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+@media (min-width: 768px) {
+  .edu-location { text-align: right; }
+}
+
+.edu-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.edu-school {
+  color: var(--text-secondary);
+}

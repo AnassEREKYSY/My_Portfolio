@@ -249,6 +249,49 @@ export const translations: Record<'en' | 'fr', Translations> = {
       roleImpact: "Role & Impact",
       sourceCode: "Source Code",
       githubRepo: "GitHub Repository",
+      proj11: {
+        description: "Trading journal SaaS built around discipline: plan each trade, check it against your own rules, then compare the plan with what really happened.",
+        problem: "Most trading journals only log results. Traders need to see whether they followed their own plan and rules, and what breaking those rules actually costs them.",
+        solution: "Designed and built a Next.js / Supabase product where each trade stores both the plan and the reality, with rule checks, a discipline score and analytics computed from that single source of truth.",
+        features: [
+          "Trade planner with position sizing, risk/reward and live rule checks",
+          "Dashboard with KPIs, discipline score, equity vs clean equity and cost of mistakes",
+          "Journal list and calendar, trade detail with plan vs reality",
+          "Custom rules engine with 7 rule types and a weekly review",
+          "Analytics by setup, by hour and R-multiple distribution",
+          "Bilingual EN/FR interface, light and dark themes, CSV export"
+        ],
+        highlights: [
+          "Next.js App Router with Server Actions, React 19 and TypeScript",
+          "Supabase Postgres with Row Level Security and Supabase Auth",
+          "Single trades model holding plan and reality, with the initial stop never overwritten for reliable R calculations",
+          "Rule violations computed on the fly, per-account timezone for daily rules",
+          "Custom SVG charts, Zod validation and a deterministic demo mode",
+          "Deployed on Vercel"
+        ],
+        impact: "Shows complete product ownership: concept, data model, UX, security and deployment on a modern React / Next.js / Supabase stack.",
+        role: "Creator & Full-Stack Developer: product concept, architecture, data model, frontend, backend, design system and deployment"
+      },
+      proj10: {
+        description: "Business dashboard for freelancers to run projects, tasks and finances from one place.",
+        problem: "Freelancers usually split their activity between several tools, which makes it hard to see project progress, open tasks and revenue at a glance.",
+        solution: "Built Cockpit as a single web application with a clear workspace for projects, tasks and finances, backed by Supabase and deployed continuously on Vercel.",
+        features: [
+          "Project tracking with progress",
+          "Task management",
+          "Revenue and expense tracking",
+          "Overview dashboard with key indicators",
+          "Secure authentication"
+        ],
+        highlights: [
+          "React / TypeScript frontend organized by business area",
+          "Supabase PostgreSQL database and authentication",
+          "Custom visual identity in a calm white, green and mauve palette",
+          "Continuous deployment on Vercel from GitHub"
+        ],
+        impact: "A product I use in production for my own freelance activity, covering the full loop from data model to deployment.",
+        role: "Full-Stack Developer: frontend, data layer, authentication, visual design and deployment"
+      },
       proj9: {
         description: "Influencer marketing SaaS platform for managing campaigns, creators, tracked links, promo codes, conversions and commissions.",
         problem: "Brands need a structured way to run performance-based influencer campaigns while keeping products, creator participation, conversion attribution and commissions in one workflow.",
@@ -805,6 +848,49 @@ export const translations: Record<'en' | 'fr', Translations> = {
       roleImpact: "Rôle & Impact",
       sourceCode: "Code Source",
       githubRepo: "Dépôt GitHub",
+      proj11: {
+        description: "SaaS de journal de trading centré sur la discipline : planifier chaque trade, le confronter à ses propres règles, puis comparer le plan avec la réalité.",
+        problem: "La plupart des journaux de trading se limitent aux résultats. Un trader a besoin de voir s'il a respecté son plan et ses règles, et ce que lui coûtent réellement ses écarts.",
+        solution: "Conception et développement d'un produit Next.js / Supabase où chaque trade contient à la fois le plan et la réalité, avec contrôle des règles, score de discipline et analyses calculés à partir de cette source unique.",
+        features: [
+          "Planificateur de trades : taille de position, ratio risque/rendement et contrôle des règles en temps réel",
+          "Dashboard : KPIs, score de discipline, equity réelle vs equity sans erreurs, coût des erreurs",
+          "Journal en liste et en calendrier, détail du trade avec plan vs réalité",
+          "Moteur de règles personnalisables (7 types) et revue hebdomadaire",
+          "Analyses par setup, par heure et distribution des R",
+          "Interface bilingue FR/EN, thèmes clair et sombre, export CSV"
+        ],
+        highlights: [
+          "Next.js App Router avec Server Actions, React 19 et TypeScript",
+          "Postgres Supabase avec Row Level Security et Supabase Auth",
+          "Modèle de trade unique pour le plan et la réalité, stop initial jamais écrasé pour des calculs de R fiables",
+          "Violations de règles calculées à la volée, fuseau horaire par compte pour les règles journalières",
+          "Graphiques SVG sur mesure, validation Zod et mode démo déterministe",
+          "Déploiement sur Vercel"
+        ],
+        impact: "Montre une maîtrise complète d'un produit : concept, modèle de données, UX, sécurité et déploiement sur une stack moderne React / Next.js / Supabase.",
+        role: "Créateur & Développeur Full-Stack : concept produit, architecture, modèle de données, frontend, backend, design system et déploiement"
+      },
+      proj10: {
+        description: "Dashboard de pilotage pour freelances : projets, tâches et finances au même endroit.",
+        problem: "Un freelance répartit souvent son activité entre plusieurs outils, ce qui rend difficile une vue d'ensemble sur l'avancement des projets, les tâches ouvertes et le chiffre d'affaires.",
+        solution: "Développement de Cockpit, une application web unique avec un espace clair pour les projets, les tâches et les finances, basée sur Supabase et déployée en continu sur Vercel.",
+        features: [
+          "Suivi des projets et de leur avancement",
+          "Gestion des tâches",
+          "Suivi des revenus et des dépenses",
+          "Vue d'ensemble avec indicateurs clés",
+          "Authentification sécurisée"
+        ],
+        highlights: [
+          "Frontend React / TypeScript organisé par domaine métier",
+          "Base PostgreSQL et authentification avec Supabase",
+          "Identité visuelle sur mesure, palette sobre blanc, vert et mauve",
+          "Déploiement continu sur Vercel depuis GitHub"
+        ],
+        impact: "Un produit que j'utilise en production pour ma propre activité freelance, couvrant toute la boucle du modèle de données au déploiement.",
+        role: "Développeur Full-Stack : frontend, couche de données, authentification, design visuel et déploiement"
+      },
       proj9: {
         description: "Plateforme SaaS de marketing d'influence pour gérer campagnes, créateurs, liens trackés, codes promo, conversions et commissions.",
         problem: "Les marques ont besoin d'un workflow structuré pour piloter des campagnes d'influence orientées performance tout en centralisant produits, participation des créateurs, attribution des conversions et commissions.",

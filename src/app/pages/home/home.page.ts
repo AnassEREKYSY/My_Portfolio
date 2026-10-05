@@ -9,8 +9,7 @@ import { EducationSectionComponent } from '../../components/education/education-
 import { SkillsSectionComponent } from '../../components/skills-section/skills-section.component';
 import { HowIWorkSectionComponent } from '../../components/how-i-work/how-i-work-section.component';
 import { ContactSectionComponent } from '../../components/contact-section/contact-section.component';
-import { ThemeControlsComponent } from '../../components/theme-controls/theme-controls.component';
-import { LanguageToggleComponent } from '../../components/language-toggle/language-toggle.component';
+import { SiteHeaderComponent } from '../../components/site-header/site-header.component';
 import { TranslationService } from '../../services/translation.service';
 import { translations } from '../../translations';
 
@@ -28,8 +27,7 @@ import { translations } from '../../translations';
     SkillsSectionComponent,
     HowIWorkSectionComponent,
     ContactSectionComponent,
-    ThemeControlsComponent,
-    LanguageToggleComponent
+    SiteHeaderComponent
   ],
   templateUrl: './home.page.html'
 })
