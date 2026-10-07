@@ -19,7 +19,7 @@ export class HeroSectionComponent implements AfterViewInit, OnDestroy {
   @ViewChild('statsRow') statsRow?: ElementRef<HTMLElement>;
 
   readonly stats: Stat[] = [
-    { key: 'hero.yearsExperience', target: 4, suffix: '+' },
+    { key: 'hero.yearsExperience', target: 5, suffix: '+' },
     { key: 'hero.projectsDelivered', target: 15, suffix: '+' },
     { key: 'hero.qualityFocus', target: 100, suffix: '%' }
   ];
