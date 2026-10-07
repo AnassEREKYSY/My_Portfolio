@@ -61,7 +61,7 @@ export class ExperienceSectionComponent {
         businessGoals: this.translationService.translate('experience.exp6.businessGoals'),
         responsibilities: this.translationService.translateArray('experience.exp6.responsibilities'),
         stack: [
-          '.NET 8', 'ASP.NET Core Web API', 'Node.js', 'Angular 19',
+          '.NET 8', 'ASP.NET Core Web API', 'Node.js', 'Laravel', 'React', 'Angular 19',
           'TypeScript', 'SQL Server', 'PostgreSQL', 'MongoDB',
           'Redis', 'Stripe', 'Keycloak', 'Jest', 'Playwright', 'Docker', 'CI/CD'
         ],
