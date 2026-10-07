@@ -75,6 +75,15 @@
   .hero-title { font-size: 4.6rem; }
 }
 
+.hero-stack {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-top: -10px;
+  margin-bottom: 22px;
+}
+
 .hero-sub {
   font-size: 1.15rem;
   color: var(--text-secondary);
