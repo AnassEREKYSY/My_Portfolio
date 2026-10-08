@@ -249,7 +249,9 @@ export const translations: Record<'en' | 'fr', Translations> = {
       technologyStack: "Technology Stack",
       roleImpact: "Role & Impact",
       sourceCode: "Source Code",
-      githubRepo: "GitHub Repository",
+      githubRepo: "GitHub",
+      liveDemo: "Live demo",
+      liveSite: "Live site",
       viewDetails: "View details",
       featured: "Featured",
       proj11: {
@@ -851,7 +853,9 @@ export const translations: Record<'en' | 'fr', Translations> = {
       technologyStack: "Stack Technologique",
       roleImpact: "Rôle & Impact",
       sourceCode: "Code Source",
-      githubRepo: "Dépôt GitHub",
+      githubRepo: "GitHub",
+      liveDemo: "Voir en ligne",
+      liveSite: "Site en ligne",
       viewDetails: "Voir le détail",
       featured: "À la une",
       proj11: {

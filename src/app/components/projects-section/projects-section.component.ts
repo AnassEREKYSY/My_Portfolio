@@ -15,6 +15,8 @@ interface Project {
   impact: string;
   role: string;
   imageUrl?: string;
+  /** Deployed version, shown as "Live demo" on cards and in the detail panel. */
+  liveUrl?: string;
   githubRepos: {
     label: string;
     url: string;
@@ -84,12 +86,8 @@ export class ProjectsSectionComponent {
         impact: this.translationService.translate('projects.proj11.impact'),
         role: this.translationService.translate('projects.proj11.role'),
         imageUrl: 'assets/projects/plumb.webp',
-        githubRepos: [
-          {
-            label: 'Live demo',
-            url: 'https://plumb-peach.vercel.app/'
-          }
-        ]
+        liveUrl: 'https://plumb-peach.vercel.app/',
+        githubRepos: []
       },
 
       {
@@ -109,34 +107,42 @@ export class ProjectsSectionComponent {
         impact: this.translationService.translate('projects.proj10.impact'),
         role: this.translationService.translate('projects.proj10.role'),
         imageUrl: 'assets/projects/cockpit.webp',
-        githubRepos: [
-          {
-            label: 'Live demo',
-            url: 'https://business-cockpit-five.vercel.app/'
-          }
-        ]
+        liveUrl: 'https://business-cockpit-five.vercel.app/',
+        githubRepos: []
       },
 
       {
-        name: 'Buy & Bye',
+        name: 'KickBack',
         description: this.translationService.translate('projects.proj9.description'),
         problem: this.translationService.translate('projects.proj9.problem'),
         solution: this.translationService.translate('projects.proj9.solution'),
         stack: [
           'Laravel',
           'React',
+          'Vite',
+          'Tailwind CSS',
+          'React Native (Expo)',
+          'Supabase',
           'PostgreSQL',
-          'Docker',
-          'CI/CD',
-          'DDD',
+          'Vercel',
           'Clean Architecture'
         ],
         features: this.translationService.translateArray('projects.proj9.features'),
         highlights: this.translationService.translateArray('projects.proj9.highlights'),
         impact: this.translationService.translate('projects.proj9.impact'),
         role: this.translationService.translate('projects.proj9.role'),
-        imageUrl: 'assets/projects/buyandbye.webp',
-        githubRepos: []
+        imageUrl: 'assets/projects/kickback.webp',
+        liveUrl: 'https://kickback-xi.vercel.app/',
+        githubRepos: [
+          {
+            label: this.githubLabel('Front-end'),
+            url: 'https://github.com/AnassEREKYSY/BuyAndBye_Campaign_Marketing_Front'
+          },
+          {
+            label: this.githubLabel('API'),
+            url: 'https://github.com/AnassEREKYSY/BuyAndBye_Campaign_Marketing_Back'
+          }
+        ]
       },
   
       {
@@ -145,27 +151,26 @@ export class ProjectsSectionComponent {
         problem: this.translationService.translate('projects.proj1.problem'),
         solution: this.translationService.translate('projects.proj1.solution'),
         stack: [
-          'Angular',
           '.NET 8',
-          'Redis',
+          'Angular 19',
+          'Clean Architecture',
+          'Tailwind CSS',
+          'Leaflet',
+          'Adzuna API',
+          'Playwright',
           'Docker',
-          'Nginx',
-          'CI/CD',
-          'External Job APIs (Adzuna)'
+          'GitHub Actions'
         ],
         features: this.translationService.translateArray('projects.proj1.features'),
         highlights: this.translationService.translateArray('projects.proj1.highlights'),
         impact: this.translationService.translate('projects.proj1.impact'),
         role: this.translationService.translate('projects.proj1.role'),
         imageUrl: 'assets/projects/marketpulse.webp',
+        liveUrl: 'https://marketpulse.anasserekysy.com/',
         githubRepos: [
           {
-            label: 'GitHub Repository',
+            label: this.githubLabel(),
             url: 'https://github.com/AnassEREKYSY/MarketPulse'
-          },
-          {
-            label: 'MarketPulse',
-            url: 'https://marketpulse.anasserekysy.com/'
           }
         ]
       },
@@ -206,24 +211,25 @@ export class ProjectsSectionComponent {
         problem: this.translationService.translate('projects.proj3.problem'),
         solution: this.translationService.translate('projects.proj3.solution'),
         stack: [
-          'Angular',
-          '.NET',
-          'SQL',
-          'Spotify Developer API'
+          '.NET 8',
+          'Angular 19',
+          'Tailwind CSS',
+          'Spotify Web API',
+          'Web Playback SDK',
+          'Playwright',
+          'Docker',
+          'GitHub Actions'
         ],
         features: this.translationService.translateArray('projects.proj3.features'),
         highlights: this.translationService.translateArray('projects.proj3.highlights'),
         impact: this.translationService.translate('projects.proj3.impact'),
         role: this.translationService.translate('projects.proj3.role'),
         imageUrl: 'assets/projects/melodify.webp',
+        liveUrl: 'https://melodify.anasserekysy.com/',
         githubRepos: [
           {
-            label: 'GitHub Repository',
+            label: this.githubLabel(),
             url: 'https://github.com/AnassEREKYSY/Melodify'
-          },
-          {
-            label: 'Melodify',
-            url: 'https://melodify.anasserekysy.com/'
           }
         ]
       },
@@ -235,21 +241,25 @@ export class ProjectsSectionComponent {
         solution: this.translationService.translate('projects.proj6.solution'),
         stack: [
           'Angular',
-          'Node.js'
+          'Node.js',
+          'Express',
+          'Prisma',
+          'PostgreSQL',
+          'Socket.IO',
+          'Tailwind CSS',
+          'Playwright',
+          'Docker'
         ],
         features: this.translationService.translateArray('projects.proj6.features'),
         highlights: this.translationService.translateArray('projects.proj6.highlights'),
         impact: this.translationService.translate('projects.proj6.impact'),
         role: this.translationService.translate('projects.proj6.role'),
         imageUrl: 'assets/projects/raiseup.webp',
+        liveUrl: 'https://raiseup.anasserekysy.com/',
         githubRepos: [
           {
-            label: 'GitHub Repository',
+            label: this.githubLabel(),
             url: 'https://github.com/AnassEREKYSY/RaiseUp'
-          },
-          {
-            label: 'RaiseUp',
-            url: 'https://raiseup.anasserekysy.com/'
           }
         ]
       },
@@ -262,21 +272,24 @@ export class ProjectsSectionComponent {
         stack: [
           'Angular',
           'Node.js',
-          'External Content APIs'
+          'Express',
+          'Prisma',
+          'PostgreSQL',
+          'Redis',
+          'TMDB API',
+          'Tailwind CSS',
+          'Docker'
         ],
         features: this.translationService.translateArray('projects.proj7.features'),
         highlights: this.translationService.translateArray('projects.proj7.highlights'),
         impact: this.translationService.translate('projects.proj7.impact'),
         role: this.translationService.translate('projects.proj7.role'),
         imageUrl: 'assets/projects/showtracker.webp',
+        liveUrl: 'https://showtracker.anasserekysy.com/',
         githubRepos: [
           {
-            label: 'GitHub Repository',
+            label: this.githubLabel(),
             url: 'https://github.com/AnassEREKYSY/ShowTracker'
-          },
-          {
-            label: 'ShowTracker',
-            url: 'https://showtracker.anasserekysy.com/'
           }
         ]
       },
@@ -299,7 +312,7 @@ export class ProjectsSectionComponent {
         imageUrl: 'assets/projects/coinhawk.webp',
         githubRepos: [
           {
-            label: 'GitHub Repository',
+            label: this.githubLabel(),
             url: 'https://github.com/AnassEREKYSY/CoinHawk'
           }
         ]
@@ -311,20 +324,24 @@ export class ProjectsSectionComponent {
         problem: this.translationService.translate('projects.proj5.problem'),
         solution: this.translationService.translate('projects.proj5.solution'),
         stack: [
+          '.NET 8',
           'Angular',
-          '.NET',
+          'Stripe',
+          'Tailwind CSS',
           'SQL',
-          'Stripe'
+          'Docker',
+          'GitHub Actions'
         ],
         features: this.translationService.translateArray('projects.proj5.features'),
         highlights: this.translationService.translateArray('projects.proj5.highlights'),
         impact: this.translationService.translate('projects.proj5.impact'),
         role: this.translationService.translate('projects.proj5.role'),
         imageUrl: 'assets/projects/skinet.webp',
+        liveUrl: 'https://skinet.anasserekysy.com/',
         githubRepos: [
           {
-            label: 'GitHub Repository',
-            url: 'https://github.com/AnassEREKYSY/SkiNet'
+            label: this.githubLabel(),
+            url: 'https://github.com/AnassEREKYSY/Skinet'
           }
         ]
       },
@@ -347,12 +364,23 @@ export class ProjectsSectionComponent {
         imageUrl: 'assets/projects/yallapay.webp',
         githubRepos: [
           {
-            label: 'GitHub Repository',
+            label: this.githubLabel(),
             url: 'https://github.com/AnassEREKYSY/YallaPay'
           }
         ]
       }
     ];
+  }
+
+  /** "kickback-xi.vercel.app" from "https://kickback-xi.vercel.app/". */
+  host(url: string): string {
+    return url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+  }
+
+  /** "GitHub" (or "GitHub · API") in the current language. */
+  githubLabel(part?: string): string {
+    const base = this.translationService.translate('projects.githubRepo');
+    return part ? `${base} · ${part}` : base;
   }
 
   trackByIndex(index: number): number {
