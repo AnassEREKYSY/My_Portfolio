@@ -36,6 +36,14 @@
           <div class="feature-foot">
             <span class="more">{{ 'projects.viewDetails' | translate }} <span class="arrow" aria-hidden="true">→</span></span>
             <a
+              *ngIf="project.liveUrl"
+              [href]="project.liveUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              (click)="$event.stopPropagation()"
+              class="text-link live-link"
+            >{{ 'projects.liveDemo' | translate }} ↗</a>
+            <a
               *ngFor="let repo of project.githubRepos"
               [href]="repo.url"
               target="_blank"
@@ -79,6 +87,26 @@
           <div class="chips">
             <span class="chip" *ngFor="let tech of project.stack.slice(0, 4)">{{ tech }}</span>
             <span class="chip chip-more" *ngIf="project.stack.length > 4">+{{ project.stack.length - 4 }}</span>
+          </div>
+          <div class="tile-links" *ngIf="project.liveUrl || project.githubRepos.length">
+            <a
+              *ngIf="project.liveUrl"
+              [href]="project.liveUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              (click)="$event.stopPropagation()"
+              (keydown.enter)="$event.stopPropagation()"
+              class="text-link live-link"
+            >{{ 'projects.liveDemo' | translate }} ↗</a>
+            <a
+              *ngIf="project.githubRepos.length"
+              [href]="project.githubRepos[0].url"
+              target="_blank"
+              rel="noopener noreferrer"
+              (click)="$event.stopPropagation()"
+              (keydown.enter)="$event.stopPropagation()"
+              class="text-link"
+            >GitHub ↗</a>
           </div>
         </div>
       </article>
@@ -153,6 +181,13 @@
         <dd>
           <p class="modal-role">{{ selectedProject.role }}</p>
           <p>{{ selectedProject.impact }}</p>
+        </dd>
+      </div>
+
+      <div class="modal-row" *ngIf="selectedProject.liveUrl">
+        <dt class="label">{{ 'projects.liveSite' | translate }}</dt>
+        <dd class="modal-links">
+          <a [href]="selectedProject.liveUrl" target="_blank" rel="noopener noreferrer" class="text-link live-link">{{ host(selectedProject.liveUrl) }} ↗</a>
         </dd>
       </div>
 

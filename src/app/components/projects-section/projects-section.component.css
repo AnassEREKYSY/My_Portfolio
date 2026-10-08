@@ -191,6 +191,18 @@
   margin-top: auto;
 }
 
+.tile-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-top: 6px;
+  font-size: 0.9rem;
+}
+
+.live-link {
+  color: var(--accent);
+}
+
 .chip-more {
   color: var(--text-muted);
 }
