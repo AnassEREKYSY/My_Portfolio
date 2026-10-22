@@ -1,0 +1,3355 @@
+From fb0654966960c004bae8de1a239101c22840244b Mon Sep 17 00:00:00 2001
+From: Anass EREKYSY <ereanass@gmail.com>
+Date: Mon, 5 Oct 2026 18:23:59 +0000
+Subject: [PATCH] feat(design): new layout with subtle motion
+
+- Header: transparent until scroll, active-section pill, FR/EN switch, mobile menu
+- Hero: staggered entrance, photo card with location tag, animated stat counters
+- Projects: Plumb and Cockpit as large featured cards, others in a 3-column grid with hover zoom, animated detail panel
+- Experience: tabbed layout (sticky role list + detail panel)
+- What I do, skills, how I work, education rebuilt as cards; process as a stepper with an animated connector
+- Contact: split card with dark pitch panel and form
+- Scroll reveal directive, respects prefers-reduced-motion
+- Same content, colors and typography
+---
+ angular.json                                  |   4 +-
+ .../contact-section.component.css             | 134 +++++++---
+ .../contact-section.component.html            |  36 +--
+ .../contact-section.component.ts              |   3 +-
+ .../education/education-section.component.css |  39 ++-
+ .../education-section.component.html          |  23 +-
+ .../education/education-section.component.ts  |   8 +-
+ .../experience-section.component.css          | 173 ++++++++-----
+ .../experience-section.component.html         |  82 ++++---
+ .../experience-section.component.ts           |  24 +-
+ .../components/footer/footer.component.css    |  79 ++++--
+ .../components/footer/footer.component.html   |  20 +-
+ .../hero/hero-section.component.css           | 191 ++++++++++-----
+ .../hero/hero-section.component.html          |  55 +++--
+ .../components/hero/hero-section.component.ts |  64 ++++-
+ .../how-i-work-section.component.css          |  99 +++++---
+ .../how-i-work-section.component.html         |  22 +-
+ .../how-i-work-section.component.ts           |   7 +-
+ .../projects-section.component.css            | 230 ++++++++++++++----
+ .../projects-section.component.html           |  88 ++++---
+ .../projects-section.component.ts             |  16 +-
+ .../site-header/site-header.component.css     | 143 +++++++++--
+ .../site-header/site-header.component.html    |  47 +++-
+ .../site-header/site-header.component.ts      |  67 ++++-
+ .../skills-section.component.css              |  35 ++-
+ .../skills-section.component.html             |  28 ++-
+ .../skills-section.component.ts               |   3 +-
+ .../what-i-do/what-i-do-section.component.css |  91 +++++--
+ .../what-i-do-section.component.html          |  26 +-
+ .../what-i-do/what-i-do-section.component.ts  |  10 +-
+ src/app/directives/reveal.directive.ts        |  49 ++++
+ src/app/translations.ts                       |   4 +
+ src/styles.css                                | 203 ++++++++++++----
+ 33 files changed, 1530 insertions(+), 573 deletions(-)
+ create mode 100644 src/app/directives/reveal.directive.ts
+
+diff --git a/angular.json b/angular.json
+index 9705863..92ac979 100644
+--- a/angular.json
++++ b/angular.json
+@@ -50,8 +50,8 @@
+                 },
+                 {
+                   "type": "anyComponentStyle",
+-                  "maximumWarning": "4kB",
+-                  "maximumError": "8kB"
++                  "maximumWarning": "8kB",
++                  "maximumError": "16kB"
+                 }
+               ],
+               "outputHashing": "all"
+diff --git a/src/app/components/contact-section/contact-section.component.css b/src/app/components/contact-section/contact-section.component.css
+index ddf1c11..006f970 100644
+--- a/src/app/components/contact-section/contact-section.component.css
++++ b/src/app/components/contact-section/contact-section.component.css
+@@ -1,43 +1,88 @@
+-.contact-grid {
++.contact {
+   display: grid;
+   grid-template-columns: 1fr;
+-  gap: 56px;
++  overflow: hidden;
++}
++
++@media (min-width: 960px) {
++  .contact { grid-template-columns: 1fr 1.15fr; }
++}
++
++.contact-side {
++  padding: 32px 26px;
++  background: var(--ink);
++  color: var(--on-ink);
++}
++
++@media (min-width: 768px) {
++  .contact-side { padding: 52px; }
++}
++
++.contact-side .eyebrow {
++  color: var(--accent);
++}
++
++.contact-title {
++  font-size: 2.2rem;
++  font-weight: 700;
++  letter-spacing: -0.03em;
++  line-height: 1.08;
++  margin-bottom: 16px;
+ }
+ 
+ @media (min-width: 900px) {
+-  .contact-grid { grid-template-columns: 1fr 1.4fr; gap: 72px; }
++  .contact-title { font-size: 2.9rem; }
++}
++
++.contact-sub {
++  opacity: 0.72;
++  margin-bottom: 32px;
+ }
+ 
+ .contact-email {
+-  display: inline-block;
+-  font-size: 1.6rem;
++  display: inline-flex;
++  align-items: center;
++  gap: 10px;
++  font-size: 1.35rem;
+   font-weight: 600;
+   letter-spacing: -0.02em;
+-  color: var(--text-primary);
+-  border-bottom: 2px solid var(--accent);
+-  line-height: 1.3;
+   word-break: break-all;
++  padding-bottom: 4px;
++  border-bottom: 1px solid var(--accent);
++  transition: color 0.2s ease;
+ }
+ 
+ @media (min-width: 640px) {
+-  .contact-email { font-size: 2rem; }
++  .contact-email { font-size: 1.6rem; }
++}
++
++.contact-email .arrow {
++  font-size: 1rem;
++  transition: transform 0.25s ease;
+ }
+ 
+ .contact-email:hover {
+   color: var(--accent);
+ }
+ 
++.contact-email:hover .arrow {
++  transform: translate(2px, -2px);
++}
++
+ .contact-location {
+   margin-top: 10px;
+-  color: var(--text-muted);
++  opacity: 0.6;
++  font-size: 0.95rem;
+ }
+ 
+ .contact-block {
+-  margin-top: 40px;
++  margin-top: 36px;
+ }
+ 
+-.contact-block .label {
+-  margin-bottom: 12px;
++.contact-side .label {
++  color: var(--on-ink);
++  opacity: 0.55;
++  margin-bottom: 14px;
+ }
+ 
+ .profile-list {
+@@ -45,47 +90,57 @@
+   margin: 0;
+   padding: 0;
+   display: grid;
+-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+-  gap: 10px;
++  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
++  gap: 8px;
+ }
+ 
+ .profile {
+   display: flex;
+   align-items: center;
+-  gap: 12px;
++  gap: 10px;
+   padding: 10px 12px;
+-  border: 1px solid var(--border);
+-  border-radius: var(--radius);
+-  font-size: 0.95rem;
++  border-radius: 10px;
++  border: 1px solid color-mix(in srgb, var(--on-ink) 18%, transparent);
++  font-size: 0.92rem;
+   font-weight: 500;
+-  color: var(--text-primary);
+-  transition: border-color 0.15s ease, color 0.15s ease;
++  transition: border-color 0.2s ease, background-color 0.2s ease;
+ }
+ 
+ .profile:hover {
+-  border-color: var(--ink);
++  border-color: color-mix(in srgb, var(--on-ink) 45%, transparent);
++  background: color-mix(in srgb, var(--on-ink) 6%, transparent);
+ }
+ 
+ .profile-icon {
+-  width: 20px;
+-  height: 20px;
++  width: 18px;
++  height: 18px;
+   flex-shrink: 0;
+-  color: var(--brand, currentColor);
++  color: var(--on-ink);
++  transition: color 0.2s ease;
++}
++
++.profile:hover .profile-icon {
++  color: var(--brand, var(--on-ink));
++}
++
++.contact-side .chip {
++  background: transparent;
++  border-color: color-mix(in srgb, var(--on-ink) 22%, transparent);
++  color: var(--on-ink);
+ }
+ 
+ .contact-form {
+-  padding: 28px;
+-  border: 1px solid var(--ink);
+-  border-radius: var(--radius);
++  padding: 32px 26px;
+ }
+ 
+ @media (min-width: 768px) {
+-  .contact-form { padding: 40px; }
++  .contact-form { padding: 52px; }
+ }
+ 
+ .form-heading {
+-  font-size: 1.3rem;
+-  font-weight: 600;
++  font-size: 1.35rem;
++  font-weight: 700;
++  letter-spacing: -0.015em;
+   margin-bottom: 6px;
+ }
+ 
+@@ -122,9 +177,9 @@
+ .form-field textarea {
+   width: 100%;
+   padding: 11px 12px;
+-  border-radius: var(--radius);
++  border-radius: 10px;
+   border: 1px solid var(--border);
+-  background: var(--bg);
++  background: var(--surface);
+   color: var(--text-primary);
+   font-size: 0.95rem;
+   font-family: inherit;
+@@ -145,6 +200,7 @@
+ .form-field textarea:focus {
+   outline: none;
+   border-color: var(--ink);
++  background: var(--bg);
+ }
+ 
+ .form-field .has-error {
+@@ -156,8 +212,8 @@
+   color: #b42318;
+ }
+ 
+-html.dark .field-error { color: #f2836b; }
+-html.dark .form-field .has-error { border-color: #f2836b; }
++:host-context(.dark) .field-error { color: #f2836b; }
++:host-context(.dark) .form-field .has-error { border-color: #f2836b; }
+ 
+ /* Honeypot, hidden from real users */
+ .hp-field {
+@@ -174,8 +230,8 @@ html.dark .form-field .has-error { border-color: #f2836b; }
+   align-items: center;
+   justify-content: center;
+   gap: 10px;
+-  padding: 12px 26px;
+-  border-radius: var(--radius);
++  padding: 13px 26px;
++  border-radius: 999px;
+   border: 1px solid var(--ink);
+   background: var(--ink);
+   color: var(--on-ink);
+@@ -231,8 +287,8 @@ html.dark .form-field .has-error { border-color: #f2836b; }
+ .form-feedback-success { color: #2f7a4a; }
+ .form-feedback-error { color: #b42318; }
+ 
+-html.dark .form-feedback-success { color: #6cc28d; }
+-html.dark .form-feedback-error { color: #f2836b; }
++:host-context(.dark) .form-feedback-success { color: #6cc28d; }
++:host-context(.dark) .form-feedback-error { color: #f2836b; }
+ 
+ .form-feedback-action {
+   margin-left: auto;
+diff --git a/src/app/components/contact-section/contact-section.component.html b/src/app/components/contact-section/contact-section.component.html
+index e529367..810f01d 100644
+--- a/src/app/components/contact-section/contact-section.component.html
++++ b/src/app/components/contact-section/contact-section.component.html
+@@ -1,18 +1,18 @@
+ <section class="section" id="contact">
+   <div class="wrap">
++    <div class="contact card" appReveal>
+ 
+-    <header class="section-head">
+-      <span class="section-index">07</span>
+-      <h2 class="section-title">{{ 'contact.title' | translate }}</h2>
+-      <p class="section-sub">{{ 'contact.availabilityDesc' | translate }}</p>
+-    </header>
+-
+-    <div class="contact-grid">
+-
+-      <!-- Left: direct contact, profiles, availability -->
++      <!-- Left: pitch, email, profiles -->
+       <div class="contact-side">
+-        <a href="mailto:ereanass@gmail.com" class="contact-email">ereanass&#64;gmail.com</a>
+-        <p class="contact-location">Paris, France</p>
++        <p class="eyebrow">07</p>
++        <h2 class="contact-title">{{ 'contact.title' | translate }}</h2>
++        <p class="contact-sub">{{ 'contact.subtitle' | translate }}</p>
++
++        <a href="mailto:ereanass@gmail.com" class="contact-email">
++          ereanass&#64;gmail.com
++          <span class="arrow" aria-hidden="true">↗</span>
++        </a>
++        <p class="contact-location">{{ 'contact.location' | translate }}</p>
+ 
+         <div class="contact-block">
+           <h3 class="label">{{ 'contact.professionalProfiles' | translate }}</h3>
+@@ -33,13 +33,13 @@
+         </div>
+ 
+         <div class="contact-block">
+-          <h3 class="label">{{ 'contact.availability' | translate }}</h3>
+-          <ul class="rule-list">
+-            <li>{{ 'contact.shortTerm' | translate }}</li>
+-            <li>{{ 'contact.longTerm' | translate }}</li>
+-            <li>{{ 'contact.fullStack' | translate }}</li>
+-            <li>{{ 'contact.parisRemote' | translate }}</li>
+-          </ul>
++          <h3 class="label">{{ 'contact.availability' | translate }} · {{ 'contact.availabilityDesc' | translate }}</h3>
++          <div class="chips">
++            <span class="chip">{{ 'contact.shortTerm' | translate }}</span>
++            <span class="chip">{{ 'contact.longTerm' | translate }}</span>
++            <span class="chip">{{ 'contact.fullStack' | translate }}</span>
++            <span class="chip">{{ 'contact.parisRemote' | translate }}</span>
++          </div>
+         </div>
+       </div>
+ 
+diff --git a/src/app/components/contact-section/contact-section.component.ts b/src/app/components/contact-section/contact-section.component.ts
+index 88499f2..67f9572 100644
+--- a/src/app/components/contact-section/contact-section.component.ts
++++ b/src/app/components/contact-section/contact-section.component.ts
+@@ -7,6 +7,7 @@ import {
+ } from '@angular/forms';
+ 
+ import { TranslatePipe } from '../../pipes/translate.pipe';
++import { RevealDirective } from '../../directives/reveal.directive';
+ import { ContactService } from '../../services/contact.service';
+ import { isContactFormConfigured } from '../../config/contact.config';
+ import { PROFILES } from '../../config/profiles';
+@@ -16,7 +17,7 @@ type SubmitState = 'idle' | 'sending' | 'success' | 'error';
+ @Component({
+   selector: 'app-contact-section',
+   standalone: true,
+-  imports: [CommonModule, ReactiveFormsModule, TranslatePipe],
++  imports: [CommonModule, ReactiveFormsModule, TranslatePipe, RevealDirective],
+   templateUrl: './contact-section.component.html',
+   styleUrls: ['./contact-section.component.css']
+ })
+diff --git a/src/app/components/education/education-section.component.css b/src/app/components/education/education-section.component.css
+index 96a5402..fdd0fc5 100644
+--- a/src/app/components/education/education-section.component.css
++++ b/src/app/components/education/education-section.component.css
+@@ -1,30 +1,45 @@
+-.edu {
++.edu-grid {
+   display: grid;
+   grid-template-columns: 1fr;
+-  gap: 4px 24px;
+-  padding: 22px 0;
++  gap: 20px;
+ }
+ 
+-@media (min-width: 768px) {
+-  .edu { grid-template-columns: 180px 1fr 220px; align-items: baseline; }
++@media (min-width: 900px) {
++  .edu-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+ }
+ 
+-.edu-period,
+-.edu-location {
+-  font-size: 0.9rem;
+-  color: var(--text-muted);
++.edu {
++  display: flex;
++  flex-direction: column;
++  padding: 28px;
+ }
+ 
+-@media (min-width: 768px) {
+-  .edu-location { text-align: right; }
++.edu-period {
++  align-self: flex-start;
++  padding: 4px 11px;
++  border-radius: 999px;
++  background: var(--surface);
++  font-size: 0.8rem;
++  font-weight: 600;
++  color: var(--text-secondary);
++  margin-bottom: 22px;
+ }
+ 
+ .edu-title {
+   font-size: 1.15rem;
+-  font-weight: 600;
++  font-weight: 700;
+   line-height: 1.35;
++  letter-spacing: -0.015em;
++  margin-bottom: 10px;
+ }
+ 
+ .edu-school {
+   color: var(--text-secondary);
+ }
++
++.edu-location {
++  margin-top: auto;
++  padding-top: 18px;
++  font-size: 0.85rem;
++  color: var(--text-muted);
++}
+diff --git a/src/app/components/education/education-section.component.html b/src/app/components/education/education-section.component.html
+index bda89aa..a83822d 100644
+--- a/src/app/components/education/education-section.component.html
++++ b/src/app/components/education/education-section.component.html
+@@ -1,20 +1,23 @@
+-<section class="section" id="education">
++<section class="section section-alt" id="education">
+   <div class="wrap">
+ 
+-    <header class="section-head">
+-      <span class="section-index">06</span>
++    <header class="section-head" appReveal>
++      <p class="eyebrow">06</p>
+       <h2 class="section-title">{{ 'education.title' | translate }}</h2>
+       <p class="section-sub">{{ 'education.subtitle' | translate }}</p>
+     </header>
+ 
+-    <div>
+-      <article *ngFor="let edu of educationList" class="row edu">
++    <div class="edu-grid">
++      <article
++        *ngFor="let edu of educationList; let i = index; trackBy: trackByIndex"
++        class="edu card card-hover"
++        appReveal
++        [revealDelay]="i * 100"
++      >
+         <span class="edu-period">{{ edu.period }}</span>
+-        <div>
+-          <h3 class="edu-title">{{ edu.title }}</h3>
+-          <p class="edu-school">{{ edu.institution }}</p>
+-        </div>
+-        <span class="edu-location">{{ edu.location }}</span>
++        <h3 class="edu-title">{{ edu.title }}</h3>
++        <p class="edu-school">{{ edu.institution }}</p>
++        <p class="edu-location">{{ edu.location }}</p>
+       </article>
+     </div>
+   </div>
+diff --git a/src/app/components/education/education-section.component.ts b/src/app/components/education/education-section.component.ts
+index 4a64414..1943ce8 100644
+--- a/src/app/components/education/education-section.component.ts
++++ b/src/app/components/education/education-section.component.ts
+@@ -1,6 +1,7 @@
+ import { Component, inject } from '@angular/core';
+ import { CommonModule } from '@angular/common';
+ import { TranslatePipe } from '../../pipes/translate.pipe';
++import { RevealDirective } from '../../directives/reveal.directive';
+ import { TranslationService } from '../../services/translation.service';
+ 
+ interface Education {
+@@ -13,7 +14,7 @@ interface Education {
+ @Component({
+   selector: 'app-education-section',
+   standalone: true,
+-  imports: [CommonModule, TranslatePipe],
++  imports: [CommonModule, TranslatePipe, RevealDirective],
+   templateUrl: './education-section.component.html',
+   styleUrls: ['./education-section.component.css']
+ })
+@@ -42,5 +43,8 @@ export class EducationSectionComponent {
+       }
+     ];
+   }
+-}
+ 
++  trackByIndex(index: number): number {
++    return index;
++  }
++}
+diff --git a/src/app/components/experience-section/experience-section.component.css b/src/app/components/experience-section/experience-section.component.css
+index 903f309..e1f366f 100644
+--- a/src/app/components/experience-section/experience-section.component.css
++++ b/src/app/components/experience-section/experience-section.component.css
+@@ -1,107 +1,170 @@
+-.exp-head {
++.exp {
+   display: grid;
+-  grid-template-columns: 1fr 28px;
+-  gap: 4px 24px;
+-  width: 100%;
+-  padding: 22px 0;
+-  text-align: left;
+-  align-items: baseline;
++  grid-template-columns: 1fr;
++  gap: 20px;
++  align-items: start;
+ }
+ 
+-@media (min-width: 768px) {
+-  .exp-head { grid-template-columns: 180px 1fr 28px; }
++@media (min-width: 960px) {
++  .exp { grid-template-columns: 280px 1fr; gap: 32px; }
+ }
+ 
+-.exp-period {
+-  font-size: 0.9rem;
+-  color: var(--text-muted);
+-  grid-column: 1 / -1;
++/* Tabs: horizontal scroll on mobile, vertical list on desktop */
++.exp-tabs {
++  display: flex;
++  gap: 8px;
++  overflow-x: auto;
++  padding-bottom: 4px;
++  scrollbar-width: none;
+ }
+ 
+-@media (min-width: 768px) {
+-  .exp-period { grid-column: auto; }
++.exp-tabs::-webkit-scrollbar { display: none; }
++
++@media (min-width: 960px) {
++  .exp-tabs {
++    position: sticky;
++    top: 96px;
++    flex-direction: column;
++    overflow: visible;
++    gap: 4px;
++    padding: 0;
++  }
+ }
+ 
+-.exp-main {
++.exp-tab {
++  position: relative;
+   display: flex;
+   flex-direction: column;
++  align-items: flex-start;
+   gap: 2px;
++  flex-shrink: 0;
++  padding: 12px 16px;
++  border-radius: 12px;
++  border: 1px solid var(--border);
++  background: var(--bg);
++  text-align: left;
++  transition: background-color 0.25s ease, border-color 0.25s ease;
+ }
+ 
+-.exp-role {
+-  font-size: 1.2rem;
+-  font-weight: 600;
+-  color: var(--text-primary);
+-  line-height: 1.3;
+-}
++@media (min-width: 960px) {
++  .exp-tab {
++    border-color: transparent;
++    background: transparent;
++    padding: 14px 18px 14px 20px;
++  }
+ 
+-.exp-head:hover .exp-role {
+-  color: var(--accent);
+-}
++  .exp-tab::before {
++    content: "";
++    position: absolute;
++    left: 0;
++    top: 14px;
++    bottom: 14px;
++    width: 2px;
++    border-radius: 2px;
++    background: var(--accent);
++    transform: scaleY(0);
++    transition: transform 0.35s cubic-bezier(.2,.7,.2,1);
++  }
+ 
+-.exp-company {
+-  color: var(--text-primary);
++  .exp-tab:hover {
++    background: var(--muted);
++  }
+ }
+ 
+-.exp-location {
+-  color: var(--text-muted);
++.exp-tab.active {
++  background: var(--bg);
++  border-color: var(--border);
+ }
+ 
+-.exp-toggle {
+-  font-size: 1.4rem;
+-  line-height: 1;
+-  color: var(--text-secondary);
+-  text-align: right;
++@media (min-width: 960px) {
++  .exp-tab.active::before { transform: scaleY(1); }
+ }
+ 
+-.experience-content {
+-  display: grid;
+-  grid-template-rows: 0fr;
+-  transition: grid-template-rows 0.3s ease;
++.tab-company {
++  font-weight: 600;
++  color: var(--text-secondary);
++  white-space: nowrap;
++  transition: color 0.2s ease;
+ }
+ 
+-.experience-content > .exp-body {
+-  overflow: hidden;
++.exp-tab.active .tab-company,
++.exp-tab:hover .tab-company {
++  color: var(--text-primary);
+ }
+ 
+-.experience-content.expanded {
+-  grid-template-rows: 1fr;
++.tab-period {
++  font-size: 0.8rem;
++  color: var(--text-muted);
++  white-space: nowrap;
+ }
+ 
+-.exp-body {
++/* Panel */
++.exp-panel {
+   display: grid;
+   gap: 28px;
++  padding: 26px;
++  animation: panel-in 0.5s cubic-bezier(.2,.7,.2,1);
+ }
+ 
+ @media (min-width: 768px) {
+-  .exp-body { padding-left: 204px; padding-right: 52px; }
++  .exp-panel { padding: 40px; }
+ }
+ 
+-.experience-content.expanded .exp-body {
+-  padding-bottom: 32px;
++@keyframes panel-in {
++  from { opacity: 0; transform: translateY(10px); }
++  to { opacity: 1; transform: none; }
+ }
+ 
+-.exp-block .label {
++.panel-role {
++  font-size: 1.55rem;
++  font-weight: 700;
++  letter-spacing: -0.02em;
+   margin-bottom: 10px;
+ }
+ 
+-.exp-text {
++.panel-meta {
++  display: flex;
++  flex-wrap: wrap;
++  gap: 4px 18px;
++  font-size: 0.9rem;
++  color: var(--text-muted);
++}
++
++.panel-company {
++  color: var(--accent);
++  font-weight: 600;
++}
++
++.panel-block .label {
++  margin-bottom: 12px;
++}
++
++.panel-text {
+   color: var(--text-secondary);
+   margin-bottom: 8px;
+ }
+ 
+-.exp-note {
++.panel-note {
+   color: var(--text-muted);
+   font-size: 0.95rem;
+ }
+ 
+-.exp-impact {
+-  padding-top: 16px;
+-  border-top: 1px solid var(--border);
+-  color: var(--text-secondary);
++.panel-cols {
++  display: grid;
++  grid-template-columns: 1fr;
++  gap: 28px;
+ }
+ 
+-.exp-impact strong {
++@media (min-width: 900px) {
++  .panel-cols { grid-template-columns: 1fr 1fr; gap: 36px; }
++}
++
++.panel-impact {
++  display: flex;
++  flex-direction: column;
++  gap: 8px;
++  padding: 20px;
++  border-radius: 12px;
++  background: var(--surface);
+   color: var(--text-primary);
+-  font-weight: 600;
+ }
+diff --git a/src/app/components/experience-section/experience-section.component.html b/src/app/components/experience-section/experience-section.component.html
+index 0e92c28..a2c2559 100644
+--- a/src/app/components/experience-section/experience-section.component.html
++++ b/src/app/components/experience-section/experience-section.component.html
+@@ -1,64 +1,76 @@
+-<section class="section" id="experience">
++<section class="section section-alt" id="experience">
+   <div class="wrap">
+ 
+-    <header class="section-head">
+-      <span class="section-index">02</span>
++    <header class="section-head" appReveal>
++      <p class="eyebrow">02</p>
+       <h2 class="section-title">{{ 'experience.title' | translate }}</h2>
+       <p class="section-sub">{{ 'experience.subtitle' | translate }}</p>
+     </header>
+ 
+-    <div class="exp-list">
+-      <article *ngFor="let exp of experiences; let i = index" class="row exp">
++    <div class="exp" appReveal>
++      <!-- Role list -->
++      <div class="exp-tabs" role="tablist" aria-orientation="vertical">
+         <button
++          *ngFor="let exp of experiences; let i = index; trackBy: trackByIndex"
+           type="button"
+-          class="exp-head"
+-          (click)="toggleExpanded(i)"
+-          [attr.aria-expanded]="isExpanded(i)"
++          role="tab"
++          class="exp-tab"
++          [class.active]="active() === i"
++          [attr.aria-selected]="active() === i"
++          (click)="select(i)"
+         >
+-          <span class="exp-period">{{ exp.period }}</span>
+-          <span class="exp-main">
+-            <span class="exp-role">{{ exp.role }}</span>
+-            <span class="exp-company">{{ exp.company }} <span class="exp-location">· {{ exp.location }}</span></span>
+-          </span>
+-          <span class="exp-toggle" aria-hidden="true">{{ isExpanded(i) ? '−' : '+' }}</span>
++          <span class="tab-company">{{ exp.company }}</span>
++          <span class="tab-period">{{ exp.period }}</span>
+         </button>
++      </div>
+ 
+-        <div class="experience-content" [class.expanded]="isExpanded(i)">
+-          <div class="exp-body">
+-            <div class="exp-block">
+-              <h4 class="label">{{ 'experience.contextGoals' | translate }}</h4>
+-              <p class="exp-text">{{ exp.context }}</p>
+-              <p class="exp-note">{{ exp.businessGoals }}</p>
+-            </div>
++      <!-- Detail -->
++      <ng-container *ngFor="let exp of experiences; let i = index; trackBy: trackByIndex">
++        <article *ngIf="active() === i" class="exp-panel card" role="tabpanel">
++          <header class="panel-head">
++            <h3 class="panel-role">{{ exp.role }}</h3>
++            <p class="panel-meta">
++              <span class="panel-company">{{ exp.company }}</span>
++              <span>{{ exp.location }}</span>
++              <span>{{ exp.period }}</span>
++            </p>
++          </header>
++
++          <div class="panel-block">
++            <h4 class="label">{{ 'experience.contextGoals' | translate }}</h4>
++            <p class="panel-text">{{ exp.context }}</p>
++            <p class="panel-note">{{ exp.businessGoals }}</p>
++          </div>
+ 
+-            <div class="exp-block">
++          <div class="panel-cols">
++            <div class="panel-block">
+               <h4 class="label">{{ 'experience.keyResponsibilities' | translate }}</h4>
+               <ul class="rule-list">
+                 <li *ngFor="let resp of exp.responsibilities">{{ resp }}</li>
+               </ul>
+             </div>
+ 
+-            <div class="exp-block">
++            <div class="panel-block">
+               <h4 class="label">{{ 'experience.keyAchievements' | translate }}</h4>
+               <ul class="rule-list">
+                 <li *ngFor="let achievement of exp.achievements">{{ achievement }}</li>
+               </ul>
+             </div>
++          </div>
+ 
+-            <div class="exp-block">
+-              <h4 class="label">{{ 'experience.technicalStack' | translate }}</h4>
+-              <p class="dot-list">
+-                <span *ngFor="let tech of exp.stack">{{ tech }}</span>
+-              </p>
++          <div class="panel-block">
++            <h4 class="label">{{ 'experience.technicalStack' | translate }}</h4>
++            <div class="chips">
++              <span class="chip" *ngFor="let tech of exp.stack">{{ tech }}</span>
+             </div>
+-
+-            <p class="exp-impact">
+-              <strong>{{ 'experience.impact' | translate }}.</strong>
+-              {{ exp.impact }}
+-            </p>
+           </div>
+-        </div>
+-      </article>
++
++          <p class="panel-impact">
++            <span class="label">{{ 'experience.impact' | translate }}</span>
++            {{ exp.impact }}
++          </p>
++        </article>
++      </ng-container>
+     </div>
+   </div>
+ </section>
+diff --git a/src/app/components/experience-section/experience-section.component.ts b/src/app/components/experience-section/experience-section.component.ts
+index 9bbbc6f..6d9a77a 100644
+--- a/src/app/components/experience-section/experience-section.component.ts
++++ b/src/app/components/experience-section/experience-section.component.ts
+@@ -1,6 +1,7 @@
+-import { Component, inject } from '@angular/core';
++import { Component, inject, signal } from '@angular/core';
+ import { CommonModule } from '@angular/common';
+ import { TranslatePipe } from '../../pipes/translate.pipe';
++import { RevealDirective } from '../../directives/reveal.directive';
+ import { TranslationService } from '../../services/translation.service';
+ 
+ interface Experience {
+@@ -19,24 +20,16 @@ interface Experience {
+ @Component({
+   selector: 'app-experience-section',
+   standalone: true,
+-  imports: [CommonModule, TranslatePipe],
++  imports: [CommonModule, TranslatePipe, RevealDirective],
+   templateUrl: './experience-section.component.html',
+   styleUrls: ['./experience-section.component.css']
+ })
+ export class ExperienceSectionComponent {
+   private translationService = inject(TranslationService);
+-  expandedIndexes = new Set<number>();
++  active = signal(0);
+ 
+-  toggleExpanded(index: number): void {
+-    if (this.expandedIndexes.has(index)) {
+-      this.expandedIndexes.delete(index);
+-    } else {
+-      this.expandedIndexes.add(index);
+-    }
+-  }
+-
+-  isExpanded(index: number): boolean {
+-    return this.expandedIndexes.has(index);
++  select(index: number): void {
++    this.active.set(index);
+   }
+   
+   get experiences(): Experience[] {
+@@ -154,5 +147,8 @@ export class ExperienceSectionComponent {
+       }
+     ];
+   }
+-}
+ 
++  trackByIndex(index: number): number {
++    return index;
++  }
++}
+diff --git a/src/app/components/footer/footer.component.css b/src/app/components/footer/footer.component.css
+index 91d63c3..87947c1 100644
+--- a/src/app/components/footer/footer.component.css
++++ b/src/app/components/footer/footer.component.css
+@@ -1,56 +1,107 @@
+ .site-footer {
+-  border-top: 1px solid var(--ink);
++  border-top: 1px solid var(--border);
++  padding: 48px 0 28px;
+ }
+ 
+-.footer-inner {
++.footer-top {
+   display: flex;
+   flex-direction: column;
+-  gap: 16px;
+-  padding-top: 28px;
+-  padding-bottom: 36px;
++  gap: 24px;
++  padding-bottom: 32px;
++  border-bottom: 1px solid var(--border);
+ }
+ 
+ @media (min-width: 768px) {
+-  .footer-inner {
++  .footer-top {
+     flex-direction: row;
+     align-items: center;
+     justify-content: space-between;
+   }
+ }
+ 
+-.footer-copy {
+-  font-size: 0.9rem;
+-  color: var(--text-primary);
++.footer-brand {
++  display: inline-flex;
++  align-items: center;
++  gap: 14px;
++}
++
++.footer-mark {
++  display: inline-flex;
++  width: 40px;
++  height: 40px;
++  align-items: center;
++  justify-content: center;
++  border-radius: 11px;
++  background: var(--ink);
++  color: var(--on-ink);
++  font-size: 0.8rem;
++  font-weight: 700;
++  flex-shrink: 0;
++}
++
++.footer-name {
++  display: block;
++  font-weight: 700;
+ }
+ 
+ .footer-tag {
++  display: block;
+   font-size: 0.85rem;
+   color: var(--text-muted);
+ }
+ 
+ .footer-links {
+   display: flex;
++  flex-wrap: wrap;
+   gap: 8px;
+ }
+ 
+ .footer-icon {
+   display: inline-flex;
+-  width: 38px;
+-  height: 38px;
++  width: 40px;
++  height: 40px;
+   align-items: center;
+   justify-content: center;
+   border: 1px solid var(--border);
+-  border-radius: var(--radius);
++  border-radius: 50%;
+   color: var(--text-secondary);
+-  transition: border-color 0.15s ease, color 0.15s ease;
++  transition: border-color 0.2s ease, color 0.2s ease, transform 0.25s ease;
+ }
+ 
+ .footer-icon:hover {
+-  border-color: var(--ink);
++  border-color: var(--border-strong);
+   color: var(--brand, var(--text-primary));
++  transform: translateY(-2px);
+ }
+ 
+ .footer-icon svg {
+   width: 18px;
+   height: 18px;
+ }
++
++.footer-bottom {
++  display: flex;
++  align-items: center;
++  justify-content: space-between;
++  gap: 16px;
++  padding-top: 22px;
++  font-size: 0.85rem;
++  color: var(--text-muted);
++}
++
++.to-top {
++  display: inline-flex;
++  width: 36px;
++  height: 36px;
++  align-items: center;
++  justify-content: center;
++  border-radius: 50%;
++  border: 1px solid var(--border);
++  color: var(--text-secondary);
++  transition: border-color 0.2s ease, transform 0.25s ease;
++}
++
++.to-top:hover {
++  border-color: var(--ink);
++  transform: translateY(-2px);
++}
+diff --git a/src/app/components/footer/footer.component.html b/src/app/components/footer/footer.component.html
+index d3326f3..ee59ab8 100644
+--- a/src/app/components/footer/footer.component.html
++++ b/src/app/components/footer/footer.component.html
+@@ -1,9 +1,13 @@
+ <footer class="site-footer" role="contentinfo">
+-  <div class="wrap footer-inner">
+-    <div>
+-      <p class="footer-copy">&copy; {{ currentYear }} Anass EREKYSY. All rights reserved.</p>
+-      <p class="footer-tag">Full Stack Developer — Web, APIs & Cloud</p>
+-    </div>
++  <div class="wrap">
++    <div class="footer-top">
++      <a href="#hero" class="footer-brand">
++        <span class="footer-mark" aria-hidden="true">AE</span>
++        <span>
++          <span class="footer-name">Anass EREKYSY</span>
++          <span class="footer-tag">Full Stack Developer — Web, APIs & Cloud</span>
++        </span>
++      </a>
+ 
+     <nav class="footer-links" aria-label="Profiles">
+       <a *ngFor="let p of profiles" [href]="p.url" target="_blank" rel="noopener noreferrer"
+@@ -23,5 +27,11 @@
+         </svg>
+       </a>
+     </nav>
++    </div>
++
++    <div class="footer-bottom">
++      <p>&copy; {{ currentYear }} Anass EREKYSY. All rights reserved.</p>
++      <a href="#hero" class="to-top" aria-label="Back to top">↑</a>
++    </div>
+   </div>
+ </footer>
+diff --git a/src/app/components/hero/hero-section.component.css b/src/app/components/hero/hero-section.component.css
+index 2ff1833..74ecfc2 100644
+--- a/src/app/components/hero/hero-section.component.css
++++ b/src/app/components/hero/hero-section.component.css
+@@ -1,61 +1,91 @@
+ .hero {
+-  padding: 56px 0 72px;
++  padding: 40px 0 32px;
+ }
+ 
+ @media (min-width: 1024px) {
+-  .hero { padding: 96px 0 96px; }
++  .hero { padding: 72px 0 48px; }
+ }
+ 
+ .hero-grid {
+   display: grid;
+   grid-template-columns: 1fr;
+   gap: 48px;
+-  align-items: end;
++  align-items: center;
++}
++
++@media (min-width: 960px) {
++  .hero-grid { grid-template-columns: 1.35fr 1fr; gap: 72px; }
++}
++
++.status {
++  display: inline-flex;
++  align-items: center;
++  gap: 10px;
++  padding: 6px 14px 6px 10px;
++  border: 1px solid var(--border);
++  border-radius: 999px;
++  font-size: 0.85rem;
++  color: var(--text-secondary);
++  margin-bottom: 28px;
++}
++
++.status-dot {
++  position: relative;
++  width: 8px;
++  height: 8px;
++  border-radius: 50%;
++  background: #3f9a5f;
+ }
+ 
+-@media (min-width: 900px) {
+-  .hero-grid { grid-template-columns: 1fr 320px; gap: 64px; }
++.status-dot::after {
++  content: "";
++  position: absolute;
++  inset: -4px;
++  border-radius: 50%;
++  border: 1px solid #3f9a5f;
++  opacity: 0;
++  animation: ping 2.6s ease-out infinite;
+ }
+ 
+-@media (min-width: 1100px) {
+-  .hero-grid { grid-template-columns: 1fr 380px; }
++@keyframes ping {
++  0% { transform: scale(0.6); opacity: 0.7; }
++  80%, 100% { transform: scale(1.6); opacity: 0; }
+ }
+ 
+ .hero-name {
+   font-weight: 600;
+   color: var(--accent);
+-  margin-bottom: 20px;
++  margin-bottom: 12px;
+ }
+ 
+ .hero-title {
+-  font-size: 2.6rem;
++  font-size: 2.7rem;
+   font-weight: 700;
+-  line-height: 1.05;
+-  letter-spacing: -0.03em;
++  line-height: 1.04;
++  letter-spacing: -0.035em;
+   color: var(--text-primary);
+-  max-width: 14ch;
+-  margin-bottom: 28px;
++  margin-bottom: 24px;
+ }
+ 
+ @media (min-width: 640px) {
+-  .hero-title { font-size: 3.6rem; }
++  .hero-title { font-size: 3.8rem; }
+ }
+ 
+-@media (min-width: 1100px) {
+-  .hero-title { font-size: 4.4rem; }
++@media (min-width: 1200px) {
++  .hero-title { font-size: 4.6rem; }
+ }
+ 
+ .hero-sub {
+   font-size: 1.15rem;
+   color: var(--text-secondary);
+-  max-width: 40rem;
+-  margin-bottom: 20px;
++  max-width: 38rem;
++  margin-bottom: 16px;
+ }
+ 
+ .hero-positioning {
+   color: var(--text-secondary);
+-  max-width: 40rem;
+-  margin-bottom: 20px;
++  max-width: 38rem;
++  margin-bottom: 36px;
+ }
+ 
+ .mark {
+@@ -64,73 +94,112 @@
+   box-shadow: inset 0 -0.4em 0 var(--accent-light);
+ }
+ 
+-.hero-status {
++.hero-actions {
+   display: flex;
+-  align-items: center;
+-  gap: 10px;
+-  font-size: 0.95rem;
+-  color: var(--text-primary);
+-  margin-bottom: 36px;
++  flex-wrap: wrap;
++  gap: 12px;
+ }
+ 
+-.status-dot {
+-  width: 8px;
+-  height: 8px;
+-  background: #3f8f5a;
+-  border-radius: 50%;
+-  flex-shrink: 0;
++/* Photo */
++.hero-visual {
++  position: relative;
++  max-width: 420px;
++  width: 100%;
++  justify-self: center;
+ }
+ 
+-.hero-actions {
+-  display: flex;
+-  flex-wrap: wrap;
+-  gap: 12px;
++@media (min-width: 960px) {
++  .hero-visual { justify-self: end; }
+ }
+ 
+-.hero-photo {
+-  margin: 0;
+-  max-width: 380px;
++.photo-frame {
++  overflow: hidden;
++  border-radius: 24px;
++  border: 1px solid var(--border);
++  background: var(--surface);
+ }
+ 
+-.hero-photo img {
++.photo-frame img {
+   display: block;
+   width: 100%;
+   aspect-ratio: 4 / 5;
+   object-fit: cover;
+   object-position: 50% 20%;
+-  border-radius: var(--radius);
+-  background: var(--surface);
++  transform: scale(1.04);
++  transition: transform 1.2s cubic-bezier(.2,.7,.2,1);
++}
++
++.hero-visual:hover .photo-frame img {
++  transform: scale(1);
+ }
+ 
+-.hero-stats {
++.photo-tag {
++  position: absolute;
++  left: -16px;
++  bottom: 28px;
++  display: inline-flex;
++  align-items: center;
++  gap: 8px;
++  padding: 10px 16px;
++  border-radius: 999px;
++  background: var(--bg);
++  border: 1px solid var(--border);
++  box-shadow: 0 12px 30px -16px rgba(0, 0, 0, 0.35);
++  font-size: 0.9rem;
++  font-weight: 600;
++}
++
++@media (max-width: 520px) {
++  .photo-tag { left: 12px; }
++}
++
++.photo-tag-dot {
++  width: 6px;
++  height: 6px;
++  border-radius: 50%;
++  background: var(--accent);
++}
++
++/* Stats */
++.stats {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+-  margin: 64px 0 0;
+-  border-top: 1px solid var(--ink);
++  gap: 12px;
++  margin-top: 72px;
+ }
+ 
+-.hero-stats > div {
+-  padding: 18px 16px 0 0;
++@media (min-width: 768px) {
++  .stats { gap: 20px; margin-top: 96px; }
+ }
+ 
+-.hero-stats > div + div {
+-  padding-left: 16px;
+-  border-left: 1px solid var(--border);
++.stat {
++  display: flex;
++  flex-direction: column;
++  gap: 6px;
++  padding: 18px 16px;
+ }
+ 
+-.hero-stats dt {
+-  font-size: 0.8rem;
+-  color: var(--text-muted);
+-  margin-bottom: 4px;
++@media (min-width: 768px) {
++  .stat { padding: 28px; }
+ }
+ 
+-.hero-stats dd {
+-  margin: 0;
+-  font-size: 2rem;
+-  font-weight: 600;
+-  letter-spacing: -0.02em;
++.stat-value {
++  font-size: 1.9rem;
++  font-weight: 700;
++  letter-spacing: -0.03em;
++  line-height: 1;
++  font-variant-numeric: tabular-nums;
+ }
+ 
+-@media (min-width: 640px) {
+-  .hero-stats dd { font-size: 2.6rem; }
++@media (min-width: 768px) {
++  .stat-value { font-size: 3rem; }
++}
++
++.stat-label {
++  font-size: 0.8rem;
++  color: var(--text-muted);
++}
++
++@media (min-width: 768px) {
++  .stat-label { font-size: 0.9rem; }
+ }
+diff --git a/src/app/components/hero/hero-section.component.html b/src/app/components/hero/hero-section.component.html
+index 1da7edd..6c399ae 100644
+--- a/src/app/components/hero/hero-section.component.html
++++ b/src/app/components/hero/hero-section.component.html
+@@ -3,51 +3,52 @@
+     <div class="hero-grid">
+ 
+       <div class="hero-text">
+-        <p class="hero-name">Anass EREKYSY</p>
++        <p class="status enter" style="animation-delay: 0ms">
++          <span class="status-dot" aria-hidden="true"></span>
++          {{ 'hero.availableForProjects' | translate }}
++        </p>
++
++        <p class="hero-name enter" style="animation-delay: 80ms">Anass EREKYSY</p>
+ 
+-        <h1 class="hero-title text-balance">
++        <h1 class="hero-title text-balance enter" style="animation-delay: 160ms">
+           {{ 'hero.title' | translate }}
+         </h1>
+ 
+-        <p class="hero-sub">
++        <p class="hero-sub enter" style="animation-delay: 260ms">
+           {{ 'hero.subtitle' | translate }}
+         </p>
+ 
+-        <p class="hero-positioning">
++        <p class="hero-positioning enter" style="animation-delay: 340ms">
+           {{ 'hero.positioning' | translate }}
+           <span class="mark">{{ 'hero.positioningHighlight' | translate }}</span>
+           {{ 'hero.positioningSuffix' | translate }}
+         </p>
+ 
+-        <p class="hero-status">
+-          <span class="status-dot" aria-hidden="true"></span>
+-          {{ 'hero.availableForProjects' | translate }}
+-        </p>
+-
+-        <div class="hero-actions">
+-          <a href="#projects" class="btn btn-solid">{{ 'hero.viewMyWork' | translate }}</a>
++        <div class="hero-actions enter" style="animation-delay: 420ms">
++          <a href="#projects" class="btn btn-solid">
++            {{ 'hero.viewMyWork' | translate }}
++            <span class="arrow" aria-hidden="true">→</span>
++          </a>
+           <a href="#contact" class="btn btn-line">{{ 'hero.getInTouch' | translate }}</a>
+         </div>
+       </div>
+ 
+-      <figure class="hero-photo">
+-        <img src="assets/Profile.jpg" alt="Anass EREKYSY" width="480" height="600" />
+-      </figure>
++      <div class="hero-visual enter" style="animation-delay: 250ms">
++        <div class="photo-frame">
++          <img src="assets/Profile.jpg" alt="Anass EREKYSY" width="480" height="600" />
++        </div>
++        <div class="photo-tag">
++          <span class="photo-tag-dot" aria-hidden="true"></span>
++          <span>Paris, France</span>
++        </div>
++      </div>
+     </div>
+ 
+-    <dl class="hero-stats">
+-      <div>
+-        <dt>{{ 'hero.yearsExperience' | translate }}</dt>
+-        <dd>{{ yearsExperience }}+</dd>
++    <div class="stats" #statsRow>
++      <div class="stat card enter" *ngFor="let stat of stats; let i = index" [style.animation-delay.ms]="500 + i * 90">
++        <span class="stat-value">{{ values()[i] }}{{ stat.suffix }}</span>
++        <span class="stat-label">{{ stat.key | translate }}</span>
+       </div>
+-      <div>
+-        <dt>{{ 'hero.projectsDelivered' | translate }}</dt>
+-        <dd>{{ projectsDelivered }}+</dd>
+-      </div>
+-      <div>
+-        <dt>{{ 'hero.qualityFocus' | translate }}</dt>
+-        <dd>{{ qualityFocus }}%</dd>
+-      </div>
+-    </dl>
++    </div>
+   </div>
+ </section>
+diff --git a/src/app/components/hero/hero-section.component.ts b/src/app/components/hero/hero-section.component.ts
+index 0349e7a..383f47c 100644
+--- a/src/app/components/hero/hero-section.component.ts
++++ b/src/app/components/hero/hero-section.component.ts
+@@ -1,7 +1,13 @@
+-import { Component } from '@angular/core';
++import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild, signal } from '@angular/core';
+ import { CommonModule } from '@angular/common';
+ import { TranslatePipe } from '../../pipes/translate.pipe';
+ 
++interface Stat {
++  key: string;
++  target: number;
++  suffix: string;
++}
++
+ @Component({
+   selector: 'app-hero-section',
+   standalone: true,
+@@ -9,8 +15,56 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
+   templateUrl: './hero-section.component.html',
+   styleUrls: ['./hero-section.component.css']
+ })
+-export class HeroSectionComponent {
+-  readonly yearsExperience = 4;
+-  readonly projectsDelivered = 15;
+-  readonly qualityFocus = 100;
++export class HeroSectionComponent implements AfterViewInit, OnDestroy {
++  @ViewChild('statsRow') statsRow?: ElementRef<HTMLElement>;
++
++  readonly stats: Stat[] = [
++    { key: 'hero.yearsExperience', target: 4, suffix: '+' },
++    { key: 'hero.projectsDelivered', target: 15, suffix: '+' },
++    { key: 'hero.qualityFocus', target: 100, suffix: '%' }
++  ];
++
++  values = signal<number[]>(this.stats.map(s => s.target));
++
++  private observer?: IntersectionObserver;
++
++  ngAfterViewInit(): void {
++    const reduce = typeof window !== 'undefined'
++      && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
++
++    if (reduce || typeof window === 'undefined' || !('IntersectionObserver' in window) || !this.statsRow) {
++      return;
++    }
++
++    this.values.set(this.stats.map(() => 0));
++
++    this.observer = new IntersectionObserver(entries => {
++      if (entries.some(e => e.isIntersecting)) {
++        this.observer?.disconnect();
++        this.countUp();
++      }
++    }, { threshold: 0.4 });
++
++    this.observer.observe(this.statsRow.nativeElement);
++  }
++
++  private countUp(): void {
++    const duration = 1400;
++    const start = performance.now();
++    const ease = (t: number) => 1 - Math.pow(1 - t, 3);
++
++    const tick = (now: number) => {
++      const t = Math.min((now - start) / duration, 1);
++      this.values.set(this.stats.map(s => Math.round(s.target * ease(t))));
++      if (t < 1) {
++        requestAnimationFrame(tick);
++      }
++    };
++
++    requestAnimationFrame(tick);
++  }
++
++  ngOnDestroy(): void {
++    this.observer?.disconnect();
++  }
+ }
+diff --git a/src/app/components/how-i-work/how-i-work-section.component.css b/src/app/components/how-i-work/how-i-work-section.component.css
+index a4aecc1..17133fc 100644
+--- a/src/app/components/how-i-work/how-i-work-section.component.css
++++ b/src/app/components/how-i-work/how-i-work-section.component.css
+@@ -1,21 +1,31 @@
+ .principles {
+   display: grid;
+   grid-template-columns: 1fr;
+-  gap: 36px 48px;
++  gap: 40px 48px;
+ }
+ 
+-@media (min-width: 768px) {
++@media (min-width: 700px) {
+   .principles { grid-template-columns: 1fr 1fr; }
+ }
+ 
+-.principle {
+-  padding-top: 16px;
+-  border-top: 1px solid var(--border);
++@media (min-width: 1024px) {
++  .principles { grid-template-columns: repeat(3, 1fr); }
++}
++
++.principle-num {
++  display: block;
++  font-size: 0.85rem;
++  font-weight: 600;
++  color: var(--accent);
++  padding-bottom: 14px;
++  margin-bottom: 18px;
++  border-bottom: 1px solid var(--border);
+ }
+ 
+ .principle-title {
+   font-size: 1.15rem;
+-  font-weight: 600;
++  font-weight: 700;
++  letter-spacing: -0.015em;
+   margin-bottom: 8px;
+ }
+ 
+@@ -23,64 +33,91 @@
+   color: var(--text-secondary);
+ }
+ 
++/* Process: numbered stepper joined by a line */
+ .process {
+-  margin-top: 72px;
+-  padding: 32px;
+-  background: var(--surface);
+-  border-radius: var(--radius);
++  margin-top: 88px;
++  padding: 30px;
+ }
+ 
+ @media (min-width: 900px) {
+-  .process { padding: 44px; }
++  .process { padding: 48px; }
+ }
+ 
+ .process-title {
+-  font-size: 1.5rem;
+-  font-weight: 600;
+-  margin-bottom: 28px;
++  font-size: 1.6rem;
++  font-weight: 700;
++  letter-spacing: -0.025em;
++  margin-bottom: 36px;
+ }
+ 
+ .steps {
++  position: relative;
+   list-style: none;
+   margin: 0;
+   padding: 0;
+   display: grid;
+   grid-template-columns: 1fr;
+-  gap: 24px 40px;
+-}
+-
+-@media (min-width: 768px) {
+-  .steps { grid-template-columns: 1fr 1fr; }
++  gap: 28px;
+ }
+ 
+ @media (min-width: 1100px) {
+-  .steps { grid-template-columns: 1fr 1fr 1fr; }
++  .steps { grid-template-columns: repeat(6, 1fr); gap: 20px; }
++
++  .steps::before {
++    content: "";
++    position: absolute;
++    top: 17px;
++    left: 18px;
++    right: calc(100% / 6 - 18px);
++    height: 1px;
++    background: var(--border-strong);
++    transform-origin: left;
++    transform: scaleX(0);
++    transition: transform 1.4s cubic-bezier(.2,.7,.2,1) 0.3s;
++  }
++
++  .process.is-visible .steps::before {
++    transform: scaleX(1);
++  }
+ }
+ 
+ .step {
+-  display: flex;
+-  gap: 14px;
++  position: relative;
++}
++
++@media (max-width: 1099px) {
++  .step { padding-left: 54px; }
++  .step .step-num { position: absolute; left: 0; top: -4px; }
+ }
+ 
+ .step-num {
+-  flex-shrink: 0;
+-  width: 26px;
+-  height: 26px;
++  position: relative;
++  z-index: 1;
+   display: inline-flex;
++  width: 36px;
++  height: 36px;
+   align-items: center;
+   justify-content: center;
+-  border: 1px solid var(--ink);
+   border-radius: 50%;
+-  font-size: 0.8rem;
+-  font-weight: 600;
++  background: var(--bg);
++  border: 1px solid var(--ink);
++  font-size: 0.85rem;
++  font-weight: 700;
++  margin-bottom: 16px;
++  transition: background-color 0.25s ease, color 0.25s ease;
++}
++
++.step:hover .step-num {
++  background: var(--ink);
++  color: var(--on-ink);
+ }
+ 
+ .step-title {
+-  font-weight: 600;
+-  margin-bottom: 4px;
++  font-weight: 700;
++  margin-bottom: 6px;
+ }
+ 
+ .step-desc {
+-  font-size: 0.95rem;
++  font-size: 0.92rem;
+   color: var(--text-secondary);
+ }
+diff --git a/src/app/components/how-i-work/how-i-work-section.component.html b/src/app/components/how-i-work/how-i-work-section.component.html
+index 5e41ac2..8056d82 100644
+--- a/src/app/components/how-i-work/how-i-work-section.component.html
++++ b/src/app/components/how-i-work/how-i-work-section.component.html
+@@ -1,28 +1,32 @@
+ <section class="section" id="how-i-work">
+   <div class="wrap">
+ 
+-    <header class="section-head">
+-      <span class="section-index">05</span>
++    <header class="section-head" appReveal>
++      <p class="eyebrow">05</p>
+       <h2 class="section-title">{{ 'howIWork.title' | translate }}</h2>
+       <p class="section-sub">{{ 'howIWork.subtitle' | translate }}</p>
+     </header>
+ 
+     <div class="principles">
+-      <div *ngFor="let principle of principles" class="principle">
++      <div
++        *ngFor="let principle of principles; let i = index; trackBy: trackByIndex"
++        class="principle"
++        appReveal
++        [revealDelay]="(i % 3) * 90"
++      >
++        <span class="principle-num">0{{ i + 1 }}</span>
+         <h3 class="principle-title">{{ principle.title }}</h3>
+         <p class="principle-desc">{{ principle.description }}</p>
+       </div>
+     </div>
+ 
+-    <div class="process">
++    <div class="process card" appReveal>
+       <h3 class="process-title">{{ 'howIWork.processTitle' | translate }}</h3>
+       <ol class="steps">
+-        <li *ngFor="let step of processSteps; let i = index" class="step">
++        <li *ngFor="let step of processSteps; let i = index; trackBy: trackByIndex" class="step">
+           <span class="step-num">{{ i + 1 }}</span>
+-          <div>
+-            <p class="step-title">{{ step.title }}</p>
+-            <p class="step-desc">{{ step.description }}</p>
+-          </div>
++          <p class="step-title">{{ step.title }}</p>
++          <p class="step-desc">{{ step.description }}</p>
+         </li>
+       </ol>
+     </div>
+diff --git a/src/app/components/how-i-work/how-i-work-section.component.ts b/src/app/components/how-i-work/how-i-work-section.component.ts
+index 8f0f5eb..50dcd92 100644
+--- a/src/app/components/how-i-work/how-i-work-section.component.ts
++++ b/src/app/components/how-i-work/how-i-work-section.component.ts
+@@ -1,6 +1,7 @@
+ import { Component, inject } from '@angular/core';
+ import { CommonModule } from '@angular/common';
+ import { TranslatePipe } from '../../pipes/translate.pipe';
++import { RevealDirective } from '../../directives/reveal.directive';
+ import { TranslationService } from '../../services/translation.service';
+ 
+ interface WorkPrinciple {
+@@ -11,7 +12,7 @@ interface WorkPrinciple {
+ @Component({
+   selector: 'app-how-i-work-section',
+   standalone: true,
+-  imports: [CommonModule, TranslatePipe],
++  imports: [CommonModule, TranslatePipe, RevealDirective],
+   templateUrl: './how-i-work-section.component.html',
+   styleUrls: ['./how-i-work-section.component.css']
+ })
+@@ -57,4 +58,8 @@ export class HowIWorkSectionComponent {
+       { title: this.translationService.translate('howIWork.step6.title'), description: this.translationService.translate('howIWork.step6.description') }
+     ];
+   }
++
++  trackByIndex(index: number): number {
++    return index;
++  }
+ }
+diff --git a/src/app/components/projects-section/projects-section.component.css b/src/app/components/projects-section/projects-section.component.css
+index 042c670..250908d 100644
+--- a/src/app/components/projects-section/projects-section.component.css
++++ b/src/app/components/projects-section/projects-section.component.css
+@@ -1,85 +1,198 @@
+-.project-grid {
++/* Featured */
++.featured {
+   display: grid;
+-  grid-template-columns: 1fr;
+-  gap: 64px 40px;
+-}
+-
+-@media (min-width: 768px) {
+-  .project-grid { grid-template-columns: 1fr 1fr; }
++  gap: 24px;
++  margin-bottom: 24px;
+ }
+ 
+-.project {
+-  display: flex;
+-  flex-direction: column;
++.feature {
++  display: grid;
++  grid-template-columns: 1fr;
++  overflow: hidden;
+   cursor: pointer;
+   outline: none;
+ }
+ 
+-.project:focus-visible .project-media {
++@media (min-width: 900px) {
++  .feature { grid-template-columns: 1.25fr 1fr; }
++  .feature.flip { grid-template-columns: 1fr 1.25fr; }
++  .feature.flip .feature-media { order: 2; }
++}
++
++.feature:focus-visible,
++.tile:focus-visible {
+   outline: 2px solid var(--accent);
+   outline-offset: 3px;
+ }
+ 
+-.project-media {
+-  aspect-ratio: 3 / 2;
++.feature-media {
+   overflow: hidden;
+-  border: 1px solid var(--border);
+-  border-radius: var(--radius);
+   background: var(--surface);
+-  margin-bottom: 18px;
+ }
+ 
+-.project-media img {
++.feature-media img {
+   display: block;
+   width: 100%;
+   height: 100%;
++  aspect-ratio: 3 / 2;
+   object-fit: cover;
+-  transition: opacity 0.2s ease;
++  transition: transform 1s cubic-bezier(.2,.7,.2,1);
+ }
+ 
+-.project:hover .project-media img {
+-  opacity: 0.88;
++.feature:hover .feature-media img {
++  transform: scale(1.035);
+ }
+ 
+-.project-head {
++.feature-body {
+   display: flex;
+-  align-items: baseline;
+-  justify-content: space-between;
++  flex-direction: column;
+   gap: 16px;
+-  margin-bottom: 8px;
++  padding: 28px;
+ }
+ 
+-.project-name {
+-  font-size: 1.35rem;
+-  font-weight: 600;
+-  color: var(--text-primary);
++@media (min-width: 900px) {
++  .feature-body { padding: 44px; justify-content: center; }
+ }
+ 
+-.project:hover .project-name {
++.badge {
++  align-self: flex-start;
++  font-size: 0.75rem;
++  font-weight: 600;
++  letter-spacing: 0.06em;
++  text-transform: uppercase;
+   color: var(--accent);
+ }
+ 
+-.project-num {
+-  font-size: 0.8rem;
+-  color: var(--text-muted);
++.feature-name {
++  font-size: 2rem;
++  font-weight: 700;
++  letter-spacing: -0.03em;
+ }
+ 
+-.project-desc {
+-  color: var(--text-secondary);
+-  margin-bottom: 12px;
++@media (min-width: 900px) {
++  .feature-name { font-size: 2.4rem; }
+ }
+ 
+-.project-stack {
+-  font-size: 0.85rem;
+-  margin-bottom: 14px;
++.feature-desc {
++  color: var(--text-secondary);
++  font-size: 1.05rem;
+ }
+ 
+-.project-links {
++.feature-foot {
+   display: flex;
+   flex-wrap: wrap;
+-  gap: 8px 20px;
++  align-items: center;
++  gap: 10px 24px;
++  margin-top: 8px;
++  font-size: 0.95rem;
++}
++
++.more {
++  font-weight: 600;
++  color: var(--text-primary);
++}
++
++.more .arrow {
++  display: inline-block;
++  transition: transform 0.3s ease;
++}
++
++.feature:hover .more .arrow {
++  transform: translateX(4px);
++}
++
++/* Grid */
++.grid {
++  display: grid;
++  grid-template-columns: 1fr;
++  gap: 24px;
++}
++
++@media (min-width: 640px) {
++  .grid { grid-template-columns: 1fr 1fr; }
++}
++
++@media (min-width: 1024px) {
++  .grid { grid-template-columns: repeat(3, 1fr); }
++}
++
++.tile {
++  display: flex;
++  flex-direction: column;
++  overflow: hidden;
++  cursor: pointer;
++  outline: none;
++}
++
++.tile-media {
++  position: relative;
++  overflow: hidden;
++  aspect-ratio: 3 / 2;
++  background: var(--surface);
++  border-bottom: 1px solid var(--border);
++}
++
++.tile-media img {
++  display: block;
++  width: 100%;
++  height: 100%;
++  object-fit: cover;
++  transition: transform 0.9s cubic-bezier(.2,.7,.2,1);
++}
++
++.tile:hover .tile-media img {
++  transform: scale(1.05);
++}
++
++.tile-open {
++  position: absolute;
++  top: 14px;
++  right: 14px;
++  display: inline-flex;
++  width: 36px;
++  height: 36px;
++  align-items: center;
++  justify-content: center;
++  border-radius: 50%;
++  background: var(--bg);
++  color: var(--text-primary);
++  font-size: 0.95rem;
++  opacity: 0;
++  transform: translateY(6px);
++  transition: opacity 0.3s ease, transform 0.3s ease;
++}
++
++.tile:hover .tile-open {
++  opacity: 1;
++  transform: none;
++}
++
++.tile-body {
++  display: flex;
++  flex-direction: column;
++  gap: 10px;
++  padding: 22px 22px 24px;
++  flex: 1;
++}
++
++.tile-name {
++  font-size: 1.25rem;
++  font-weight: 700;
++  letter-spacing: -0.02em;
++}
++
++.tile-desc {
++  color: var(--text-secondary);
++  font-size: 0.95rem;
++  margin-bottom: 6px;
++}
++
++.tile .chips {
+   margin-top: auto;
+-  font-size: 0.9rem;
++}
++
++.chip-more {
++  color: var(--text-muted);
+ }
+ 
+ /* Detail panel */
+@@ -92,7 +205,8 @@
+   justify-content: center;
+   padding: 24px 12px;
+   overflow-y: auto;
+-  background: rgba(18, 18, 17, 0.6);
++  background: rgba(18, 18, 17, 0.55);
++  animation: fade 0.3s ease forwards;
+ }
+ 
+ @media (min-width: 768px) {
+@@ -101,11 +215,18 @@
+ 
+ .modal-card {
+   width: 100%;
+-  max-width: 880px;
++  max-width: 900px;
+   background: var(--bg);
+-  border: 1px solid var(--ink);
+-  border-radius: var(--radius);
++  border: 1px solid var(--border);
++  border-radius: 20px;
+   padding: 24px;
++  box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.5);
++  animation: modal-in 0.45s cubic-bezier(.2,.7,.2,1) forwards;
++}
++
++@keyframes modal-in {
++  from { opacity: 0; transform: translateY(24px) scale(0.98); }
++  to { opacity: 1; transform: none; }
+ }
+ 
+ @media (min-width: 768px) {
+@@ -121,25 +242,28 @@
+ }
+ 
+ .modal-title {
+-  font-size: 1.9rem;
+-  font-weight: 600;
++  font-size: 2rem;
++  font-weight: 700;
++  letter-spacing: -0.03em;
+ }
+ 
+ .modal-close {
+   display: inline-flex;
+-  width: 36px;
+-  height: 36px;
++  width: 38px;
++  height: 38px;
+   align-items: center;
+   justify-content: center;
+   border: 1px solid var(--border);
+-  border-radius: var(--radius);
++  border-radius: 50%;
+   color: var(--text-secondary);
+   flex-shrink: 0;
++  transition: border-color 0.2s ease, color 0.2s ease, transform 0.3s ease;
+ }
+ 
+ .modal-close:hover {
+   border-color: var(--ink);
+   color: var(--text-primary);
++  transform: rotate(90deg);
+ }
+ 
+ .modal-close svg {
+@@ -153,7 +277,7 @@
+   aspect-ratio: 3 / 2;
+   object-fit: cover;
+   border: 1px solid var(--border);
+-  border-radius: var(--radius);
++  border-radius: 14px;
+   margin-bottom: 24px;
+ }
+ 
+@@ -170,8 +294,8 @@
+ .modal-row {
+   display: grid;
+   grid-template-columns: 1fr;
+-  gap: 8px 32px;
+-  padding: 20px 0;
++  gap: 10px 32px;
++  padding: 22px 0;
+   border-top: 1px solid var(--border);
+ }
+ 
+diff --git a/src/app/components/projects-section/projects-section.component.html b/src/app/components/projects-section/projects-section.component.html
+index 99c7466..c209a8d 100644
+--- a/src/app/components/projects-section/projects-section.component.html
++++ b/src/app/components/projects-section/projects-section.component.html
+@@ -1,23 +1,67 @@
+ <section class="section" id="projects">
+   <div class="wrap">
+ 
+-    <header class="section-head">
+-      <span class="section-index">01</span>
++    <header class="section-head" appReveal>
++      <p class="eyebrow">01</p>
+       <h2 class="section-title">{{ 'projects.title' | translate }}</h2>
+       <p class="section-sub">{{ 'projects.subtitle' | translate }}</p>
+     </header>
+ 
+-    <div class="project-grid">
++    <!-- Featured -->
++    <div class="featured">
+       <article
+-        *ngFor="let project of projects; let i = index"
+-        class="project"
++        *ngFor="let project of featured; let i = index; trackBy: trackByIndex"
++        class="feature card card-hover"
++        [class.flip]="i % 2 === 1"
++        appReveal
+         tabindex="0"
+         role="button"
+         [attr.aria-label]="project.name"
+         (click)="openProject(project)"
+         (keydown.enter)="openProject(project)"
+       >
+-        <div class="project-media">
++        <div class="feature-media">
++          <img [src]="project.imageUrl" [alt]="project.name" width="1400" height="933" />
++        </div>
++
++        <div class="feature-body">
++          <span class="badge">{{ 'projects.featured' | translate }} · {{ pad(i) }}</span>
++          <h3 class="feature-name">{{ project.name }}</h3>
++          <p class="feature-desc">{{ project.description }}</p>
++
++          <div class="chips">
++            <span class="chip" *ngFor="let tech of project.stack.slice(0, 6)">{{ tech }}</span>
++          </div>
++
++          <div class="feature-foot">
++            <span class="more">{{ 'projects.viewDetails' | translate }} <span class="arrow" aria-hidden="true">→</span></span>
++            <a
++              *ngFor="let repo of project.githubRepos"
++              [href]="repo.url"
++              target="_blank"
++              rel="noopener noreferrer"
++              (click)="$event.stopPropagation()"
++              class="text-link"
++            >{{ repo.label }} ↗</a>
++          </div>
++        </div>
++      </article>
++    </div>
++
++    <!-- Grid -->
++    <div class="grid">
++      <article
++        *ngFor="let project of others; let i = index; trackBy: trackByIndex"
++        class="tile card card-hover"
++        appReveal
++        [revealDelay]="(i % 3) * 90"
++        tabindex="0"
++        role="button"
++        [attr.aria-label]="project.name"
++        (click)="openProject(project)"
++        (keydown.enter)="openProject(project)"
++      >
++        <div class="tile-media">
+           <img
+             *ngIf="project.imageUrl"
+             [src]="project.imageUrl"
+@@ -26,28 +70,16 @@
+             width="1400"
+             height="933"
+           />
++          <span class="tile-open" aria-hidden="true">↗</span>
+         </div>
+ 
+-        <div class="project-head">
+-          <h3 class="project-name">{{ project.name }}</h3>
+-          <span class="project-num">{{ pad(i) }}</span>
+-        </div>
+-
+-        <p class="project-desc">{{ project.description }}</p>
+-
+-        <p class="dot-list project-stack">
+-          <span *ngFor="let tech of project.stack">{{ tech }}</span>
+-        </p>
+-
+-        <div class="project-links" *ngIf="project.githubRepos.length">
+-          <a
+-            *ngFor="let repo of project.githubRepos"
+-            [href]="repo.url"
+-            target="_blank"
+-            rel="noopener noreferrer"
+-            (click)="$event.stopPropagation()"
+-            class="text-link"
+-          >{{ repo.label }} ↗</a>
++        <div class="tile-body">
++          <h3 class="tile-name">{{ project.name }}</h3>
++          <p class="tile-desc">{{ project.description }}</p>
++          <div class="chips">
++            <span class="chip" *ngFor="let tech of project.stack.slice(0, 4)">{{ tech }}</span>
++            <span class="chip chip-more" *ngIf="project.stack.length > 4">+{{ project.stack.length - 4 }}</span>
++          </div>
+         </div>
+       </article>
+     </div>
+@@ -111,8 +143,8 @@
+ 
+       <div class="modal-row">
+         <dt class="label">{{ 'projects.technologyStack' | translate }}</dt>
+-        <dd class="dot-list">
+-          <span *ngFor="let tech of selectedProject.stack">{{ tech }}</span>
++        <dd class="chips">
++          <span class="chip" *ngFor="let tech of selectedProject.stack">{{ tech }}</span>
+         </dd>
+       </div>
+ 
+diff --git a/src/app/components/projects-section/projects-section.component.ts b/src/app/components/projects-section/projects-section.component.ts
+index 98b8cb0..bfad8ed 100644
+--- a/src/app/components/projects-section/projects-section.component.ts
++++ b/src/app/components/projects-section/projects-section.component.ts
+@@ -1,6 +1,7 @@
+ import { Component, HostListener, inject } from '@angular/core';
+ import { CommonModule } from '@angular/common';
+ import { TranslatePipe } from '../../pipes/translate.pipe';
++import { RevealDirective } from '../../directives/reveal.directive';
+ import { TranslationService } from '../../services/translation.service';
+ 
+ interface Project {
+@@ -23,7 +24,7 @@ interface Project {
+ @Component({
+   selector: 'app-projects-section',
+   standalone: true,
+-  imports: [CommonModule, TranslatePipe],
++  imports: [CommonModule, TranslatePipe, RevealDirective],
+   templateUrl: './projects-section.component.html',
+   styleUrls: ['./projects-section.component.css']
+ })
+@@ -32,6 +33,14 @@ export class ProjectsSectionComponent {
+   
+   selectedProject: Project | null = null;
+ 
++  get featured(): Project[] {
++    return this.projects.slice(0, 2);
++  }
++
++  get others(): Project[] {
++    return this.projects.slice(2);
++  }
++
+   pad(index: number): string {
+     return String(index + 1).padStart(2, '0');
+   }
+@@ -345,5 +354,8 @@ export class ProjectsSectionComponent {
+       }
+     ];
+   }
+-}
+ 
++  trackByIndex(index: number): number {
++    return index;
++  }
++}
+diff --git a/src/app/components/site-header/site-header.component.css b/src/app/components/site-header/site-header.component.css
+index 41bc243..6cc3a1d 100644
+--- a/src/app/components/site-header/site-header.component.css
++++ b/src/app/components/site-header/site-header.component.css
+@@ -2,8 +2,16 @@
+   position: sticky;
+   top: 0;
+   z-index: 40;
+-  background: var(--bg);
+-  border-bottom: 1px solid var(--border);
++  background: transparent;
++  border-bottom: 1px solid transparent;
++  transition: background-color 0.3s ease, border-color 0.3s ease;
++}
++
++.site-header.scrolled {
++  background: color-mix(in srgb, var(--bg) 88%, transparent);
++  backdrop-filter: saturate(160%) blur(10px);
++  -webkit-backdrop-filter: saturate(160%) blur(10px);
++  border-bottom-color: var(--border);
+ }
+ 
+ .header-inner {
+@@ -11,73 +19,164 @@
+   align-items: center;
+   justify-content: space-between;
+   gap: 24px;
+-  height: 60px;
++  height: 68px;
+ }
+ 
+ .brand {
++  display: inline-flex;
++  align-items: center;
++  gap: 10px;
+   font-weight: 700;
+   letter-spacing: -0.01em;
+   white-space: nowrap;
+ }
+ 
++.brand-mark {
++  display: inline-flex;
++  width: 32px;
++  height: 32px;
++  align-items: center;
++  justify-content: center;
++  border-radius: 9px;
++  background: var(--ink);
++  color: var(--on-ink);
++  font-size: 0.75rem;
++  font-weight: 700;
++  letter-spacing: 0.02em;
++  transition: background-color 0.25s ease;
++}
++
++.brand:hover .brand-mark {
++  background: var(--accent);
++}
++
+ .header-nav {
+   display: none;
+-  gap: 28px;
++  gap: 4px;
++  padding: 4px;
++  border-radius: 999px;
+   font-size: 0.9rem;
++}
++
++.header-nav a {
++  position: relative;
++  padding: 7px 14px;
++  border-radius: 999px;
+   color: var(--text-secondary);
++  transition: color 0.2s ease, background-color 0.25s ease;
+ }
+ 
+ .header-nav a:hover {
+-  color: var(--accent);
++  color: var(--text-primary);
++}
++
++.header-nav a.active {
++  color: var(--text-primary);
++  background: var(--muted);
+ }
+ 
+-@media (min-width: 900px) {
++@media (min-width: 960px) {
+   .header-nav { display: flex; }
+ }
+ 
+ .header-tools {
+   display: flex;
+   align-items: center;
+-  gap: 18px;
++  gap: 10px;
+ }
+ 
+ .lang {
+   display: flex;
+-  align-items: center;
+-  gap: 6px;
+-  font-size: 0.85rem;
+-  color: var(--text-muted);
++  padding: 3px;
++  border: 1px solid var(--border);
++  border-radius: 999px;
+ }
+ 
+ .lang button {
+-  padding: 2px 0;
++  padding: 4px 10px;
++  border-radius: 999px;
++  font-size: 0.75rem;
+   font-weight: 600;
+   color: var(--text-muted);
+-  border-bottom: 1px solid transparent;
++  transition: background-color 0.2s ease, color 0.2s ease;
+ }
+ 
+ .lang button.active {
+-  color: var(--text-primary);
+-  border-bottom-color: var(--accent);
++  background: var(--ink);
++  color: var(--on-ink);
+ }
+ 
+-.theme-btn {
++.icon-btn {
+   display: inline-flex;
+-  width: 34px;
+-  height: 34px;
++  width: 36px;
++  height: 36px;
+   align-items: center;
+   justify-content: center;
+   border: 1px solid var(--border);
+-  border-radius: var(--radius);
++  border-radius: 999px;
+   color: var(--text-secondary);
++  transition: border-color 0.2s ease, color 0.2s ease;
+ }
+ 
+-.theme-btn:hover {
+-  border-color: var(--ink);
++.icon-btn:hover {
++  border-color: var(--border-strong);
+   color: var(--text-primary);
+ }
+ 
+-.theme-btn svg {
++.icon-btn svg {
+   width: 16px;
+   height: 16px;
+ }
++
++.menu-btn {
++  display: inline-flex;
++}
++
++@media (min-width: 960px) {
++  .menu-btn { display: none; }
++}
++
++.burger {
++  position: relative;
++  width: 14px;
++  height: 10px;
++}
++
++.burger i {
++  position: absolute;
++  left: 0;
++  width: 100%;
++  height: 1.5px;
++  background: currentColor;
++  border-radius: 2px;
++  transition: transform 0.3s ease, top 0.3s ease;
++}
++
++.burger i:first-child { top: 1px; }
++.burger i:last-child { top: 7.5px; }
++
++.burger.open i:first-child { top: 4.5px; transform: rotate(45deg); }
++.burger.open i:last-child { top: 4.5px; transform: rotate(-45deg); }
++
++.mobile-nav {
++  border-top: 1px solid var(--border);
++  padding: 12px 0 20px;
++}
++
++.mobile-nav .wrap {
++  display: flex;
++  flex-direction: column;
++}
++
++.mobile-nav a {
++  padding: 12px 0;
++  font-size: 1.15rem;
++  font-weight: 600;
++  border-bottom: 1px solid var(--border);
++  opacity: 0;
++  animation: enter 0.45s cubic-bezier(.2,.7,.2,1) forwards;
++}
++
++@media (min-width: 960px) {
++  .mobile-nav { display: none; }
++}
+diff --git a/src/app/components/site-header/site-header.component.html b/src/app/components/site-header/site-header.component.html
+index 0dfef56..9b045a8 100644
+--- a/src/app/components/site-header/site-header.component.html
++++ b/src/app/components/site-header/site-header.component.html
+@@ -1,37 +1,37 @@
+-<header class="site-header" role="banner">
++<header class="site-header" [class.scrolled]="scrolled() || menuOpen()" role="banner">
+   <div class="wrap header-inner">
+-    <a href="#hero" class="brand">Anass EREKYSY</a>
++    <a href="#hero" class="brand" (click)="closeMenu()">
++      <span class="brand-mark" aria-hidden="true">AE</span>
++      <span class="brand-name">Anass EREKYSY</span>
++    </a>
+ 
+-    <nav class="header-nav" [attr.aria-label]="'nav.main' | translate">
+-      <a href="#projects">{{ 'hero.projects' | translate }}</a>
+-      <a href="#experience">{{ 'hero.experience' | translate }}</a>
+-      <a href="#what-i-do">{{ 'nav.whatIDo' | translate }}</a>
+-      <a href="#skills">{{ 'hero.skills' | translate }}</a>
+-      <a href="#contact">{{ 'nav.contact' | translate }}</a>
++    <nav class="header-nav" aria-label="Main">
++      <a
++        *ngFor="let item of nav"
++        [href]="'#' + item.id"
++        [class.active]="active() === item.id"
++      >{{ item.key | translate }}</a>
+     </nav>
+ 
+     <div class="header-tools">
+-      <div class="lang" role="group">
++      <div class="lang" role="group" aria-label="Language">
+         <button
+           type="button"
+           [class.active]="translationService.currentLanguage() === 'fr'"
+           [attr.aria-pressed]="translationService.currentLanguage() === 'fr'"
+-          [attr.aria-label]="'nav.lang.fr' | translate"
+           (click)="translationService.setLanguage('fr')"
+         >FR</button>
+-        <span aria-hidden="true">/</span>
+         <button
+           type="button"
+           [class.active]="translationService.currentLanguage() === 'en'"
+           [attr.aria-pressed]="translationService.currentLanguage() === 'en'"
+-          [attr.aria-label]="'nav.lang.en' | translate"
+           (click)="translationService.setLanguage('en')"
+         >EN</button>
+       </div>
+ 
+       <button
+         type="button"
+-        class="theme-btn"
++        class="icon-btn"
+         (click)="themeService.toggleTheme()"
+         [attr.aria-label]="themeService.isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+       >
+@@ -43,6 +43,27 @@
+           <path d="M20.4 15.4A9 9 0 0 1 8.6 3.6 9 9 0 1 0 20.4 15.4z" />
+         </svg>
+       </button>
++
++      <button
++        type="button"
++        class="icon-btn menu-btn"
++        (click)="toggleMenu()"
++        [attr.aria-expanded]="menuOpen()"
++        aria-label="Menu"
++      >
++        <span class="burger" [class.open]="menuOpen()"><i></i><i></i></span>
++      </button>
+     </div>
+   </div>
++
++  <nav class="mobile-nav" *ngIf="menuOpen()" aria-label="Mobile">
++    <div class="wrap">
++      <a
++        *ngFor="let item of nav; let i = index"
++        [href]="'#' + item.id"
++        (click)="closeMenu()"
++        [style.animation-delay.ms]="i * 50"
++      >{{ item.key | translate }}</a>
++    </div>
++  </nav>
+ </header>
+diff --git a/src/app/components/site-header/site-header.component.ts b/src/app/components/site-header/site-header.component.ts
+index f8196a8..fb92860 100644
+--- a/src/app/components/site-header/site-header.component.ts
++++ b/src/app/components/site-header/site-header.component.ts
+@@ -1,9 +1,14 @@
+-import { Component, inject } from '@angular/core';
++import { AfterViewInit, Component, HostListener, OnDestroy, inject, signal } from '@angular/core';
+ import { CommonModule } from '@angular/common';
+ import { TranslatePipe } from '../../pipes/translate.pipe';
+ import { ThemeService } from '../../services/theme.service';
+ import { TranslationService } from '../../services/translation.service';
+ 
++interface NavItem {
++  id: string;
++  key: string;
++}
++
+ @Component({
+   selector: 'app-site-header',
+   standalone: true,
+@@ -11,7 +16,65 @@ import { TranslationService } from '../../services/translation.service';
+   templateUrl: './site-header.component.html',
+   styleUrls: ['./site-header.component.css']
+ })
+-export class SiteHeaderComponent {
++export class SiteHeaderComponent implements AfterViewInit, OnDestroy {
+   themeService = inject(ThemeService);
+   translationService = inject(TranslationService);
++
++  readonly nav: NavItem[] = [
++    { id: 'projects', key: 'hero.projects' },
++    { id: 'experience', key: 'hero.experience' },
++    { id: 'what-i-do', key: 'nav.whatIDo' },
++    { id: 'skills', key: 'hero.skills' },
++    { id: 'contact', key: 'nav.contact' }
++  ];
++
++  scrolled = signal(false);
++  menuOpen = signal(false);
++  active = signal<string>('');
++
++  private observer?: IntersectionObserver;
++
++  @HostListener('window:scroll')
++  onScroll(): void {
++    this.scrolled.set(window.scrollY > 8);
++  }
++
++  ngAfterViewInit(): void {
++    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
++      return;
++    }
++
++    this.observer = new IntersectionObserver(
++      entries => {
++        for (const entry of entries) {
++          if (entry.isIntersecting) {
++            this.active.set(entry.target.id);
++          }
++        }
++      },
++      { rootMargin: '-45% 0px -50% 0px' }
++    );
++
++    // Sections render after the header, so wait one tick
++    setTimeout(() => {
++      for (const id of ['hero', ...this.nav.map(n => n.id)]) {
++        const el = document.getElementById(id);
++        if (el) {
++          this.observer?.observe(el);
++        }
++      }
++    });
++  }
++
++  toggleMenu(): void {
++    this.menuOpen.update(open => !open);
++  }
++
++  closeMenu(): void {
++    this.menuOpen.set(false);
++  }
++
++  ngOnDestroy(): void {
++    this.observer?.disconnect();
++  }
+ }
+diff --git a/src/app/components/skills-section/skills-section.component.css b/src/app/components/skills-section/skills-section.component.css
+index c3c7ef2..c6d367a 100644
+--- a/src/app/components/skills-section/skills-section.component.css
++++ b/src/app/components/skills-section/skills-section.component.css
+@@ -1,21 +1,36 @@
+-.skill-row {
++.skill-grid {
+   display: grid;
+   grid-template-columns: 1fr;
+-  gap: 8px 24px;
+-  padding: 22px 0;
++  gap: 20px;
++}
++
++@media (min-width: 900px) {
++  .skill-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
++}
++
++.skill-card {
++  padding: 26px;
+ }
+ 
+ @media (min-width: 768px) {
+-  .skill-row { grid-template-columns: 260px 1fr; align-items: baseline; }
++  .skill-card { padding: 30px; }
++}
++
++.skill-wide {
++  grid-column: 1 / -1;
+ }
+ 
+ .skill-cat {
+-  font-size: 1rem;
+-  font-weight: 600;
+-  color: var(--text-primary);
++  font-size: 1.05rem;
++  font-weight: 700;
++  margin-bottom: 16px;
+ }
+ 
+-.skill-items {
+-  color: var(--text-secondary);
+-  line-height: 1.9;
++.skill-card .chip {
++  transition: border-color 0.2s ease, color 0.2s ease;
++}
++
++.skill-card .chip:hover {
++  border-color: var(--accent);
++  color: var(--text-primary);
+ }
+diff --git a/src/app/components/skills-section/skills-section.component.html b/src/app/components/skills-section/skills-section.component.html
+index 799c4e9..aa5424d 100644
+--- a/src/app/components/skills-section/skills-section.component.html
++++ b/src/app/components/skills-section/skills-section.component.html
+@@ -1,28 +1,30 @@
+-<section class="section" id="skills">
++<section class="section section-alt" id="skills">
+   <div class="wrap">
+ 
+-    <header class="section-head">
+-      <span class="section-index">04</span>
++    <header class="section-head" appReveal>
++      <p class="eyebrow">04</p>
+       <h2 class="section-title">{{ 'skills.title' | translate }}</h2>
+       <p class="section-sub">{{ 'skills.subtitle' | translate }}</p>
+     </header>
+ 
+-    <div>
++    <div class="skill-grid">
+       <div
+-        *ngFor="let category of skillCategories; trackBy: trackByCategoryName"
+-        class="row skill-row"
++        *ngFor="let category of skillCategories; let i = index; trackBy: trackByCategoryName"
++        class="skill-card card"
++        appReveal
++        [revealDelay]="(i % 2) * 90"
+       >
+         <h3 class="skill-cat">{{ category.name }}</h3>
+-        <p class="dot-list skill-items">
+-          <span *ngFor="let skill of category.skills; trackBy: trackBySkillName">{{ skill.name }}</span>
+-        </p>
++        <div class="chips">
++          <span class="chip" *ngFor="let skill of category.skills; trackBy: trackBySkillName">{{ skill.name }}</span>
++        </div>
+       </div>
+ 
+-      <div class="row skill-row">
++      <div class="skill-card card" appReveal [revealDelay]="90">
+         <h3 class="skill-cat">{{ 'skills.methodologies' | translate }}</h3>
+-        <p class="dot-list skill-items">
+-          <span *ngFor="let methodology of methodologies">{{ methodology }}</span>
+-        </p>
++        <div class="chips">
++          <span class="chip" *ngFor="let methodology of methodologies">{{ methodology }}</span>
++        </div>
+       </div>
+     </div>
+   </div>
+diff --git a/src/app/components/skills-section/skills-section.component.ts b/src/app/components/skills-section/skills-section.component.ts
+index f807ab8..8f93ff8 100644
+--- a/src/app/components/skills-section/skills-section.component.ts
++++ b/src/app/components/skills-section/skills-section.component.ts
+@@ -1,6 +1,7 @@
+ import { Component, inject } from '@angular/core';
+ import { CommonModule } from '@angular/common';
+ import { TranslatePipe } from '../../pipes/translate.pipe';
++import { RevealDirective } from '../../directives/reveal.directive';
+ import { TranslationService } from '../../services/translation.service';
+ 
+ interface Skill {
+@@ -16,7 +17,7 @@ interface SkillCategory {
+ @Component({
+   selector: 'app-skills-section',
+   standalone: true,
+-  imports: [CommonModule, TranslatePipe],
++  imports: [CommonModule, TranslatePipe, RevealDirective],
+   templateUrl: './skills-section.component.html',
+   styleUrls: ['./skills-section.component.css']
+ })
+diff --git a/src/app/components/what-i-do/what-i-do-section.component.css b/src/app/components/what-i-do/what-i-do-section.component.css
+index 404b29f..976348d 100644
+--- a/src/app/components/what-i-do/what-i-do-section.component.css
++++ b/src/app/components/what-i-do/what-i-do-section.component.css
+@@ -1,29 +1,48 @@
+ .services {
+   display: grid;
+   grid-template-columns: 1fr;
+-  gap: 40px;
++  gap: 20px;
+ }
+ 
+ @media (min-width: 900px) {
+-  .services { grid-template-columns: repeat(3, 1fr); gap: 40px; }
++  .services { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+ }
+ 
+ .service {
+-  padding-top: 16px;
+-  border-top: 1px solid var(--border);
++  padding: 30px;
+ }
+ 
+-.service-num {
+-  display: block;
+-  font-size: 0.8rem;
++.service-icon {
++  display: inline-flex;
++  width: 46px;
++  height: 46px;
++  align-items: center;
++  justify-content: center;
++  border-radius: 12px;
++  background: var(--surface);
+   color: var(--accent);
+-  font-weight: 600;
+-  margin-bottom: 12px;
++  margin-bottom: 24px;
++  transition: background-color 0.3s ease, color 0.3s ease;
++}
++
++.service:hover .service-icon {
++  background: var(--accent);
++  color: var(--on-ink);
++}
++
++:host-context(.dark) .service:hover .service-icon {
++  color: #121211;
++}
++
++.service-icon svg {
++  width: 22px;
++  height: 22px;
+ }
+ 
+ .service-title {
+   font-size: 1.25rem;
+-  font-weight: 600;
++  font-weight: 700;
++  letter-spacing: -0.02em;
+   margin-bottom: 10px;
+ }
+ 
+@@ -31,31 +50,63 @@
+   color: var(--text-secondary);
+ }
+ 
++/* Dark contrast block */
+ .expertise {
+   display: grid;
+   grid-template-columns: 1fr;
+   gap: 32px;
+-  margin-top: 72px;
++  margin-top: 24px;
+   padding: 32px;
+-  background: var(--surface);
+-  border-radius: var(--radius);
++  border-radius: var(--radius-lg);
++  background: var(--ink);
++  color: var(--on-ink);
+ }
+ 
+ @media (min-width: 900px) {
+-  .expertise { grid-template-columns: 1fr 1fr; gap: 56px; padding: 44px; }
++  .expertise { grid-template-columns: 1fr 1fr; gap: 64px; padding: 52px; }
+ }
+ 
+ .expertise-title {
+-  font-size: 1.5rem;
+-  font-weight: 600;
++  font-size: 1.7rem;
++  font-weight: 700;
++  letter-spacing: -0.025em;
+   margin-bottom: 14px;
+ }
+ 
+ .expertise-desc {
+-  color: var(--text-secondary);
+-  margin-bottom: 18px;
++  opacity: 0.75;
++  margin-bottom: 22px;
++}
++
++.expertise .chip {
++  background: transparent;
++  border-color: color-mix(in srgb, var(--on-ink) 25%, transparent);
++  color: var(--on-ink);
++}
++
++.expertise-list {
++  list-style: none;
++  margin: 0;
++  padding: 0;
++}
++
++.expertise-list li {
++  position: relative;
++  padding: 14px 0 14px 28px;
++  border-top: 1px solid color-mix(in srgb, var(--on-ink) 15%, transparent);
++  opacity: 0.9;
++}
++
++.expertise-list li:last-child {
++  border-bottom: 1px solid color-mix(in srgb, var(--on-ink) 15%, transparent);
+ }
+ 
+-.expertise-list > li + li {
+-  margin-top: 14px;
++.expertise-list li::before {
++  content: "";
++  position: absolute;
++  left: 0;
++  top: 1.45em;
++  width: 12px;
++  height: 1px;
++  background: var(--accent);
+ }
+diff --git a/src/app/components/what-i-do/what-i-do-section.component.html b/src/app/components/what-i-do/what-i-do-section.component.html
+index 17d6ba5..d41fddb 100644
+--- a/src/app/components/what-i-do/what-i-do-section.component.html
++++ b/src/app/components/what-i-do/what-i-do-section.component.html
+@@ -1,32 +1,36 @@
+ <section class="section" id="what-i-do">
+   <div class="wrap">
+ 
+-    <header class="section-head">
+-      <span class="section-index">03</span>
++    <header class="section-head" appReveal>
++      <p class="eyebrow">03</p>
+       <h2 class="section-title">{{ 'whatIDo.title' | translate }}</h2>
+       <p class="section-sub">{{ 'whatIDo.subtitle' | translate }}</p>
+     </header>
+ 
+     <div class="services">
+-      <div *ngFor="let service of services; let i = index" class="service">
+-        <span class="service-num">0{{ i + 1 }}</span>
++      <div *ngFor="let service of services; let i = index; trackBy: trackByIndex" class="service card card-hover" appReveal [revealDelay]="i * 100">
++        <span class="service-icon" [ngSwitch]="i" aria-hidden="true">
++          <svg *ngSwitchCase="0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18M8 21h8M12 18v3"/></svg>
++          <svg *ngSwitchCase="1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5.5" rx="7" ry="2.5"/><path d="M5 5.5v6c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-6M5 11.5v6c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-6"/></svg>
++          <svg *ngSwitchCase="2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg>
++        </span>
+         <h3 class="service-title">{{ ('whatIDo.' + service.title) | translate }}</h3>
+         <p class="service-desc">{{ ('whatIDo.' + service.description) | translate }}</p>
+       </div>
+     </div>
+ 
+-    <div class="expertise">
++    <div class="expertise" appReveal>
+       <div>
+         <h3 class="expertise-title">{{ 'whatIDo.expertiseTitle' | translate }}</h3>
+         <p class="expertise-desc">{{ 'whatIDo.expertiseDesc' | translate }}</p>
+-        <p class="dot-list">
+-          <span>{{ 'whatIDo.frontendDev' | translate }}</span>
+-          <span>{{ 'whatIDo.backendArch' | translate }}</span>
+-          <span>{{ 'whatIDo.devopsCICD' | translate }}</span>
+-        </p>
++        <div class="chips">
++          <span class="chip">{{ 'whatIDo.frontendDev' | translate }}</span>
++          <span class="chip">{{ 'whatIDo.backendArch' | translate }}</span>
++          <span class="chip">{{ 'whatIDo.devopsCICD' | translate }}</span>
++        </div>
+       </div>
+ 
+-      <ul class="rule-list expertise-list">
++      <ul class="expertise-list">
+         <li>{{ 'whatIDo.bullet1' | translate }}</li>
+         <li>{{ 'whatIDo.bullet2' | translate }}</li>
+         <li>{{ 'whatIDo.bullet3' | translate }}</li>
+diff --git a/src/app/components/what-i-do/what-i-do-section.component.ts b/src/app/components/what-i-do/what-i-do-section.component.ts
+index 264130f..96064d1 100644
+--- a/src/app/components/what-i-do/what-i-do-section.component.ts
++++ b/src/app/components/what-i-do/what-i-do-section.component.ts
+@@ -1,6 +1,7 @@
+ import { Component } from '@angular/core';
+ import { CommonModule } from '@angular/common';
+ import { TranslatePipe } from '../../pipes/translate.pipe';
++import { RevealDirective } from '../../directives/reveal.directive';
+ 
+ interface Service {
+   title: string;
+@@ -10,7 +11,7 @@ interface Service {
+ @Component({
+   selector: 'app-what-i-do-section',
+   standalone: true,
+-  imports: [CommonModule, TranslatePipe],
++  imports: [CommonModule, TranslatePipe, RevealDirective],
+   templateUrl: './what-i-do-section.component.html',
+   styleUrls: ['./what-i-do-section.component.css']
+ })
+@@ -29,7 +30,8 @@ export class WhatIDoSectionComponent {
+       description: 'devopsDesc'
+     }
+   ];
+-}
+-
+-
+ 
++  trackByIndex(index: number): number {
++    return index;
++  }
++}
+diff --git a/src/app/directives/reveal.directive.ts b/src/app/directives/reveal.directive.ts
+new file mode 100644
+index 0000000..1574246
+--- /dev/null
++++ b/src/app/directives/reveal.directive.ts
+@@ -0,0 +1,49 @@
++import { AfterViewInit, Directive, ElementRef, Input, OnDestroy, Renderer2, inject } from '@angular/core';
++
++/**
++ * Fades and lifts an element in the first time it enters the viewport.
++ * Usage: <div appReveal [revealDelay]="120"></div>
++ */
++@Directive({
++  selector: '[appReveal]',
++  standalone: true
++})
++export class RevealDirective implements AfterViewInit, OnDestroy {
++  @Input() revealDelay = 0;
++
++  private el = inject(ElementRef<HTMLElement>);
++  private renderer = inject(Renderer2);
++  private observer?: IntersectionObserver;
++
++  ngAfterViewInit(): void {
++    const node = this.el.nativeElement as HTMLElement;
++    this.renderer.addClass(node, 'reveal');
++
++    if (this.revealDelay) {
++      this.renderer.setStyle(node, 'transition-delay', `${this.revealDelay}ms`);
++    }
++
++    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
++      this.renderer.addClass(node, 'is-visible');
++      return;
++    }
++
++    this.observer = new IntersectionObserver(
++      entries => {
++        for (const entry of entries) {
++          if (entry.isIntersecting) {
++            this.renderer.addClass(node, 'is-visible');
++            this.observer?.disconnect();
++          }
++        }
++      },
++      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
++    );
++
++    this.observer.observe(node);
++  }
++
++  ngOnDestroy(): void {
++    this.observer?.disconnect();
++  }
++}
+diff --git a/src/app/translations.ts b/src/app/translations.ts
+index d7ca608..c921a28 100644
+--- a/src/app/translations.ts
++++ b/src/app/translations.ts
+@@ -249,6 +249,8 @@ export const translations: Record<'en' | 'fr', Translations> = {
+       roleImpact: "Role & Impact",
+       sourceCode: "Source Code",
+       githubRepo: "GitHub Repository",
++      viewDetails: "View details",
++      featured: "Featured",
+       proj11: {
+         description: "Trading journal SaaS built around discipline: plan each trade, check it against your own rules, then compare the plan with what really happened.",
+         problem: "Most trading journals only log results. Traders need to see whether they followed their own plan and rules, and what breaking those rules actually costs them.",
+@@ -848,6 +850,8 @@ export const translations: Record<'en' | 'fr', Translations> = {
+       roleImpact: "Rôle & Impact",
+       sourceCode: "Code Source",
+       githubRepo: "Dépôt GitHub",
++      viewDetails: "Voir le détail",
++      featured: "À la une",
+       proj11: {
+         description: "SaaS de journal de trading centré sur la discipline : planifier chaque trade, le confronter à ses propres règles, puis comparer le plan avec la réalité.",
+         problem: "La plupart des journaux de trading se limitent aux résultats. Un trader a besoin de voir s'il a respecté son plan et ses règles, et ce que lui coûtent réellement ses écarts.",
+diff --git a/src/styles.css b/src/styles.css
+index 3339483..3793ae0 100644
+--- a/src/styles.css
++++ b/src/styles.css
+@@ -11,6 +11,7 @@
+   --surface: #f5f4f1;
+   --border: #e2e0db;
+   --muted: #eeece8;
++  --border-strong: #c9c6bf;
+   --text-primary: #161512;
+   --text-secondary: #4a4741;
+   --text-muted: #7a766e;
+@@ -20,14 +21,16 @@
+   --accent-dark: #7c2d12;
+   --ink: #161512;
+   --on-ink: #ffffff;
+-  --radius: 2px;
++  --radius: 6px;
++  --radius-lg: 16px;
+ }
+ 
+ html.dark {
+   --bg: #121211;
+-  --surface: #1a1a18;
++  --surface: #171716;
+   --border: #2e2d29;
+   --muted: #24231f;
++  --border-strong: #46443f;
+   --text-primary: #ece9e2;
+   --text-secondary: #b3afa6;
+   --text-muted: #85817a;
+@@ -80,7 +83,7 @@ html.dark {
+ 
+ @layer components {
+   .wrap {
+-    max-width: 1180px;
++    max-width: 1200px;
+     margin: 0 auto;
+     padding: 0 20px;
+   }
+@@ -90,50 +93,61 @@ html.dark {
+   }
+ 
+   .section {
+-    padding: 88px 0;
++    padding: 96px 0;
+   }
+ 
+   @media (min-width: 1024px) {
+-    .section { padding: 120px 0; }
++    .section { padding: 128px 0; }
+   }
+ 
+-  /* Section header: index, title, subtitle on one strong rule */
++  .section-alt {
++    background: var(--surface);
++  }
++
++  /* Section header: eyebrow, title, subtitle stacked */
+   .section-head {
+-    display: grid;
+-    grid-template-columns: 1fr;
+-    gap: 12px 32px;
+-    padding-top: 20px;
+-    border-top: 1px solid var(--ink);
++    max-width: 720px;
+     margin-bottom: 56px;
+   }
+ 
+   @media (min-width: 900px) {
+-    .section-head {
+-      grid-template-columns: 80px 1fr 1fr;
+-      align-items: baseline;
+-      margin-bottom: 72px;
+-    }
++    .section-head { margin-bottom: 72px; }
+   }
+ 
+-  .section-index {
+-    font-size: 0.85rem;
+-    color: var(--accent);
++  .eyebrow {
++    display: inline-flex;
++    align-items: center;
++    gap: 10px;
++    font-size: 0.8rem;
+     font-weight: 600;
++    letter-spacing: 0.08em;
++    text-transform: uppercase;
++    color: var(--accent);
++    margin-bottom: 16px;
++  }
++
++  .eyebrow::before {
++    content: "";
++    width: 24px;
++    height: 1px;
++    background: currentColor;
+   }
+ 
+   .section-title {
+-    font-size: 2rem;
+-    font-weight: 600;
++    font-size: 2.1rem;
++    font-weight: 700;
++    letter-spacing: -0.025em;
+     color: var(--text-primary);
++    margin-bottom: 14px;
+   }
+ 
+   @media (min-width: 900px) {
+-    .section-title { font-size: 2.5rem; }
++    .section-title { font-size: 2.9rem; }
+   }
+ 
+   .section-sub {
++    font-size: 1.1rem;
+     color: var(--text-secondary);
+-    max-width: 34rem;
+   }
+ 
+   .label {
+@@ -144,17 +158,61 @@ html.dark {
+     color: var(--text-muted);
+   }
+ 
++  /* Cards */
++  .card {
++    background: var(--bg);
++    border: 1px solid var(--border);
++    border-radius: var(--radius-lg);
++    transition: border-color 0.3s ease, transform 0.4s cubic-bezier(.2,.7,.2,1), box-shadow 0.4s ease;
++  }
++
++  .section-alt .card {
++    background: var(--bg);
++  }
++
++  .card-hover:hover {
++    border-color: var(--border-strong);
++    transform: translateY(-3px);
++    box-shadow: 0 18px 40px -24px rgba(22, 21, 18, 0.25);
++  }
++
++  html.dark .card-hover:hover {
++    box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.8);
++  }
++
++  .chip {
++    display: inline-flex;
++    align-items: center;
++    padding: 4px 11px;
++    border-radius: 999px;
++    border: 1px solid var(--border);
++    font-size: 0.8rem;
++    color: var(--text-secondary);
++    background: var(--bg);
++    white-space: nowrap;
++  }
++
++  .chips {
++    display: flex;
++    flex-wrap: wrap;
++    gap: 8px;
++  }
++
+   .btn {
+     display: inline-flex;
+     align-items: center;
+     justify-content: center;
+     gap: 8px;
+-    padding: 12px 22px;
+-    border-radius: var(--radius);
++    padding: 13px 24px;
++    border-radius: 999px;
+     font-weight: 600;
+     font-size: 0.95rem;
+     border: 1px solid var(--ink);
+-    transition: background-color 0.15s ease, color 0.15s ease;
++    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
++  }
++
++  .btn:active {
++    transform: scale(0.98);
+   }
+ 
+   .btn-solid {
+@@ -170,39 +228,35 @@ html.dark {
+   .btn-line {
+     background: transparent;
+     color: var(--text-primary);
++    border-color: var(--border-strong);
+   }
+ 
+   .btn-line:hover {
+-    background: var(--ink);
+-    color: var(--on-ink);
++    border-color: var(--ink);
+   }
+ 
+-  .text-link {
+-    color: var(--text-primary);
+-    text-decoration: underline;
+-    text-decoration-color: var(--border);
+-    text-underline-offset: 4px;
+-    text-decoration-thickness: 1px;
+-    transition: text-decoration-color 0.15s ease, color 0.15s ease;
++  .btn .arrow {
++    transition: transform 0.25s ease;
+   }
+ 
+-  .text-link:hover {
+-    color: var(--accent);
+-    text-decoration-color: var(--accent);
++  .btn:hover .arrow {
++    transform: translateX(3px);
+   }
+ 
+-  /* Plain "A · B · C" lists */
+-  .dot-list {
+-    display: flex;
+-    flex-wrap: wrap;
+-    gap: 2px 0;
+-    color: var(--text-secondary);
++  .text-link {
++    color: var(--text-primary);
++    font-weight: 500;
++    background-image: linear-gradient(currentColor, currentColor);
++    background-size: 0% 1px;
++    background-position: 0 100%;
++    background-repeat: no-repeat;
++    padding-bottom: 2px;
++    transition: background-size 0.3s ease, color 0.2s ease;
+   }
+ 
+-  .dot-list > span:not(:last-child)::after {
+-    content: "·";
+-    margin: 0 8px;
+-    color: var(--text-muted);
++  .text-link:hover {
++    color: var(--accent);
++    background-size: 100% 1px;
+   }
+ 
+   /* Bullet lists with a short rule as marker */
+@@ -219,7 +273,7 @@ html.dark {
+   }
+ 
+   .rule-list > li + li {
+-    margin-top: 8px;
++    margin-top: 10px;
+   }
+ 
+   .rule-list > li::before {
+@@ -232,12 +286,42 @@ html.dark {
+     background: var(--accent);
+   }
+ 
+-  .row {
+-    border-top: 1px solid var(--border);
++  /* Scroll reveal (driven by RevealDirective) */
++  .reveal {
++    opacity: 0;
++    transform: translateY(22px);
++    transition: opacity 0.8s cubic-bezier(.2,.7,.2,1), transform 0.8s cubic-bezier(.2,.7,.2,1);
++  }
++
++  .reveal.is-visible {
++    opacity: 1;
++    transform: none;
++  }
++
++  /* Page-load entrance */
++  .enter {
++    opacity: 0;
++    animation: enter 0.9s cubic-bezier(.2,.7,.2,1) forwards;
++  }
++
++  @keyframes enter {
++    from { opacity: 0; transform: translateY(18px); }
++    to { opacity: 1; transform: none; }
+   }
+ 
+-  .row:last-child {
+-    border-bottom: 1px solid var(--border);
++  @keyframes fade {
++    from { opacity: 0; }
++    to { opacity: 1; }
++  }
++
++  @media (prefers-reduced-motion: reduce) {
++    .reveal,
++    .enter {
++      opacity: 1 !important;
++      transform: none !important;
++      animation: none !important;
++      transition: none !important;
++    }
+   }
+ }
+ 
+@@ -267,3 +351,16 @@ html.dark {
+     white-space: normal;
+   }
+ }
++
++/* Dark contrast blocks stay dark in dark mode, lifted from the page */
++html.dark .expertise,
++html.dark .contact-side {
++  --on-ink: #ece9e2;
++  background: #1f1e1c;
++  color: #ece9e2;
++}
++
++/* Card hover shadow is too strong on dark */
++html.dark .card-hover:hover {
++  box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.8);
++}
+-- 
+2.43.0
+

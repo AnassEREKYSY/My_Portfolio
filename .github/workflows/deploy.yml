@@ -102,6 +102,7 @@ jobs:
             CONTAINER_ID=\$(docker run -d \
               --name portfolio \
               --restart=unless-stopped \
+              --network web \
               -p 6328:80 \
               "\$IMAGE_FULL_NAME")
             echo "Container started with ID: \$CONTAINER_ID"

@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://anass-erekysy.dev/sitemap.xml
+Sitemap: https://portfolio.anasserekysy.com/sitemap.xml
 
 
 
